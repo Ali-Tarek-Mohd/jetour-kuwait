@@ -1,0 +1,2 @@
+import Link from "next/link";import {HugeiconsIcon} from "@hugeicons/react";import {ArrowRight01Icon} from "@hugeicons/core-free-icons";import {cn} from "@/lib/cn";
+export function IconLink({href,children,className}:{href:string;children:React.ReactNode;className?:string}){return <Link href={href} className={cn("group inline-flex min-h-11 items-center gap-3 text-xs font-semibold tracking-[.1em] uppercase",className)}>{children}<HugeiconsIcon icon={ArrowRight01Icon} size={18} className="transition-transform group-hover:translate-x-1"/></Link>}
