@@ -1,0 +1,4 @@
+export function SpecificationStrip({ specifications }: { specifications: { label: string; value: string; unit?: string }[] }) {
+  if (!specifications.length) return null;
+  return <section id="specifications" aria-labelledby="specifications-heading" className="scroll-mt-36 border-b border-white/10 bg-[#101316]"><h2 id="specifications-heading" className="sr-only">Key specifications</h2><dl className="mx-auto grid max-w-[1440px] grid-cols-2 px-5 sm:px-8 lg:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] lg:px-12 xl:px-16">{specifications.map((spec) => <div key={spec.label} className="border-r border-white/10 px-4 py-7 first:pl-0 last:border-r-0 sm:px-7"><dt className="text-[10px] tracking-[.15em] text-white/40 uppercase">{spec.label}</dt><dd className="mt-2 text-xl font-semibold">{spec.value}{spec.unit ? <span className="ml-1 text-sm text-white/50">{spec.unit}</span> : null}</dd></div>)}</dl></section>;
+}

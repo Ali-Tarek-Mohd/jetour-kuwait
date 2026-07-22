@@ -1,0 +1,3 @@
+import Link from "next/link";
+
+export function MobileModelActions({ slug }: { slug: string }) { return <aside aria-label="Model actions" className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-[.8fr_1.2fr] border-t border-white/15 bg-black/95 px-3 pb-[max(.75rem,env(safe-area-inset-bottom))] pt-3 md:hidden"><Link href="#specifications" className="flex min-h-12 items-center justify-center border border-white/25 text-[10px] font-semibold tracking-[.08em] uppercase">Specifications</Link><Link href={`/book-test-drive?model=${slug}`} className="flex min-h-12 items-center justify-center bg-white px-3 text-center text-[10px] font-semibold tracking-[.08em] text-black uppercase">Book Test Drive</Link></aside>; }

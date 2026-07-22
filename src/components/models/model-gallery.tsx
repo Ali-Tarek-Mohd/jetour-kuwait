@@ -1,0 +1,5 @@
+import Image from "next/image";
+import { Container } from "@/components/ui/container";
+import type { VehiclePage } from "@/types/vehicle";
+
+export function ModelGallery({ gallery }: { gallery: VehiclePage["gallery"] }) { return <section id="gallery" className="scroll-mt-36 border-y border-white/10 bg-[#0d0f10] py-20 lg:py-28"><Container><p className="eyebrow">Gallery</p><h2 className="section-title">Every angle, considered</h2>{gallery.length ? <div className={`mt-10 grid gap-4 ${gallery.length > 1 ? "md:grid-cols-2" : ""}`}>{gallery.map((item) => <figure key={item.image} className="relative aspect-[16/9] min-h-[300px] overflow-hidden border border-white/10 bg-[radial-gradient(circle_at_55%_45%,rgba(217,176,111,.16),transparent_38%),#111417]"><Image src={item.image} alt={item.alt} fill sizes={gallery.length > 1 ? "(max-width: 767px) 100vw, 50vw" : "100vw"} className="object-contain p-4" /></figure>)}</div> : <div className="model-media mt-10 min-h-[340px] border border-white/10"><p className="p-8 text-sm text-white/50">Approved gallery imagery will be added soon.</p></div>}</Container></section>; }

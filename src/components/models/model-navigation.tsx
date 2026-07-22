@@ -1,0 +1,4 @@
+import { Container } from "@/components/ui/container";
+
+const items = [["Overview","overview"],["Exterior","exterior"],["Interior","interior"],["Performance","performance"],["Technology","technology"],["Safety","safety"],["Trims","trims"],["Gallery","gallery"]];
+export function ModelNavigation({ name }: { name: string }) { return <nav aria-label={`${name} page sections`} className="sticky top-[76px] z-40 border-y border-white/10 bg-black/95"><Container className="flex items-center gap-7 overflow-x-auto py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"><span className="shrink-0 text-xs font-semibold tracking-[.14em] text-jetour-accent uppercase">{name}</span>{items.map(([label,id]) => <a key={id} href={`#${id}`} className="shrink-0 text-[11px] font-semibold tracking-[.08em] text-white/55 uppercase hover:text-white">{label}</a>)}</Container></nav>; }

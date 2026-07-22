@@ -13,6 +13,6 @@ export function ModelCard({ vehicle, index }: { vehicle: Vehicle; index: number 
         <p className="absolute inset-x-0 bottom-4 text-center text-[9px] tracking-[.18em] text-white/30 uppercase">Imagery coming soon</p>
       </>}
     </div>
-    <div className="flex flex-1 flex-col p-6"><p className="text-[10px] tracking-[.15em] text-jetour-accent uppercase">{vehicle.category}</p><h3 className="mt-2 text-3xl font-semibold uppercase">{vehicle.name}</h3><p className="mt-2 text-sm text-white/55">{vehicle.tagline}</p><p className="mt-auto pt-7 text-xs text-white/45">{vehicle.specification}</p><IconLink href={`#${vehicle.slug}`} className="mt-2">Explore</IconLink></div>
+    <div className="flex flex-1 flex-col p-6"><p className="text-[10px] tracking-[.15em] text-jetour-accent uppercase">{vehicle.category}</p><h3 className="mt-2 text-3xl font-semibold uppercase">{vehicle.name}</h3><p className="mt-2 text-sm text-white/55">{vehicle.tagline}</p><p className="mt-auto pt-7 text-xs text-white/45">{vehicle.specification}</p>{vehicle.pageReady ? <IconLink href={`/models/${vehicle.slug}`} className="mt-2">Explore</IconLink> : <span className="mt-3 inline-flex min-h-10 items-center text-[10px] font-semibold tracking-[.1em] text-white/35 uppercase">Details coming soon</span>}</div>
   </article>;
 }

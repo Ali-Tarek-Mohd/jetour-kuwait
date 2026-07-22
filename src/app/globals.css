@@ -118,6 +118,12 @@ video {
 .jetour-button--ghost { border-color: transparent; color: var(--jetour-white) !important; }
 .jetour-button--ghost:hover { background: rgba(255,255,255,.1); }
 .jetour-button--disabled { cursor: not-allowed; opacity: .42; }
+.catalogue-action { color: var(--jetour-white) !important; }
+.catalogue-action--discover:hover,
+.catalogue-action--discover:focus-visible { background: var(--jetour-white); color: var(--jetour-black) !important; }
+.catalogue-action--test-drive { background: rgba(255,255,255,.045); }
+.catalogue-action--test-drive:hover,
+.catalogue-action--test-drive:focus-visible { background: var(--jetour-accent); color: var(--jetour-black) !important; }
 .vehicle-studio { background: radial-gradient(ellipse at 50% 58%, rgba(217,176,111,.2), transparent 34%), linear-gradient(155deg, #22201c, #101214 62%); }
 
 @keyframes hero-in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
