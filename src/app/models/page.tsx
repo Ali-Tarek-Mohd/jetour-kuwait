@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Container } from "@/components/ui/container";
-import { JetourButton } from "@/components/ui/jetour-button";
 import { ModelsCatalogue } from "@/components/models/models-catalogue";
+import { ModelsConversionActions } from "@/components/models/models-conversion-actions";
 import { vehicles } from "@/data/vehicles";
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function ModelsPage() {
       <ModelsCatalogue vehicles={vehicles} categories={categories} />
       <Container className="py-12 lg:py-16"><p className="mb-9 max-w-xl text-xs leading-6 text-white/42">Model pages and market information are published as approved Kuwait content becomes available.</p></Container>
     </section>
-    <section className="relative overflow-hidden border-y border-white/10 bg-[#17130f] py-20 lg:py-24"><div className="absolute inset-0 bg-[radial-gradient(circle_at_88%_50%,rgba(217,176,111,.17),transparent_34%)]" /><Container className="relative flex flex-col justify-between gap-9 lg:flex-row lg:items-end"><div><p className="eyebrow">Need help choosing?</p><h2 className="section-title max-w-3xl">Find the Jetour made for your journey</h2><p className="mt-5 max-w-xl leading-7 text-white/58">Experience the range in person or connect with the Jetour Kuwait team.</p></div><div className="flex flex-col gap-3 sm:flex-row lg:flex-wrap lg:justify-end"><JetourButton href="/book-test-drive" size="large">Book a Test Drive</JetourButton><JetourButton href="/#contact" variant="secondary" size="large">Contact Sales</JetourButton><JetourButton href="/models/t2" variant="secondary" size="large">Explore T2</JetourButton></div></Container></section>
+    <section className="relative overflow-hidden border-y border-white/10 bg-[#17130f] py-20 lg:py-24"><div className="absolute inset-0 bg-[radial-gradient(circle_at_88%_50%,rgba(217,176,111,.17),transparent_34%)]" /><Container className="relative grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(30rem,34rem)] lg:items-center lg:gap-14"><div><p className="eyebrow">Need help choosing?</p><h2 className="section-title max-w-3xl">Find the Jetour made for your journey</h2><p className="mt-5 max-w-xl leading-7 text-white/58">Experience the range in person or connect with the Jetour Kuwait team.</p></div><ModelsConversionActions /></Container></section>
     <SiteFooter />
   </main>;
 }
