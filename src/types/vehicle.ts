@@ -58,6 +58,14 @@ export type VehiclePage = {
     desktopImage?: string;
     mobileImage?: string;
     transparentVehicleImage: string;
+    posterImage?: string;
+    desktopVideoWebm?: string;
+    desktopVideoMp4?: string;
+    mobileVideoWebm?: string;
+    mobileVideoMp4?: string;
+    videoFocalPoint?: string;
+    videoAltDescription?: string;
+    videoEnabled?: boolean;
     alt: string;
     eyebrow: string;
     title: string;

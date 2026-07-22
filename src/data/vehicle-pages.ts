@@ -13,6 +13,13 @@ export const vehiclePages: VehiclePage[] = [
     isPlaceholder: true,
     hero: {
       transparentVehicleImage: "/images/vehicles/t2/t2-hero.png",
+      posterImage: "/images/vehicles/t2/t2-hero.png",
+      desktopVideoWebm: "/videos/models/t2/t2-hero-desktop.webm",
+      desktopVideoMp4: "/videos/models/t2/t2-hero-desktop.mp4",
+      mobileVideoWebm: "/videos/models/t2/t2-hero-mobile.webm",
+      mobileVideoMp4: "/videos/models/t2/t2-hero-mobile.mp4",
+      videoFocalPoint: "center",
+      videoEnabled: false,
       alt: "Jetour T2 adventure SUV in Glacier White",
       eyebrow: "Jetour adventure SUV",
       title: "Explore beyond",
