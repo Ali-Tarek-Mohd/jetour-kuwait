@@ -107,7 +107,21 @@ video {
 .eyebrow { margin-bottom: .9rem; font-size: .68rem; font-weight: 650; letter-spacing: .22em; text-transform: uppercase; color: var(--jetour-accent); }
 .section-title { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: .95; font-weight: 650; letter-spacing: -.05em; text-transform: uppercase; text-wrap: balance; }
 
+.jetour-button--primary {
+  border-color: var(--jetour-white);
+  background: var(--jetour-white);
+  color: var(--jetour-black) !important;
+}
+.jetour-button--primary:hover { border-color: var(--jetour-accent); background: var(--jetour-accent); color: var(--jetour-black) !important; }
+.jetour-button--secondary { border-color: rgba(255,255,255,.45); background: rgba(0,0,0,.15); color: var(--jetour-white) !important; }
+.jetour-button--secondary:hover { border-color: var(--jetour-white); background: var(--jetour-white); color: var(--jetour-black) !important; }
+.jetour-button--ghost { border-color: transparent; color: var(--jetour-white) !important; }
+.jetour-button--ghost:hover { background: rgba(255,255,255,.1); }
+.jetour-button--disabled { cursor: not-allowed; opacity: .42; }
+.vehicle-studio { background: radial-gradient(ellipse at 50% 58%, rgba(217,176,111,.2), transparent 34%), linear-gradient(155deg, #22201c, #101214 62%); }
+
 @keyframes hero-in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+@keyframes studio-in { from { opacity: .25 } to { opacity: 1 } }
 @keyframes menu-in { from { opacity: 0; transform: translateY(-8px) } to { opacity: 1; transform: none } }
 
 .jetour-grid {
