@@ -18,6 +18,7 @@ import { MobileModelActions } from "@/components/models/mobile-model-actions";
 import { ModelComingSoon } from "@/components/models/model-coming-soon";
 import { getVehiclePage } from "@/data/vehicle-pages";
 import { getModelCatalogueEntry, modelCatalogue } from "@/data/model-catalogue";
+import { absoluteCanonical, siteUrl } from "@/lib/site-url";
 
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -30,15 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (catalogueModel.detailStatus === "coming-soon") return {
     title: `JETOUR ${catalogueModel.name}`,
     description: `JETOUR ${catalogueModel.name} model information for Kuwait is coming soon.`,
-    alternates: { canonical: `/models/${catalogueModel.slug}` },
+    alternates: { canonical: absoluteCanonical(`/models/${catalogueModel.slug}`) },
   };
   const vehicle = getVehiclePage(slug);
   if (!vehicle) return { title: "Model not found" };
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
   return {
     title: `JETOUR ${vehicle.name}`,
     description: vehicle.summary,
-    alternates: { canonical: `/models/${vehicle.slug}` },
+    alternates: { canonical: absoluteCanonical(`/models/${vehicle.slug}`) },
     openGraph: {
       title: `JETOUR ${vehicle.name} | JETOUR Kuwait`,
       description: vehicle.summary,

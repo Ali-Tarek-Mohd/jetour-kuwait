@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Noto_Sans_Arabic } from "next/font/google";
+import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const geist = Geist({
@@ -15,6 +16,7 @@ const notoSansArabic = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: {
     default: "JETOUR Kuwait",
     template: "%s | JETOUR Kuwait",

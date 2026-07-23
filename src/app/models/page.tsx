@@ -5,11 +5,12 @@ import { Container } from "@/components/ui/container";
 import { ModelsCatalogue } from "@/components/models/models-catalogue";
 import { ModelsConversionActions } from "@/components/models/models-conversion-actions";
 import { modelCatalogue, modelCategories } from "@/data/model-catalogue";
+import { absoluteCanonical } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   title: "Models",
   description: "Explore the Jetour Kuwait SUV range and discover available model details.",
-  alternates: { canonical: "/models" },
+  alternates: { canonical: absoluteCanonical("/models") },
 };
 
 export default function ModelsPage() {
