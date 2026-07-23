@@ -22,6 +22,7 @@ export type ModelCatalogueEntry = {
   availability: ModelAvailability;
   detailStatus: ModelDetailStatus;
   colors: VehicleColor[];
+  colorControlVerb?: "Show" | "View";
 };
 
 export type Vehicle = {
