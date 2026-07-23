@@ -21,13 +21,13 @@ export const modelCatalogue: ModelCatalogueEntry[] = [
     detailStatus: "coming-soon",
     colorControlVerb: "View",
     colors: [
+      { name: "Black", swatch: "#17191a", image: "/images/vehicles/g700/colors/black.webp", available: true, alt: "Jetour G700 in Black", studioBackground: { base: "#111517", centralGlow: "rgba(72,81,86,.54)", highlight: "rgba(157,166,171,.21)", floorGlow: "rgba(94,103,108,.17)", vignetteStrength: .69 }, foregroundTone: "light" },
       { name: "White", swatch: "#ecece7", image: "/images/vehicles/g700/colors/white.webp", available: true, alt: "Jetour G700 in White", studioBackground: { base: "#23272a", centralGlow: "rgba(178,188,190,.52)", highlight: "rgba(244,247,243,.26)", floorGlow: "rgba(194,203,203,.18)", vignetteStrength: .7 }, foregroundTone: "light" },
       { name: "Dark Grey", swatch: "#4b5053", image: "/images/vehicles/g700/colors/dark-grey.webp", available: true, alt: "Jetour G700 in Dark Grey", studioBackground: { base: "#171c1f", centralGlow: "rgba(87,99,106,.53)", highlight: "rgba(166,177,182,.2)", floorGlow: "rgba(94,105,111,.16)", vignetteStrength: .71 }, foregroundTone: "light" },
       { name: "Silver", swatch: "#a5abad", image: "/images/vehicles/g700/colors/silver.webp", available: true, alt: "Jetour G700 in Silver", studioBackground: { base: "#20272b", centralGlow: "rgba(132,149,157,.54)", highlight: "rgba(207,218,221,.24)", floorGlow: "rgba(151,167,173,.17)", vignetteStrength: .69 }, foregroundTone: "light" },
       { name: "Orange", swatch: "#a9572e", image: "/images/vehicles/g700/colors/orange.webp", available: true, alt: "Jetour G700 in Orange", studioBackground: { base: "#29160f", centralGlow: "rgba(159,70,34,.57)", highlight: "rgba(211,126,75,.23)", floorGlow: "rgba(145,62,28,.19)", vignetteStrength: .68 }, foregroundTone: "light" },
       { name: "Sand", swatch: "#ae9a78", image: "/images/vehicles/g700/colors/sand.webp", available: true, alt: "Jetour G700 in Sand", studioBackground: { base: "#281f16", centralGlow: "rgba(155,116,70,.57)", highlight: "rgba(227,190,128,.25)", floorGlow: "rgba(188,139,77,.2)", vignetteStrength: .67 }, foregroundTone: "light" },
       { name: "Blue", swatch: "#36566f", image: "/images/vehicles/g700/colors/blue.webp", available: true, alt: "Jetour G700 in Blue", studioBackground: { base: "#121f2b", centralGlow: "rgba(52,91,123,.58)", highlight: "rgba(153,181,199,.22)", floorGlow: "rgba(57,100,132,.18)", vignetteStrength: .7 }, foregroundTone: "light" },
-      { name: "Black", swatch: "#17191a", image: "/images/vehicles/g700/colors/black.webp", available: true, alt: "Jetour G700 in Black", studioBackground: { base: "#111517", centralGlow: "rgba(72,81,86,.54)", highlight: "rgba(157,166,171,.21)", floorGlow: "rgba(94,103,108,.17)", vignetteStrength: .69 }, foregroundTone: "light" },
     ],
   },
   {
@@ -39,11 +39,11 @@ export const modelCatalogue: ModelCatalogueEntry[] = [
     detailStatus: "coming-soon",
     colorControlVerb: "View",
     colors: [
+      { name: "Black", swatch: "#17191a", image: "/images/vehicles/t1/colors/black.webp", available: true, alt: "Jetour T1 in Black", studioBackground: { base: "#101416", centralGlow: "rgba(64,77,84,.48)", highlight: "rgba(151,169,177,.19)", floorGlow: "rgba(91,108,116,.15)", vignetteStrength: .74 }, foregroundTone: "light" },
       { name: "Green", swatch: "#617f78", image: "/images/vehicles/t1/colors/green.webp", available: true, alt: "Jetour T1 in Green", studioBackground: { base: "#17221f", centralGlow: "rgba(72,126,112,.58)", highlight: "rgba(159,199,188,.24)", floorGlow: "rgba(99,151,133,.2)", vignetteStrength: .68 }, foregroundTone: "light" },
       { name: "Sand", swatch: "#b3a58c", image: "/images/vehicles/t1/colors/sand.webp", available: true, alt: "Jetour T1 in Sand", studioBackground: { base: "#261f17", centralGlow: "rgba(151,113,68,.58)", highlight: "rgba(229,192,132,.25)", floorGlow: "rgba(188,139,78,.2)", vignetteStrength: .66 }, foregroundTone: "light" },
       { name: "White", swatch: "#ecebe5", image: "/images/vehicles/t1/colors/white.webp", available: true, alt: "Jetour T1 in White", studioBackground: { base: "#24282a", centralGlow: "rgba(174,186,188,.5)", highlight: "rgba(244,246,241,.26)", floorGlow: "rgba(190,199,199,.17)", vignetteStrength: .7 }, foregroundTone: "light" },
       { name: "Silver", swatch: "#a8adb0", image: "/images/vehicles/t1/colors/silver.webp", available: true, alt: "Jetour T1 in Silver", studioBackground: { base: "#20272b", centralGlow: "rgba(119,140,149,.5)", highlight: "rgba(202,213,217,.23)", floorGlow: "rgba(145,163,169,.17)", vignetteStrength: .7 }, foregroundTone: "light" },
-      { name: "Black", swatch: "#17191a", image: "/images/vehicles/t1/colors/black.webp", available: true, alt: "Jetour T1 in Black", studioBackground: { base: "#101416", centralGlow: "rgba(64,77,84,.48)", highlight: "rgba(151,169,177,.19)", floorGlow: "rgba(91,108,116,.15)", vignetteStrength: .74 }, foregroundTone: "light" },
     ],
   },
   {
@@ -65,8 +65,8 @@ export const modelCatalogue: ModelCatalogueEntry[] = [
     detailStatus: "coming-soon",
     colorControlVerb: "View",
     colors: [
-      { name: "Blue", swatch: "#466b7f", image: "/images/vehicles/t2-i-dm/colors/blue.webp", available: true, alt: "Jetour T2 i-DM in Blue", studioBackground: { base: "#15232d", centralGlow: "rgba(67,107,132,.58)", highlight: "rgba(174,193,204,.23)", floorGlow: "rgba(74,119,146,.18)", vignetteStrength: .7 }, foregroundTone: "light" },
       { name: "Black", swatch: "#17191b", image: "/images/vehicles/t2-i-dm/colors/black.webp", available: true, alt: "Jetour T2 i-DM in Black", studioBackground: { base: "#111517", centralGlow: "rgba(70,78,83,.52)", highlight: "rgba(150,158,162,.2)", floorGlow: "rgba(91,99,104,.16)", vignetteStrength: .7 }, foregroundTone: "light" },
+      { name: "Blue", swatch: "#466b7f", image: "/images/vehicles/t2-i-dm/colors/blue.webp", available: true, alt: "Jetour T2 i-DM in Blue", studioBackground: { base: "#15232d", centralGlow: "rgba(67,107,132,.58)", highlight: "rgba(174,193,204,.23)", floorGlow: "rgba(74,119,146,.18)", vignetteStrength: .7 }, foregroundTone: "light" },
       { name: "Sand", swatch: "#ae9c7e", image: "/images/vehicles/t2-i-dm/colors/sand.webp", available: true, alt: "Jetour T2 i-DM in Sand", studioBackground: { base: "#281f16", centralGlow: "rgba(155,116,70,.57)", highlight: "rgba(227,190,128,.25)", floorGlow: "rgba(188,139,77,.2)", vignetteStrength: .67 }, foregroundTone: "light" },
       { name: "Silver", swatch: "#a4aaad", image: "/images/vehicles/t2-i-dm/colors/silver.webp", available: true, alt: "Jetour T2 i-DM in Silver", studioBackground: { base: "#20272b", centralGlow: "rgba(119,139,149,.51)", highlight: "rgba(201,213,218,.23)", floorGlow: "rgba(145,161,169,.17)", vignetteStrength: .7 }, foregroundTone: "light" },
     ],
@@ -80,7 +80,7 @@ export const modelCatalogue: ModelCatalogueEntry[] = [
     availability: "details-coming-soon",
     detailStatus: "coming-soon",
     colorControlVerb: "View",
-    catalogueImageScale: 1.55,
+    catalogueImageScale: 1.62,
     catalogueImageTransformOrigin: "50% 70%",
     colors: [
       { name: "Black", swatch: "#17191a", image: "/images/vehicles/dashing/colors/black.webp", available: true, alt: "Jetour Dashing in Black", studioBackground: { base: "#111517", centralGlow: "rgba(72,81,86,.55)", highlight: "rgba(159,168,173,.21)", floorGlow: "rgba(95,104,109,.18)", vignetteStrength: .69 }, foregroundTone: "light" },
