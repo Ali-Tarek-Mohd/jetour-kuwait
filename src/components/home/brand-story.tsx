@@ -11,7 +11,7 @@ const pillars = [
 ];
 
 export function BrandStory() {
-  return <section id="discover" className="border-t border-white/10 bg-[#0b0d0f] py-20 lg:py-24">
+  return <section data-header-theme="dark" id="discover" className="border-t border-white/10 bg-[#0b0d0f] py-20 lg:py-24">
     <Container>
       <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-stretch">
         <div className="flex flex-col justify-between">

@@ -8,7 +8,7 @@ import { VehicleColorPicker } from "./vehicle-color-picker";
 
 export function ModelsSection() {
   const featured = vehicles.find((vehicle) => vehicle.featured)!;
-  return <section id="models" className="section-pad bg-jetour-black">
+  return <section data-header-theme="dark" id="models" className="section-pad bg-jetour-black">
     <Container>
       <div className="flex items-end justify-between gap-6"><SectionHeading eyebrow="Explore the range" title="Our models" /><IconLink href="/models" className="hidden sm:inline-flex">View all models</IconLink></div>
       <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{vehicles.map((vehicle, index) => <ModelCard key={vehicle.slug} vehicle={vehicle} index={index} />)}</div>
