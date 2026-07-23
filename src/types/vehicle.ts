@@ -30,6 +30,8 @@ export type ModelCatalogueEntry = {
   detailStatus: ModelDetailStatus;
   colors: VehicleColor[];
   colorControlVerb?: "Show" | "View";
+  catalogueImageScale?: number;
+  catalogueImageTransformOrigin?: string;
 };
 
 export type Vehicle = {
