@@ -140,7 +140,24 @@ export const modelCatalogue: ModelCatalogueEntry[] = [
     catalogueStudioImageObjectPosition: "49% 46%",
     colors: [],
   },
-  { name: "X90 Plus", slug: "x90-plus", category: verifiedCategory("x90-plus"), availability: "details-coming-soon", detailStatus: "coming-soon", colors: [] },
+  {
+    name: "X90 Plus",
+    slug: "x90-plus",
+    category: verifiedCategory("x90-plus"),
+    image: "/images/vehicles/x90-plus/colors/black.webp",
+    imageAlt: "Jetour X90 Plus in Black",
+    availability: "details-coming-soon",
+    detailStatus: "coming-soon",
+    colorControlVerb: "View",
+    catalogueImageScale: 1.32,
+    catalogueImageTransformOrigin: "50% 48%",
+    colors: [
+      { name: "Black", swatch: "#17191a", image: "/images/vehicles/x90-plus/colors/black.webp", available: true, alt: "Jetour X90 Plus in Black", studioBackground: { base: "#111517", centralGlow: "rgba(72,81,86,.55)", highlight: "rgba(155,165,170,.21)", floorGlow: "rgba(93,103,108,.17)", vignetteStrength: .7 }, foregroundTone: "light" },
+      { name: "Blue", swatch: "#243f85", image: "/images/vehicles/x90-plus/colors/blue.webp", available: true, alt: "Jetour X90 Plus in Blue", studioBackground: { base: "#111b38", centralGlow: "rgba(47,76,157,.57)", highlight: "rgba(157,177,207,.22)", floorGlow: "rgba(46,70,137,.18)", vignetteStrength: .7 }, foregroundTone: "light" },
+      { name: "Dark Blue", swatch: "#25364d", image: "/images/vehicles/x90-plus/colors/dark-blue.webp", available: true, alt: "Jetour X90 Plus in Dark Blue", studioBackground: { base: "#101927", centralGlow: "rgba(48,72,98,.54)", highlight: "rgba(135,156,173,.19)", floorGlow: "rgba(39,59,82,.17)", vignetteStrength: .72 }, foregroundTone: "light" },
+      { name: "White", swatch: "#ecece8", image: "/images/vehicles/x90-plus/colors/white.webp", available: true, alt: "Jetour X90 Plus in White", studioBackground: { base: "#23272a", centralGlow: "rgba(180,190,191,.51)", highlight: "rgba(245,247,243,.25)", floorGlow: "rgba(190,199,200,.17)", vignetteStrength: .7 }, foregroundTone: "light" },
+    ],
+  },
 ];
 
 export const modelCategories: ModelCategory[] = ["Adventure SUV", "Urban SUV", "Family SUV", "Premium SUV"];
