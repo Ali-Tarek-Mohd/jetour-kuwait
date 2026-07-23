@@ -2,11 +2,11 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import type { Vehicle, VehicleColor } from "@/types/vehicle";
+import type { ModelCatalogueEntry, VehicleColor } from "@/types/vehicle";
 
 const fallbackBackground = "linear-gradient(145deg,#29231d,#101214 72%)";
 
-export function CatalogueVehicleStudio({ vehicle }: { vehicle: Vehicle }) {
+export function CatalogueVehicleStudio({ vehicle }: { vehicle: ModelCatalogueEntry }) {
   const initialIndex = Math.max(0, vehicle.colors.findIndex((color) => color.available && color.image));
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [pendingIndex, setPendingIndex] = useState<number | null>(null);

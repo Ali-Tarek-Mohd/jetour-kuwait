@@ -9,6 +9,21 @@ export type VehicleColor = {
   foregroundTone?: "light" | "dark";
 };
 
+export type ModelCategory = "Adventure SUV" | "Urban SUV" | "Family SUV" | "Premium SUV";
+export type ModelDetailStatus = "complete" | "coming-soon";
+export type ModelAvailability = "available" | "details-coming-soon";
+
+export type ModelCatalogueEntry = {
+  name: string;
+  slug: string;
+  category?: ModelCategory;
+  image?: string;
+  imageAlt?: string;
+  availability: ModelAvailability;
+  detailStatus: ModelDetailStatus;
+  colors: VehicleColor[];
+};
+
 export type Vehicle = {
   slug: string;
   name: string;

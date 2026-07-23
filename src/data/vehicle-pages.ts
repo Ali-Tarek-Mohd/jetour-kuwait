@@ -1,7 +1,5 @@
 import type { VehiclePage } from "@/types/vehicle";
 
-export const plannedVehicleSlugs = ["t2", "dashing", "x70-plus", "x90-plus", "g700", "t1", "t2-idm"] as const;
-
 export const vehiclePages: VehiclePage[] = [
   {
     slug: "t2",

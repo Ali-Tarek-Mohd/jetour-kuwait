@@ -15,14 +15,23 @@ import { ModelGallery } from "@/components/models/model-gallery";
 import { RelatedModels } from "@/components/models/related-models";
 import { ModelCta } from "@/components/models/model-cta";
 import { MobileModelActions } from "@/components/models/mobile-model-actions";
-import { getVehiclePage, readyVehiclePages } from "@/data/vehicle-pages";
+import { ModelComingSoon } from "@/components/models/model-coming-soon";
+import { getVehiclePage } from "@/data/vehicle-pages";
+import { getModelCatalogueEntry, modelCatalogue } from "@/data/model-catalogue";
 
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
-export function generateStaticParams() { return readyVehiclePages.map(({ slug }) => ({ slug })); }
+export function generateStaticParams() { return modelCatalogue.map(({ slug }) => ({ slug })); }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const catalogueModel = getModelCatalogueEntry(slug);
+  if (!catalogueModel) return { title: "Model not found" };
+  if (catalogueModel.detailStatus === "coming-soon") return {
+    title: `JETOUR ${catalogueModel.name}`,
+    description: `JETOUR ${catalogueModel.name} model information for Kuwait is coming soon.`,
+    alternates: { canonical: `/models/${catalogueModel.slug}` },
+  };
   const vehicle = getVehiclePage(slug);
   if (!vehicle) return { title: "Model not found" };
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
@@ -41,6 +50,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function VehiclePage({ params }: Props) {
   const { slug } = await params;
+  const catalogueModel = getModelCatalogueEntry(slug);
+  if (!catalogueModel) notFound();
+  if (catalogueModel.detailStatus === "coming-soon") return <ModelComingSoon model={catalogueModel} />;
   const vehicle = getVehiclePage(slug);
   if (!vehicle) notFound();
   return <main className="min-h-screen overflow-x-clip bg-jetour-black pb-20 text-white md:pb-0">
