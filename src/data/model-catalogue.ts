@@ -22,11 +22,11 @@ export const modelCatalogue: ModelCatalogueEntry[] = [
     detailStatus: "coming-soon",
     colorControlVerb: "View",
     colors: [
-      { name: "Green", swatch: "#617f78", image: "/images/vehicles/t1/colors/green.webp", available: true, alt: "Jetour T1 in Green", background: "linear-gradient(145deg,#66766f,#171c1b 72%)", foregroundTone: "light" },
-      { name: "Sand", swatch: "#b3a58c", image: "/images/vehicles/t1/colors/sand.webp", available: true, alt: "Jetour T1 in Sand", background: "linear-gradient(145deg,#8c806d,#1d1a16 72%)", foregroundTone: "light" },
-      { name: "White", swatch: "#ecebe5", image: "/images/vehicles/t1/colors/white.webp", available: true, alt: "Jetour T1 in White", background: "linear-gradient(145deg,#9b9d99,#202322 72%)", foregroundTone: "light" },
-      { name: "Silver", swatch: "#a8adb0", image: "/images/vehicles/t1/colors/silver.webp", available: true, alt: "Jetour T1 in Silver", background: "linear-gradient(145deg,#747b7e,#191d1f 72%)", foregroundTone: "light" },
-      { name: "Black", swatch: "#17191a", image: "/images/vehicles/t1/colors/black.webp", available: true, alt: "Jetour T1 in Black", background: "linear-gradient(145deg,#383d3f,#0c0e0f 72%)", foregroundTone: "light" },
+      { name: "Green", swatch: "#617f78", image: "/images/vehicles/t1/colors/green.webp", available: true, alt: "Jetour T1 in Green", studioBackground: { base: "#17221f", centralGlow: "rgba(72,126,112,.58)", highlight: "rgba(159,199,188,.24)", floorGlow: "rgba(99,151,133,.2)", vignetteStrength: .68 }, foregroundTone: "light" },
+      { name: "Sand", swatch: "#b3a58c", image: "/images/vehicles/t1/colors/sand.webp", available: true, alt: "Jetour T1 in Sand", studioBackground: { base: "#261f17", centralGlow: "rgba(151,113,68,.58)", highlight: "rgba(229,192,132,.25)", floorGlow: "rgba(188,139,78,.2)", vignetteStrength: .66 }, foregroundTone: "light" },
+      { name: "White", swatch: "#ecebe5", image: "/images/vehicles/t1/colors/white.webp", available: true, alt: "Jetour T1 in White", studioBackground: { base: "#24282a", centralGlow: "rgba(174,186,188,.5)", highlight: "rgba(244,246,241,.26)", floorGlow: "rgba(190,199,199,.17)", vignetteStrength: .7 }, foregroundTone: "light" },
+      { name: "Silver", swatch: "#a8adb0", image: "/images/vehicles/t1/colors/silver.webp", available: true, alt: "Jetour T1 in Silver", studioBackground: { base: "#20272b", centralGlow: "rgba(119,140,149,.5)", highlight: "rgba(202,213,217,.23)", floorGlow: "rgba(145,163,169,.17)", vignetteStrength: .7 }, foregroundTone: "light" },
+      { name: "Black", swatch: "#17191a", image: "/images/vehicles/t1/colors/black.webp", available: true, alt: "Jetour T1 in Black", studioBackground: { base: "#101416", centralGlow: "rgba(64,77,84,.48)", highlight: "rgba(151,169,177,.19)", floorGlow: "rgba(91,108,116,.15)", vignetteStrength: .74 }, foregroundTone: "light" },
     ],
   },
   {

@@ -6,6 +6,13 @@ export type VehicleColor = {
   available: boolean;
   alt?: string;
   background?: string;
+  studioBackground?: {
+    base: string;
+    centralGlow: string;
+    highlight: string;
+    floorGlow?: string;
+    vignetteStrength?: number;
+  };
   foregroundTone?: "light" | "dark";
 };
 

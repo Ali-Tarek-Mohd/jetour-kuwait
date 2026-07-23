@@ -126,9 +126,40 @@ video {
 .catalogue-action--test-drive:focus-visible { background: var(--jetour-accent); color: var(--jetour-black) !important; }
 .vehicle-studio { background: radial-gradient(ellipse at 50% 58%, rgba(217,176,111,.2), transparent 34%), linear-gradient(155deg, #22201c, #101214 62%); }
 
+.catalogue-studio-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms ease;
+}
+
+.catalogue-studio-backdrop__paint {
+  animation: catalogue-studio-paint-in 500ms ease both;
+}
+
+.group:focus-within .catalogue-studio-backdrop {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .catalogue-studio-backdrop {
+    opacity: 1;
+  }
+}
+
+@media (hover: none), (max-width: 1023px) {
+  .catalogue-studio-backdrop[data-color-selected="true"] {
+    opacity: 1;
+  }
+}
+
 @keyframes hero-in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
 @keyframes studio-in { from { opacity: .25 } to { opacity: 1 } }
 @keyframes menu-in { from { opacity: 0; transform: translateY(-8px) } to { opacity: 1; transform: none } }
+@keyframes catalogue-studio-paint-in { from { opacity: 0 } to { opacity: 1 } }
 
 .jetour-grid {
   background-image:
