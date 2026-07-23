@@ -12,7 +12,24 @@ function verifiedCategory(slug: string) {
 const t2 = verifiedBySlug.get("t2");
 
 export const modelCatalogue: ModelCatalogueEntry[] = [
-  { name: "G700", slug: "g700", availability: "details-coming-soon", detailStatus: "coming-soon", colors: [] },
+  {
+    name: "G700",
+    slug: "g700",
+    image: "/images/vehicles/g700/colors/white.webp",
+    imageAlt: "Jetour G700 in White",
+    availability: "details-coming-soon",
+    detailStatus: "coming-soon",
+    colorControlVerb: "View",
+    colors: [
+      { name: "White", swatch: "#ecece7", image: "/images/vehicles/g700/colors/white.webp", available: true, alt: "Jetour G700 in White", studioBackground: { base: "#23272a", centralGlow: "rgba(178,188,190,.52)", highlight: "rgba(244,247,243,.26)", floorGlow: "rgba(194,203,203,.18)", vignetteStrength: .7 }, foregroundTone: "light" },
+      { name: "Dark Grey", swatch: "#4b5053", image: "/images/vehicles/g700/colors/dark-grey.webp", available: true, alt: "Jetour G700 in Dark Grey", studioBackground: { base: "#171c1f", centralGlow: "rgba(87,99,106,.53)", highlight: "rgba(166,177,182,.2)", floorGlow: "rgba(94,105,111,.16)", vignetteStrength: .71 }, foregroundTone: "light" },
+      { name: "Silver", swatch: "#a5abad", image: "/images/vehicles/g700/colors/silver.webp", available: true, alt: "Jetour G700 in Silver", studioBackground: { base: "#20272b", centralGlow: "rgba(132,149,157,.54)", highlight: "rgba(207,218,221,.24)", floorGlow: "rgba(151,167,173,.17)", vignetteStrength: .69 }, foregroundTone: "light" },
+      { name: "Orange", swatch: "#a9572e", image: "/images/vehicles/g700/colors/orange.webp", available: true, alt: "Jetour G700 in Orange", studioBackground: { base: "#29160f", centralGlow: "rgba(159,70,34,.57)", highlight: "rgba(211,126,75,.23)", floorGlow: "rgba(145,62,28,.19)", vignetteStrength: .68 }, foregroundTone: "light" },
+      { name: "Sand", swatch: "#ae9a78", image: "/images/vehicles/g700/colors/sand.webp", available: true, alt: "Jetour G700 in Sand", studioBackground: { base: "#281f16", centralGlow: "rgba(155,116,70,.57)", highlight: "rgba(227,190,128,.25)", floorGlow: "rgba(188,139,77,.2)", vignetteStrength: .67 }, foregroundTone: "light" },
+      { name: "Blue", swatch: "#36566f", image: "/images/vehicles/g700/colors/blue.webp", available: true, alt: "Jetour G700 in Blue", studioBackground: { base: "#121f2b", centralGlow: "rgba(52,91,123,.58)", highlight: "rgba(153,181,199,.22)", floorGlow: "rgba(57,100,132,.18)", vignetteStrength: .7 }, foregroundTone: "light" },
+      { name: "Black", swatch: "#17191a", image: "/images/vehicles/g700/colors/black.webp", available: true, alt: "Jetour G700 in Black", studioBackground: { base: "#111517", centralGlow: "rgba(72,81,86,.54)", highlight: "rgba(157,166,171,.21)", floorGlow: "rgba(94,103,108,.17)", vignetteStrength: .69 }, foregroundTone: "light" },
+    ],
+  },
   {
     name: "T1",
     slug: "t1",
