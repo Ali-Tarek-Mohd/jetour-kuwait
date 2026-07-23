@@ -32,6 +32,10 @@ export type ModelCatalogueEntry = {
   colorControlVerb?: "Show" | "View";
   catalogueImageScale?: number;
   catalogueImageTransformOrigin?: string;
+  catalogueMediaMode?: "studio-image";
+  catalogueStudioImageLayout?: "integrated-tall";
+  catalogueStudioImageScale?: number;
+  catalogueStudioImageObjectPosition?: string;
 };
 
 export type Vehicle = {

@@ -126,7 +126,20 @@ export const modelCatalogue: ModelCatalogueEntry[] = [
       { name: "White", swatch: "#ecece8", image: "/images/vehicles/x70-fl/colors/white.webp", available: true, alt: "Jetour X70 FL in White", studioBackground: { base: "#23272a", centralGlow: "rgba(180,190,191,.5)", highlight: "rgba(245,247,243,.25)", floorGlow: "rgba(190,199,200,.17)", vignetteStrength: .7 }, foregroundTone: "light" },
     ],
   },
-  { name: "X70 Plus", slug: "x70-plus", category: verifiedCategory("x70-plus"), availability: "details-coming-soon", detailStatus: "coming-soon", colors: [] },
+  {
+    name: "X70 Plus",
+    slug: "x70-plus",
+    category: verifiedCategory("x70-plus"),
+    image: "/images/vehicles/x70-plus/studio.webp",
+    imageAlt: "Silver Jetour X70 Plus in a dark studio",
+    availability: "details-coming-soon",
+    detailStatus: "coming-soon",
+    catalogueMediaMode: "studio-image",
+    catalogueStudioImageLayout: "integrated-tall",
+    catalogueStudioImageScale: 1.035,
+    catalogueStudioImageObjectPosition: "49% 46%",
+    colors: [],
+  },
   { name: "X90 Plus", slug: "x90-plus", category: verifiedCategory("x90-plus"), availability: "details-coming-soon", detailStatus: "coming-soon", colors: [] },
 ];
 
