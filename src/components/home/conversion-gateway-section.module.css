@@ -1,0 +1,455 @@
+.section {
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(1.25rem, 2.5vh, 2rem);
+  margin: 0;
+  overflow: hidden;
+  padding: clamp(6.25rem, 11vh, 8.25rem) clamp(1.5rem, 4vw, 4.5rem)
+    clamp(1.5rem, 3.5vh, 2.75rem);
+  background: #080a0c;
+  color: #f5f3ee;
+  isolation: isolate;
+}
+
+.ambientLight {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 31% 68%, rgb(172 108 46 / 0.11), transparent 32%),
+    radial-gradient(circle at 80% 62%, rgb(255 255 255 / 0.045), transparent 30%),
+    linear-gradient(135deg, #0b0e11, #050607 72%);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.4fr) minmax(0, 1.6fr);
+  align-items: end;
+  gap: clamp(1rem, 3vw, 3.5rem);
+}
+
+.eyebrow,
+.panelMeta {
+  color: #bd8947;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.introCopy {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.intro h2 {
+  font-size: clamp(2.6rem, 5vw, 5.4rem);
+  line-height: 0.86;
+  font-weight: 650;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+.introCopy > p {
+  max-width: 31rem;
+  padding-bottom: 0.3rem;
+  color: rgb(245 243 238 / 0.6);
+  font-size: clamp(0.84rem, 1vw, 1rem);
+  line-height: 1.7;
+}
+
+.experienceGrid {
+  display: grid;
+  min-height: 0;
+  grid-template-columns: minmax(0, 59fr) minmax(0, 41fr);
+  border-top: 1px solid rgb(245 243 238 / 0.16);
+  border-bottom: 1px solid rgb(245 243 238 / 0.16);
+  transition: grid-template-columns 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.serviceActive {
+  grid-template-columns: minmax(0, 41fr) minmax(0, 59fr);
+}
+
+.panel {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.018);
+  transition:
+    background-color 380ms ease,
+    border-color 380ms ease;
+}
+
+.secondaryPanel {
+  border-left: 1px solid rgb(245 243 238 / 0.14);
+}
+
+.panelGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.62;
+  transition: opacity 380ms ease;
+}
+
+.primaryPanel .panelGlow {
+  background: radial-gradient(
+    circle at 68% 72%,
+    rgb(180 104 37 / 0.15),
+    transparent 47%
+  );
+}
+
+.secondaryPanel .panelGlow {
+  background: radial-gradient(
+    circle at 70% 70%,
+    rgb(155 164 170 / 0.1),
+    transparent 48%
+  );
+}
+
+.panel:hover,
+.panel:focus-within {
+  background: rgb(255 255 255 / 0.038);
+}
+
+.panel:hover .panelGlow,
+.panel:focus-within .panelGlow {
+  opacity: 1;
+}
+
+.panelCopy {
+  position: relative;
+  z-index: 3;
+  width: min(48%, 29rem);
+  padding: clamp(1.5rem, 3vw, 3.25rem);
+}
+
+.secondaryPanel .panelCopy {
+  width: min(65%, 24rem);
+}
+
+.panelMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.panelRule {
+  width: 1.8rem;
+  height: 1px;
+  background: currentColor;
+  transition: width 380ms ease;
+}
+
+.panel:hover .panelRule,
+.panel:focus-within .panelRule {
+  width: 2.4rem;
+}
+
+.panel h3 {
+  max-width: 8ch;
+  margin-top: 1rem;
+  font-size: clamp(2rem, 3.2vw, 4.25rem);
+  line-height: 0.92;
+  font-weight: 640;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.secondaryPanel h3 {
+  font-size: clamp(1.8rem, 2.55vw, 3.4rem);
+}
+
+.description {
+  max-width: 26rem;
+  margin-top: 1.1rem;
+  color: rgb(245 243 238 / 0.66);
+  font-size: clamp(0.78rem, 0.88vw, 0.94rem);
+  line-height: 1.65;
+}
+
+.availabilityNote {
+  margin-top: 0.7rem;
+  color: rgb(245 243 238 / 0.43);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.cta {
+  position: relative;
+  z-index: 4;
+  display: inline-flex;
+  min-height: 48px;
+  margin-top: 1.4rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  border: 1px solid;
+  padding: 0.8rem 1.15rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    color 320ms ease,
+    border-color 320ms ease,
+    background-color 320ms ease;
+}
+
+.cta svg {
+  flex: 0 0 auto;
+  transition: transform 380ms ease;
+}
+
+.panel:hover .cta svg,
+.cta:focus-visible svg {
+  transform: translateX(5px);
+}
+
+.primaryCta {
+  border-color: #f5f3ee;
+  background: #f5f3ee;
+  color: #0b0d0f;
+}
+
+.primaryCta:hover,
+.primaryCta:focus-visible {
+  border-color: #a77738;
+  background: #a77738;
+  color: #080a0b;
+}
+
+.secondaryCta {
+  border-color: rgb(245 243 238 / 0.35);
+  background: transparent;
+  color: #f5f3ee;
+}
+
+.secondaryCta:hover,
+.secondaryCta:focus-visible {
+  border-color: #f5f3ee;
+  background: #f5f3ee;
+  color: #0b0d0f;
+}
+
+.cta:focus-visible {
+  outline: 2px solid #c5904d;
+  outline-offset: 3px;
+}
+
+.artwork {
+  position: absolute;
+  z-index: 2;
+  right: -4%;
+  bottom: -18%;
+  width: 76%;
+  height: 112%;
+  pointer-events: none;
+  transition: transform 420ms ease;
+}
+
+.secondaryPanel .artwork {
+  right: -3%;
+  bottom: -18%;
+  width: 94%;
+  height: 112%;
+}
+
+.panel:hover .artwork,
+.panel:focus-within .artwork {
+  transform: translateX(8px);
+}
+
+.serviceActive .primaryPanel .artwork {
+  transform: scale(0.94);
+  transform-origin: right bottom;
+}
+
+.serviceActive .secondaryPanel .artwork,
+.serviceActive .secondaryPanel:hover .artwork,
+.serviceActive .secondaryPanel:focus-within .artwork {
+  transform: translateX(8px) scale(1.05);
+  transform-origin: right bottom;
+}
+
+.serviceActive .secondaryPanel .panelCopy {
+  width: min(52%, 26rem);
+}
+
+.serviceActive .primaryPanel .panelCopy {
+  width: min(60%, 22rem);
+}
+
+.vehicleImage {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+@media (max-height: 780px) and (min-width: 1025px) {
+  .section {
+    gap: 1rem;
+    padding-top: 5.9rem;
+    padding-bottom: 1rem;
+  }
+
+  .intro h2 {
+    font-size: clamp(2.35rem, 4.4vw, 4rem);
+  }
+
+  .panelCopy {
+    padding-top: 1.4rem;
+  }
+
+  .panel h3 {
+    margin-top: 0.65rem;
+  }
+
+  .description {
+    margin-top: 0.75rem;
+  }
+
+  .cta {
+    margin-top: 0.9rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .section {
+    display: block;
+    height: auto;
+    min-height: 0;
+    padding: 6.25rem 1.5rem 3rem;
+  }
+
+  .intro {
+    display: block;
+  }
+
+  .introCopy {
+    display: block;
+    margin-top: 1rem;
+  }
+
+  .introCopy > p {
+    margin-top: 1.25rem;
+  }
+
+  .experienceGrid {
+    display: grid;
+    margin-top: 2.5rem;
+    grid-template-columns: 1fr;
+    transition: none;
+  }
+
+  .panel {
+    min-height: clamp(34rem, 80vw, 44rem);
+  }
+
+  .secondaryPanel {
+    border-top: 1px solid rgb(245 243 238 / 0.14);
+    border-left: 0;
+  }
+
+  .panelCopy,
+  .serviceActive .primaryPanel .panelCopy,
+  .serviceActive .secondaryPanel .panelCopy,
+  .secondaryPanel .panelCopy {
+    width: min(76%, 30rem);
+    padding: 1.75rem;
+  }
+
+  .panel:hover .artwork,
+  .panel:focus-within .artwork,
+  .serviceActive .primaryPanel .artwork,
+  .serviceActive .secondaryPanel .artwork,
+  .serviceActive .secondaryPanel:hover .artwork,
+  .serviceActive .secondaryPanel:focus-within .artwork {
+    transform: none;
+  }
+
+  .panel h3,
+  .secondaryPanel h3 {
+    font-size: clamp(2.4rem, 7vw, 4.1rem);
+  }
+
+  .artwork,
+  .secondaryPanel .artwork {
+    right: -5%;
+    bottom: -16%;
+    width: 80%;
+    height: 94%;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 5.5rem 1rem 2rem;
+  }
+
+  .intro h2 {
+    font-size: clamp(2.7rem, 14vw, 4.2rem);
+  }
+
+  .experienceGrid {
+    margin-top: 2rem;
+  }
+
+  .panel {
+    min-height: 38rem;
+  }
+
+  .panelCopy,
+  .serviceActive .primaryPanel .panelCopy,
+  .serviceActive .secondaryPanel .panelCopy,
+  .secondaryPanel .panelCopy {
+    width: 100%;
+    padding: 1.4rem 1.2rem;
+  }
+
+  .panel h3,
+  .secondaryPanel h3 {
+    max-width: 10ch;
+    font-size: clamp(2.15rem, 11vw, 3.25rem);
+  }
+
+  .description {
+    max-width: 21rem;
+  }
+
+  .cta {
+    width: 100%;
+  }
+
+  .artwork,
+  .secondaryPanel .artwork {
+    right: -9%;
+    bottom: -11%;
+    width: 112%;
+    height: 75%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .artwork,
+  .cta svg {
+    transition: none;
+  }
+
+  .panel:hover .artwork,
+  .panel:focus-within .artwork,
+  .panel:hover .cta svg,
+  .cta:focus-visible svg {
+    transform: none;
+  }
+}
