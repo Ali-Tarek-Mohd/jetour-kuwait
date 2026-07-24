@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import ArrowRight01Icon from "@hugeicons/core-free-icons/ArrowRight01Icon";
 import { HugeiconsIcon } from "@hugeicons/react";
 import styles from "./showroom-section.module.css";
@@ -9,6 +12,8 @@ const mapEmbedUrl =
   "https://www.google.com/maps?q=29.3067567,47.9274588&z=15&output=embed";
 
 export function ShowroomSection() {
+  const [mapLoaded, setMapLoaded] = useState(false);
+
   return (
     <section
       id="showrooms"
@@ -58,15 +63,46 @@ export function ShowroomSection() {
       </div>
 
       <div className={styles.mapPanel}>
-        <div className={styles.mapBlend} aria-hidden="true" />
-        <iframe
-          src={mapEmbedUrl}
-          title="Jetour Kuwait showroom location"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          className={styles.map}
-          allowFullScreen
-        />
+        {mapLoaded ? (
+          <>
+            <div className={styles.mapBlend} aria-hidden="true" />
+            <iframe
+              src={mapEmbedUrl}
+              title="Jetour Kuwait showroom location"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className={styles.map}
+              allowFullScreen
+            />
+          </>
+        ) : (
+          <div className={styles.mapPreview}>
+            <div className={styles.mapRoads} aria-hidden="true" />
+            <div className={styles.previewContent}>
+              <span className={styles.mapMarker} aria-hidden="true">
+                <span />
+              </span>
+              <p className={styles.previewEyebrow}>Jetour Kuwait</p>
+              <p className={styles.previewLocation}>Al Rai, Kuwait</p>
+              <p className={styles.coordinates}>
+                29.3067567, 47.9274588
+              </p>
+              <button
+                type="button"
+                className={styles.loadMap}
+                onClick={() => setMapLoaded(true)}
+                aria-label="Load interactive map for Jetour Kuwait showroom"
+              >
+                <span>Load Interactive Map</span>
+                <HugeiconsIcon
+                  icon={ArrowRight01Icon}
+                  size={18}
+                  aria-hidden="true"
+                />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
