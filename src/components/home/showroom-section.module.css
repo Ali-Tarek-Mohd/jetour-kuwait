@@ -1,0 +1,243 @@
+.section {
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  margin: 0;
+  overflow: hidden;
+  border-bottom: 1px solid rgb(245 243 238 / 0.12);
+  background: #080a0c;
+  color: #f5f3ee;
+}
+
+.information {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  border-right: 1px solid rgb(245 243 238 / 0.14);
+  background:
+    radial-gradient(circle at 18% 72%, rgb(167 119 56 / 0.13), transparent 34%),
+    linear-gradient(145deg, #0d1013, #07090b 72%);
+}
+
+.informationInner {
+  width: min(100%, 39rem);
+  padding: clamp(6.75rem, 12vh, 9rem) clamp(2rem, 5vw, 6.5rem)
+    clamp(2.5rem, 6vh, 5rem);
+}
+
+.eyebrow,
+.locationLabel {
+  color: #c5904d;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.eyebrow::after {
+  width: 2.5rem;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+.information h2 {
+  max-width: 8ch;
+  margin-top: 1.4rem;
+  font-size: clamp(3.2rem, 5.6vw, 6.8rem);
+  line-height: 0.88;
+  font-weight: 650;
+  letter-spacing: -0.065em;
+  text-transform: uppercase;
+}
+
+.introduction {
+  max-width: 31rem;
+  margin-top: clamp(1.5rem, 3vh, 2.25rem);
+  color: rgb(245 243 238 / 0.66);
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.75;
+}
+
+.location {
+  margin-top: clamp(2rem, 4.5vh, 3.5rem);
+  border-top: 1px solid rgb(245 243 238 / 0.15);
+  padding-top: clamp(1.4rem, 2.7vh, 2rem);
+}
+
+.showroomName {
+  margin-top: 0.85rem;
+  color: #f5f3ee;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  font-weight: 650;
+}
+
+.location address {
+  margin-top: 0.8rem;
+  color: rgb(245 243 238 / 0.66);
+  font-size: clamp(0.9rem, 1.05vw, 1.05rem);
+  font-style: normal;
+  line-height: 1.65;
+}
+
+.directions {
+  display: inline-flex;
+  min-height: 48px;
+  margin-top: clamp(1.75rem, 3.8vh, 2.75rem);
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  border: 1px solid #f5f3ee;
+  background: #f5f3ee;
+  color: #0b0d0f;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.directions svg {
+  transition: transform 260ms ease;
+}
+
+.directions:hover,
+.directions:focus-visible {
+  border-color: #a77738;
+  background: #a77738;
+  color: #080a0b;
+}
+
+.directions:hover svg,
+.directions:focus-visible svg {
+  transform: translateX(5px);
+}
+
+.directions:focus-visible {
+  outline: 2px solid #d5a664;
+  outline-offset: 3px;
+}
+
+.mapPanel {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: #111417;
+}
+
+.map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.mapBlend {
+  position: absolute;
+  z-index: 1;
+  inset: 0 auto 0 0;
+  width: clamp(1.5rem, 5vw, 5rem);
+  pointer-events: none;
+  background: linear-gradient(90deg, rgb(8 10 12 / 0.72), transparent);
+}
+
+@media (max-height: 760px) and (min-width: 1025px) {
+  .informationInner {
+    padding-top: 5.9rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .information h2 {
+    margin-top: 0.9rem;
+    font-size: clamp(2.8rem, 5vw, 5.1rem);
+  }
+
+  .introduction {
+    margin-top: 1rem;
+  }
+
+  .location {
+    margin-top: 1.3rem;
+    padding-top: 1rem;
+  }
+
+  .directions {
+    margin-top: 1.2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .section {
+    display: block;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .information {
+    border-right: 0;
+    border-bottom: 1px solid rgb(245 243 238 / 0.14);
+  }
+
+  .informationInner {
+    width: 100%;
+    padding: 6.5rem 1.5rem 3rem;
+  }
+
+  .information h2 {
+    font-size: clamp(3.25rem, 11vw, 6rem);
+  }
+
+  .mapPanel {
+    height: clamp(26.25rem, 58vw, 32.5rem);
+  }
+
+  .mapBlend {
+    inset: 0 0 auto;
+    width: 100%;
+    height: 3rem;
+    background: linear-gradient(180deg, rgb(8 10 12 / 0.62), transparent);
+  }
+}
+
+@media (max-width: 600px) {
+  .informationInner {
+    padding: 5.75rem 1rem 2.5rem;
+  }
+
+  .information h2 {
+    font-size: clamp(3rem, 15vw, 4.5rem);
+  }
+
+  .directions {
+    width: 100%;
+  }
+
+  .mapPanel {
+    height: 28rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .directions,
+  .directions svg {
+    transition-duration: 0.01ms;
+  }
+}

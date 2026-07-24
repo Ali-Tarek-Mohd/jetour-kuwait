@@ -31,7 +31,7 @@ const experiences = [
     title: "Book a Jetour Service",
     description:
       "Start a service enquiry and connect with the team for maintenance support.",
-    href: "/#contact",
+    href: "/#showrooms",
     action: "Contact Service Team",
     image: "/images/home/conversion/book-service-visual.png",
     imageAlt: "Grey Jetour SUV with service and Kuwait skyline illustration",

@@ -1,2 +1,73 @@
-import {Container} from "@/components/ui/container";import {SectionHeading} from "@/components/ui/section-heading";import {HugeiconsIcon} from "@hugeicons/react";import Location01Icon from "@hugeicons/core-free-icons/Location01Icon";import {showrooms} from "@/data/showrooms";
-export function ShowroomSection(){return <section data-header-theme="dark" id="showrooms" className="section-pad bg-jetour-black"><Container><div className="grid gap-12 lg:grid-cols-2"><SectionHeading eyebrow="Jetour Kuwait" title="Find a showroom" intro="Explore Jetour in person and connect with our team."/><div className="flex min-h-72 items-center border border-white/10 bg-jetour-surface p-8"><div><HugeiconsIcon icon={Location01Icon} size={34} className="text-jetour-accent"/><h3 className="mt-6 text-2xl font-semibold uppercase">Locations coming soon</h3><p className="mt-4 max-w-md text-sm leading-7 text-white/55">Verified showroom addresses, contact details, working hours and map links will be published here when available.</p><span className="sr-only">{showrooms.length} showrooms currently listed</span></div></div></div></Container></section>}
+import ArrowRight01Icon from "@hugeicons/core-free-icons/ArrowRight01Icon";
+import { HugeiconsIcon } from "@hugeicons/react";
+import styles from "./showroom-section.module.css";
+
+const directionsUrl =
+  "https://www.google.com/maps/place/Jetour+Kuwait/@29.3063268,47.9199692,15z/data=!4m6!3m5!1s0x3fcf9b8fbf27a041:0xba587fe373b21501!8m2!3d29.3067567!4d47.9274588!16s%2Fg%2F11smvgpfh6?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D";
+
+const mapEmbedUrl =
+  "https://www.google.com/maps?q=29.3067567,47.9274588&z=15&output=embed";
+
+export function ShowroomSection() {
+  return (
+    <section
+      id="showrooms"
+      data-header-theme="dark"
+      className={styles.section}
+      aria-labelledby="showroom-title"
+    >
+      <div className={styles.information}>
+        <div className={styles.informationInner}>
+          <p className={styles.eyebrow}>Visit Jetour Kuwait</p>
+          <h2 id="showroom-title">
+            Find your way
+            <br />
+            to Jetour.
+          </h2>
+          <p className={styles.introduction}>
+            Visit Jetour Kuwait in Al Rai and explore the current Jetour range
+            in person.
+          </p>
+
+          <div className={styles.location}>
+            <p className={styles.locationLabel}>Al Rai Showroom</p>
+            <p className={styles.showroomName}>
+              Jetour Kuwait <span aria-hidden="true">—</span> Budastoor Motors
+            </p>
+            <address>
+              Street Mohammad Bin Al Qasim
+              <br />
+              Al Rai, Kuwait
+            </address>
+          </div>
+
+          <a
+            href={directionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.directions}
+          >
+            <span>Get Directions</span>
+            <HugeiconsIcon
+              icon={ArrowRight01Icon}
+              size={18}
+              aria-hidden="true"
+            />
+          </a>
+        </div>
+      </div>
+
+      <div className={styles.mapPanel}>
+        <div className={styles.mapBlend} aria-hidden="true" />
+        <iframe
+          src={mapEmbedUrl}
+          title="Jetour Kuwait showroom location"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className={styles.map}
+          allowFullScreen
+        />
+      </div>
+    </section>
+  );
+}
