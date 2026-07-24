@@ -1,0 +1,558 @@
+.showcaseShell {
+  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  color: #151719;
+  background: #e7e4dd;
+}
+
+.showcaseStage {
+  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #e7e4dd 0%, #d8d4cc 72%, #c9c4bb 100%);
+  isolation: isolate;
+}
+
+.showroomLight {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 48% 46% at 58% 45%,
+      rgb(255 255 255 / 0.92),
+      rgb(255 255 255 / 0.16) 52%,
+      transparent 76%
+    );
+}
+
+.floor {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 34%;
+  background:
+    linear-gradient(to bottom, transparent, rgb(124 116 104 / 0.11)),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(25% - 1px),
+      rgb(70 68 64 / 0.055) 25%
+    );
+  mask-image: linear-gradient(to bottom, transparent, black 42%);
+}
+
+.modelLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.incomingLayer {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.backgroundWord {
+  position: absolute;
+  z-index: 0;
+  top: var(--showcase-word-y, 57%);
+  left: var(--showcase-word-x, 62%);
+  width: max-content;
+  transform: translate(-50%, -50%) scale(var(--showcase-word-scale, 1));
+  overflow: hidden;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(78 70 58 / 0.24);
+  opacity: 0.72;
+  font-size: clamp(9rem, 18vw, 22rem);
+  line-height: 0.78;
+  font-weight: 700;
+  letter-spacing: var(--showcase-word-tracking, -0.07em);
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.modelInformation {
+  position: absolute;
+  z-index: 4;
+  top: clamp(7rem, 12vh, 9rem);
+  left: clamp(2.5rem, 5vw, 6rem);
+  width: min(30rem, 33vw);
+}
+
+.editorialMarker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #705126;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.accentRule {
+  width: 2.5rem;
+  height: 1px;
+  background: #a77738;
+}
+
+.category {
+  margin-top: 1rem;
+  color: rgb(21 23 25 / 0.74);
+  font-size: clamp(1rem, 1.25vw, 1.32rem);
+  font-weight: 560;
+  letter-spacing: -0.01em;
+}
+
+.modelTitle {
+  margin-top: 1.2rem;
+  font-size: clamp(3.5rem, 6vw, 7.1rem);
+  line-height: 0.86;
+  font-weight: 690;
+  letter-spacing: -0.065em;
+  text-transform: uppercase;
+}
+
+.tagline {
+  max-width: 25rem;
+  margin-top: 1rem;
+  color: rgb(21 23 25 / 0.68);
+  font-size: clamp(0.9rem, 1vw, 1.02rem);
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  margin-top: 1.75rem;
+  gap: 0.65rem;
+}
+
+.primaryAction {
+  border-color: #0b0d0f !important;
+  background: #0b0d0f !important;
+  color: #fff !important;
+}
+
+.primaryAction:hover,
+.primaryAction:focus-visible {
+  border-color: #a77738 !important;
+  background: #a77738 !important;
+  color: #0a0b0c !important;
+}
+
+.secondaryAction {
+  border-color: rgb(17 19 21 / 0.34) !important;
+  background: transparent !important;
+  color: #111315 !important;
+}
+
+.secondaryAction:hover,
+.secondaryAction:focus-visible {
+  border-color: #111315 !important;
+  background: #111315 !important;
+  color: #fff !important;
+}
+
+.primaryAction:focus-visible,
+.secondaryAction:focus-visible {
+  outline: 2px solid #8a632f;
+  outline-offset: 3px;
+}
+
+.vehicleStage {
+  position: absolute;
+  z-index: 2;
+  top: clamp(7rem, 12vh, 9rem);
+  right: clamp(2rem, 5vw, 5rem);
+  bottom: clamp(9rem, 18vh, 12rem);
+  left: max(27vw, 22rem);
+  max-width: var(--showcase-stage-max-width, 920px);
+  margin-left: auto;
+}
+
+.vehicleImage {
+  object-fit: contain;
+  object-position: var(--showcase-object-position, 50% 55%);
+  transform:
+    translate(var(--showcase-stage-x, 0%), var(--showcase-stage-y, 0%))
+    scale(var(--showcase-stage-scale, 1.12));
+  transform-origin: center;
+  filter: drop-shadow(0 34px 35px rgb(35 31 27 / 0.26));
+}
+
+.studioImageFrame {
+  position: absolute;
+  inset: 7% 2% 4%;
+  overflow: visible;
+  transform:
+    translate(var(--showcase-stage-x, 0%), var(--showcase-stage-y, 0%))
+    scale(var(--showcase-stage-scale, 1));
+  transform-origin: center;
+  mask-image: radial-gradient(
+    ellipse 76% 67% at 50% 48%,
+    #000 47%,
+    rgb(0 0 0 / 0.92) 63%,
+    transparent 92%
+  );
+}
+
+.studioImage {
+  object-fit: contain;
+  filter: saturate(0.88) contrast(0.96) brightness(1.06);
+}
+
+.floorShadow {
+  position: absolute;
+  z-index: -1;
+  right: 13%;
+  bottom: 11%;
+  left: 13%;
+  height: 10%;
+  border-radius: 50%;
+  background: rgb(61 54 47 / 0.2);
+  filter: blur(24px);
+}
+
+.specificationPanel {
+  position: absolute;
+  z-index: 4;
+  top: clamp(8rem, 15vh, 11rem);
+  right: clamp(2.5rem, 4.5vw, 5.5rem);
+  width: min(15rem, 18vw);
+  text-align: right;
+}
+
+.specificationList {
+  display: grid;
+  gap: 1rem;
+}
+
+.specification {
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgb(21 23 25 / 0.16);
+}
+
+.specification dt {
+  color: rgb(21 23 25 / 0.48);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.specification dd {
+  margin-top: 0.35rem;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.pendingSpecifications {
+  color: rgb(21 23 25 / 0.52);
+  font-size: 0.72rem;
+  line-height: 1.7;
+}
+
+.selectorDock {
+  position: absolute;
+  z-index: 8;
+  right: clamp(1.25rem, 3vw, 3.5rem);
+  bottom: max(1.1rem, env(safe-area-inset-bottom));
+  left: clamp(1.25rem, 3vw, 3.5rem);
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 52px;
+  max-width: 1420px;
+  margin-inline: auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.selectorList {
+  display: flex;
+  min-width: 0;
+  gap: 0.45rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+
+.selectorList::-webkit-scrollbar {
+  display: none;
+}
+
+.selectorItem {
+  position: relative;
+  display: grid;
+  min-width: 132px;
+  min-height: 96px;
+  flex: 0 0 132px;
+  cursor: pointer;
+  place-items: center;
+  gap: 0.1rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: rgb(21 23 25 / 0.46);
+  font-size: 0.7rem;
+  font-weight: 720;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.selectorItem:hover,
+.selectorItem[aria-selected="true"] {
+  border-bottom-color: #a77738;
+  background: rgb(255 255 255 / 0.25);
+  color: #17191b;
+}
+
+.selectorItem[aria-selected="true"] {
+  min-width: 178px;
+  flex-basis: 178px;
+}
+
+.selectorItem[aria-selected="true"] .thumbnail {
+  width: 150px;
+}
+
+.selectorItem:focus-visible,
+.arrowButton:focus-visible {
+  outline: 2px solid #8a632f;
+  outline-offset: -2px;
+}
+
+.thumbnail {
+  position: relative;
+  display: block;
+  width: 126px;
+  height: 62px;
+  overflow: hidden;
+}
+
+.thumbnailImage {
+  object-fit: contain;
+  transform:
+    translate(var(--showcase-selector-x, 0%), var(--showcase-selector-y, 0%))
+    scale(var(--showcase-selector-scale, 1));
+  transform-origin: center;
+}
+
+.studioThumbnailLabel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgb(21 23 25 / 0.7);
+  font-size: 1.45rem;
+  font-weight: 760;
+  letter-spacing: -0.055em;
+}
+
+.arrowButton {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+  place-items: center;
+  border: 1px solid rgb(21 23 25 / 0.28);
+  background: rgb(255 255 255 / 0.2);
+  color: #17191b;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.arrowButton:hover {
+  border-color: #17191b;
+  background: rgb(255 255 255 / 0.66);
+}
+
+@media (max-width: 1280px) {
+  .modelInformation {
+    width: min(24rem, 34vw);
+  }
+
+  .vehicleStage {
+    left: 25vw;
+  }
+
+  .specificationPanel {
+    top: auto;
+    right: 2.75rem;
+    bottom: 8.5rem;
+    width: 14rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .showcaseShell {
+    height: auto;
+    min-height: 0;
+  }
+
+  .showcaseStage {
+    position: relative;
+    height: auto;
+    min-height: 1000px;
+  }
+
+  .backgroundWord {
+    top: 40%;
+    left: 58%;
+    max-width: none;
+    opacity: 0.38;
+    font-size: clamp(7rem, 24vw, 12rem);
+  }
+
+  .modelInformation {
+    top: 6rem;
+    right: 2rem;
+    left: 2rem;
+    width: auto;
+    text-align: center;
+  }
+
+  .modelTitle {
+    font-size: clamp(3.7rem, 11vw, 6rem);
+  }
+
+  .tagline {
+    margin-inline: auto;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+
+  .vehicleStage {
+    top: 21rem;
+    right: 2rem;
+    bottom: 17rem;
+    left: 2rem;
+    max-width: none;
+  }
+
+  .specificationPanel {
+    top: auto;
+    right: 2rem;
+    bottom: 9rem;
+    left: 2rem;
+    width: auto;
+    text-align: center;
+  }
+
+  .specificationList {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .specification {
+    min-width: 9rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .showcaseStage {
+    min-height: 1040px;
+  }
+
+  .modelInformation {
+    top: 5.4rem;
+    right: 1.2rem;
+    left: 1.2rem;
+  }
+
+  .modelTitle {
+    font-size: clamp(3.25rem, 17vw, 5rem);
+  }
+
+  .tagline {
+    margin-top: 0.9rem;
+    font-size: 0.82rem;
+  }
+
+  .actions {
+    margin-top: 1.1rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .vehicleStage {
+    top: 22rem;
+    right: 0.5rem;
+    bottom: 18rem;
+    left: 0.5rem;
+  }
+
+  .specificationPanel {
+    right: 1.2rem;
+    bottom: 9rem;
+    left: 1.2rem;
+  }
+
+  .specificationList {
+    gap: 0.6rem;
+  }
+
+  .specification {
+    min-width: 7.5rem;
+  }
+
+  .selectorDock {
+    right: 0.75rem;
+    bottom: max(0.7rem, env(safe-area-inset-bottom));
+    left: 0.75rem;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 0.35rem;
+  }
+
+  .arrowButton {
+    width: 44px;
+    height: 44px;
+  }
+
+  .selectorItem {
+    min-width: 118px;
+    min-height: 92px;
+    flex-basis: 118px;
+  }
+
+  .selectorItem[aria-selected="true"] {
+    min-width: 148px;
+    flex-basis: 148px;
+  }
+
+  .thumbnail {
+    width: 110px;
+    height: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selectorItem,
+  .arrowButton {
+    scroll-behavior: auto;
+    transition-duration: 0.01ms;
+  }
+}
