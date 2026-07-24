@@ -1,0 +1,175 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #050607;
+  isolation: isolate;
+}
+
+.stage,
+.slide {
+  position: absolute;
+  inset: 0;
+}
+
+.stage {
+  overflow: hidden;
+  background: #050607;
+}
+
+.slide {
+  will-change: opacity;
+  transition: opacity 800ms ease-in-out;
+}
+
+.current {
+  z-index: 1;
+  opacity: 1;
+}
+
+.currentLeaving {
+  z-index: 1;
+  opacity: 0;
+}
+
+.incoming {
+  z-index: 2;
+  opacity: 0;
+}
+
+.incomingVisible {
+  z-index: 2;
+  opacity: 1;
+}
+
+.backdrop {
+  position: absolute;
+  inset: -38px;
+  overflow: hidden;
+}
+
+.backdropImage {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.48;
+  transform: scale(1.055);
+  filter: blur(28px);
+}
+
+.backdropShade {
+  position: absolute;
+  inset: 0;
+  background: rgb(2 4 5 / 0.28);
+}
+
+.foregroundImage {
+  position: absolute;
+  z-index: 1;
+  top: var(--hero-image-y, 50%);
+  left: 0;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  transform: translateY(-50%);
+}
+
+.topShade {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: min(22%, 210px);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0.34),
+    rgb(0 0 0 / 0.06) 68%,
+    transparent
+  );
+}
+
+.edgeButton,
+.pauseButton {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  cursor: pointer;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 0.26);
+  background: rgb(4 6 8 / 0.44);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    opacity 180ms ease;
+}
+
+.edgeButton {
+  top: 50%;
+  width: 52px;
+  height: 52px;
+  transform: translateY(-50%);
+}
+
+.previousButton {
+  left: 26px;
+}
+
+.nextButton {
+  right: 26px;
+}
+
+.pauseButton {
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(22px, calc(env(safe-area-inset-bottom) + 14px));
+  width: 44px;
+  height: 44px;
+  opacity: 0.66;
+}
+
+.edgeButton:hover,
+.pauseButton:hover {
+  border-color: rgb(255 255 255 / 0.52);
+  background: rgb(4 6 8 / 0.72);
+  opacity: 1;
+}
+
+.edgeButton:focus-visible,
+.pauseButton:focus-visible {
+  border-color: #d6a965;
+  outline: 2px solid #d6a965;
+  outline-offset: 3px;
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .edgeButton {
+    width: 44px;
+    height: 44px;
+  }
+
+  .previousButton {
+    left: 10px;
+  }
+
+  .nextButton {
+    right: 10px;
+  }
+
+  .pauseButton {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(14px, calc(env(safe-area-inset-bottom) + 8px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide {
+    transition-duration: 80ms;
+  }
+}

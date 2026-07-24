@@ -1,83 +1,459 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import {
+  type CSSProperties,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
-import { HugeiconsIcon } from "@hugeicons/react";
 import ArrowLeft01Icon from "@hugeicons/core-free-icons/ArrowLeft01Icon";
 import ArrowRight01Icon from "@hugeicons/core-free-icons/ArrowRight01Icon";
-import { Container } from "@/components/ui/container";
-import { JetourButton } from "@/components/ui/jetour-button";
+import PauseIcon from "@hugeicons/core-free-icons/PauseIcon";
+import PlayIcon from "@hugeicons/core-free-icons/PlayIcon";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { NAVIGATION_ACTIVITY_EVENT } from "@/lib/navigation-events";
+import styles from "./hero-carousel.module.css";
 
-const campaigns = [
-  { model: "T2", kicker: "New", title: "Explore your world", copy: "Powerful capability, intelligent technology and an adventurous spirit.", image: "/images/vehicles/t2/t2-hero.png", href: "/models/t2", testDrive: "/book-test-drive?model=t2" },
-  { model: "G700", kicker: "Coming soon", title: "Beyond the expected", copy: "A bold new expression of intelligent, premium adventure.", href: "/models", testDrive: "/book-test-drive" },
-  { model: "T1 i-DM", kicker: "Electrified journey", title: "Power meets possibility", copy: "A new chapter of confident, efficient exploration.", href: "/models", testDrive: "/book-test-drive" },
-];
+const heroSlides = [
+  {
+    src: "/images/home/hero/01-t2.webp",
+    alt: "Jetour T2 driving through a mountain stream",
+    desktopY: "50%",
+  },
+  {
+    src: "/images/home/hero/02-x50.webp",
+    alt: "Black Jetour X50 presented on a city street",
+    desktopY: "51%",
+  },
+  {
+    src: "/images/home/hero/03-finance.webp",
+    alt: "Jetour Kuwait vehicle range with zero percent profit promotion",
+    desktopY: "50%",
+  },
+  {
+    src: "/images/home/hero/04-g700-launch.webp",
+    alt: "Jetour G700 Kuwait launch event",
+    desktopY: "52%",
+  },
+  {
+    src: "/images/home/hero/05-x70-plus.webp",
+    alt: "Blue Jetour X70 Plus on an open road",
+    desktopY: "50%",
+  },
+  {
+    src: "/images/home/hero/06-x70.webp",
+    alt: "White Jetour X70 on a mountain road",
+    desktopY: "50%",
+  },
+] as const;
 
-const AUTOPLAY_MS = 8000;
+const VISIBLE_DURATION_MS = 7_500;
+const CROSSFADE_DURATION_MS = 800;
+const REDUCED_CROSSFADE_MS = 80;
+
+type PreparedSlide = {
+  index: number;
+  requestId: number;
+  ready: boolean;
+};
 
 export function HeroCarousel() {
-  const [index, setIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [prepared, setPrepared] = useState<PreparedSlide | null>(null);
+  const [transitioning, setTransitioning] = useState(false);
+  const [firstSlideStable, setFirstSlideStable] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [controlsActive, setControlsActive] = useState(false);
   const [navigationActive, setNavigationActive] = useState(false);
-  const [documentVisible, setDocumentVisible] = useState(
-    () => typeof document === "undefined" || document.visibilityState === "visible",
-  );
-  const [hasAdvanced, setHasAdvanced] = useState(false);
-  const campaign = campaigns[index];
+  const [documentVisible, setDocumentVisible] = useState(true);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [timerEpoch, setTimerEpoch] = useState(0);
 
-  const move = useCallback((step: number) => {
-    setHasAdvanced(true);
-    setIndex((current) => (current + step + campaigns.length) % campaigns.length);
-  }, []);
+  const currentIndexRef = useRef(0);
+  const preparedRef = useRef<PreparedSlide | null>(null);
+  const requestIdRef = useRef(0);
+  const transitionTimerRef = useRef<number | null>(null);
+  const transitioningRef = useRef(false);
+  const pendingTargetRef = useRef<number | null>(null);
+  const loadedSlidesRef = useRef(new Set<number>([0]));
+  const failedSlidesRef = useRef(new Set<number>());
 
   useEffect(() => {
-    const onNavigationActivity = (event: Event) => {
-      setNavigationActive((event as CustomEvent<{ active: boolean }>).detail.active);
+    currentIndexRef.current = currentIndex;
+  }, [currentIndex]);
+
+  useEffect(() => {
+    preparedRef.current = prepared;
+  }, [prepared]);
+
+  const clearTransitionTimer = useCallback(() => {
+    if (transitionTimerRef.current !== null) {
+      window.clearTimeout(transitionTimerRef.current);
+      transitionTimerRef.current = null;
+    }
+  }, []);
+
+  const findNextAvailable = useCallback((from: number, direction: 1 | -1) => {
+    for (let offset = 1; offset <= heroSlides.length; offset += 1) {
+      const candidate =
+        (from + direction * offset + heroSlides.length) % heroSlides.length;
+      if (!failedSlidesRef.current.has(candidate)) return candidate;
+    }
+    return from;
+  }, []);
+
+  const prepareSlide = useCallback((index: number) => {
+    if (index === currentIndexRef.current) return null;
+
+    const existing = preparedRef.current;
+    if (existing?.index === index) return existing;
+
+    const nextPrepared = {
+      index,
+      requestId: ++requestIdRef.current,
+      ready: loadedSlidesRef.current.has(index),
     };
-    const onVisibilityChange = () => setDocumentVisible(document.visibilityState === "visible");
-    window.addEventListener(NAVIGATION_ACTIVITY_EVENT, onNavigationActivity);
+    preparedRef.current = nextPrepared;
+    setPrepared(nextPrepared);
+    return nextPrepared;
+  }, []);
+
+  const promotePreparedSlide = useCallback(
+    (index: number, requestId: number) => {
+      const activeRequest = preparedRef.current;
+      if (
+        transitioningRef.current ||
+        !activeRequest ||
+        activeRequest.index !== index ||
+        activeRequest.requestId !== requestId ||
+        !activeRequest.ready
+      ) {
+        return;
+      }
+
+      transitioningRef.current = true;
+      setTransitioning(true);
+      clearTransitionTimer();
+      transitionTimerRef.current = window.setTimeout(
+        () => {
+          currentIndexRef.current = index;
+          preparedRef.current = null;
+          pendingTargetRef.current = null;
+          transitioningRef.current = false;
+          setCurrentIndex(index);
+          setPrepared(null);
+          setTransitioning(false);
+          setTimerEpoch((value) => value + 1);
+          transitionTimerRef.current = null;
+        },
+        reducedMotion ? REDUCED_CROSSFADE_MS : CROSSFADE_DURATION_MS,
+      );
+    },
+    [clearTransitionTimer, reducedMotion],
+  );
+
+  const requestSlide = useCallback(
+    (index: number) => {
+      if (transitioningRef.current) {
+        clearTransitionTimer();
+        transitioningRef.current = false;
+        setTransitioning(false);
+      }
+
+      if (index === currentIndexRef.current) {
+        pendingTargetRef.current = null;
+        preparedRef.current = null;
+        setPrepared(null);
+        setTimerEpoch((value) => value + 1);
+        return;
+      }
+
+      pendingTargetRef.current = index;
+      const target = prepareSlide(index);
+      if (target?.ready) {
+        promotePreparedSlide(target.index, target.requestId);
+      }
+      setTimerEpoch((value) => value + 1);
+    },
+    [clearTransitionTimer, prepareSlide, promotePreparedSlide],
+  );
+
+  const move = useCallback(
+    (direction: 1 | -1) => {
+      const requestedIndex =
+        pendingTargetRef.current ??
+        preparedRef.current?.index ??
+        currentIndexRef.current;
+      requestSlide(findNextAvailable(requestedIndex, direction));
+    },
+    [findNextAvailable, requestSlide],
+  );
+
+  const handlePreparedLoad = useCallback(
+    (index: number, requestId: number) => {
+      loadedSlidesRef.current.add(index);
+      const activeRequest = preparedRef.current;
+      if (
+        !activeRequest ||
+        activeRequest.index !== index ||
+        activeRequest.requestId !== requestId
+      ) {
+        return;
+      }
+
+      const readyRequest = { ...activeRequest, ready: true };
+      preparedRef.current = readyRequest;
+      setPrepared(readyRequest);
+
+      if (pendingTargetRef.current === index) {
+        promotePreparedSlide(index, requestId);
+      }
+    },
+    [promotePreparedSlide],
+  );
+
+  const handlePreparedError = useCallback(
+    (index: number, requestId: number) => {
+      const activeRequest = preparedRef.current;
+      if (
+        !activeRequest ||
+        activeRequest.index !== index ||
+        activeRequest.requestId !== requestId
+      ) {
+        return;
+      }
+
+      failedSlidesRef.current.add(index);
+      pendingTargetRef.current = null;
+      preparedRef.current = null;
+      setPrepared(null);
+      setTimerEpoch((value) => value + 1);
+    },
+    [],
+  );
+
+  useEffect(() => {
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onMotionChange = () => setReducedMotion(motionQuery.matches);
+    const onNavigationActivity = (event: Event) => {
+      setNavigationActive(
+        (event as CustomEvent<{ active: boolean }>).detail.active,
+      );
+    };
+    const onVisibilityChange = () => {
+      setDocumentVisible(document.visibilityState === "visible");
+    };
+
+    onMotionChange();
+    onVisibilityChange();
+    motionQuery.addEventListener("change", onMotionChange);
+    window.addEventListener(
+      NAVIGATION_ACTIVITY_EVENT,
+      onNavigationActivity,
+    );
     document.addEventListener("visibilitychange", onVisibilityChange);
+
     return () => {
-      window.removeEventListener(NAVIGATION_ACTIVITY_EVENT, onNavigationActivity);
+      motionQuery.removeEventListener("change", onMotionChange);
+      window.removeEventListener(
+        NAVIGATION_ACTIVITY_EVENT,
+        onNavigationActivity,
+      );
       document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1024px)");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (navigationActive || !documentVisible || !desktop.matches || reducedMotion.matches) return;
-    const timer = window.setTimeout(() => move(1), AUTOPLAY_MS);
+    if (
+      !firstSlideStable ||
+      transitioning ||
+      preparedRef.current ||
+      failedSlidesRef.current.size >= heroSlides.length - 1
+    ) {
+      return;
+    }
+
+    prepareSlide(findNextAvailable(currentIndex, 1));
+  }, [
+    currentIndex,
+    findNextAvailable,
+    firstSlideStable,
+    prepareSlide,
+    transitioning,
+  ]);
+
+  const autoplayBlocked =
+    paused ||
+    controlsActive ||
+    navigationActive ||
+    !documentVisible ||
+    reducedMotion ||
+    !firstSlideStable ||
+    transitioning;
+
+  useEffect(() => {
+    if (autoplayBlocked) return;
+
+    const timer = window.setTimeout(() => {
+      const target = findNextAvailable(currentIndexRef.current, 1);
+      requestSlide(target);
+    }, VISIBLE_DURATION_MS);
+
     return () => window.clearTimeout(timer);
-  }, [documentVisible, move, navigationActive]);
+  }, [
+    autoplayBlocked,
+    currentIndex,
+    findNextAvailable,
+    requestSlide,
+    timerEpoch,
+  ]);
+
+  useEffect(() => {
+    return () => clearTransitionTimer();
+  }, [clearTransitionTimer]);
+
+  const currentLayer = (
+    <div
+      key={`hero-slide-${currentIndex}`}
+      style={
+        {
+          "--hero-image-y": heroSlides[currentIndex].desktopY,
+        } as CSSProperties
+      }
+      className={`${styles.slide} ${
+        transitioning ? styles.currentLeaving : styles.current
+      }`}
+    >
+      <div className={styles.backdrop} aria-hidden="true">
+        <Image
+          src={heroSlides[currentIndex].src}
+          alt=""
+          fill
+          quality={92}
+          sizes="100vw"
+          className={styles.backdropImage}
+        />
+        <div className={styles.backdropShade} />
+      </div>
+      <Image
+        src={heroSlides[currentIndex].src}
+        alt={heroSlides[currentIndex].alt}
+        width={1920}
+        height={1080}
+        quality={92}
+        preload={currentIndex === 0}
+        fetchPriority={currentIndex === 0 ? "high" : "auto"}
+        sizes="100vw"
+        onLoad={() => {
+          loadedSlidesRef.current.add(currentIndex);
+          if (currentIndex === 0) setFirstSlideStable(true);
+        }}
+        className={styles.foregroundImage}
+      />
+    </div>
+  );
+
+  const preparedLayer = prepared ? (
+    <div
+      key={`hero-slide-${prepared.index}`}
+      aria-hidden="true"
+      style={
+        {
+          "--hero-image-y": heroSlides[prepared.index].desktopY,
+        } as CSSProperties
+      }
+      className={`${styles.slide} ${
+        transitioning ? styles.incomingVisible : styles.incoming
+      }`}
+    >
+      <div className={styles.backdrop}>
+        <Image
+          src={heroSlides[prepared.index].src}
+          alt=""
+          fill
+          quality={92}
+          loading="eager"
+          fetchPriority="low"
+          sizes="100vw"
+          className={styles.backdropImage}
+        />
+        <div className={styles.backdropShade} />
+      </div>
+      <Image
+        src={heroSlides[prepared.index].src}
+        alt=""
+        width={1920}
+        height={1080}
+        quality={92}
+        loading="eager"
+        fetchPriority="low"
+        sizes="100vw"
+        onLoad={() =>
+          handlePreparedLoad(prepared.index, prepared.requestId)
+        }
+        onError={() =>
+          handlePreparedError(prepared.index, prepared.requestId)
+        }
+        className={styles.foregroundImage}
+      />
+    </div>
+  ) : null;
 
   return (
-    <Container className="relative z-10 flex min-h-[780px] items-end pb-52 pt-28 lg:min-h-[900px] lg:items-center lg:pb-36">
-      <div key={campaign.model} className={`relative z-10 max-w-xl ${hasAdvanced ? "motion-safe:animate-[hero-in_.35s_ease-out]" : ""}`}>
-        <p className="eyebrow text-white/65">{campaign.kicker}</p>
-        <p className="mb-3 text-lg font-semibold tracking-[.08em] uppercase">Jetour {campaign.model}</p>
-        <h1 className="max-w-xl text-[clamp(3.25rem,7vw,7rem)] leading-[.88] font-semibold tracking-[-.06em] uppercase">{campaign.title}</h1>
-        <p className="mt-7 max-w-md text-sm leading-7 text-white/68 sm:text-base">{campaign.copy}</p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <JetourButton href={campaign.href} size="large">Explore {campaign.model}</JetourButton>
-          <JetourButton href={campaign.testDrive} variant="secondary" size="large">Book a Test Drive</JetourButton>
-        </div>
-        <div className="mt-9 flex items-center gap-6">
-          <span aria-live="polite" className="text-sm tracking-[.1em]">{String(index + 1).padStart(2, "0")} / {String(campaigns.length).padStart(2, "0")}</span>
-          <div className="flex gap-2">
-            <button onClick={() => move(-1)} aria-label="Previous campaign" className="grid size-11 place-items-center border border-white/25 hover:bg-white hover:text-black"><HugeiconsIcon icon={ArrowLeft01Icon} /></button>
-            <button onClick={() => move(1)} aria-label="Next campaign" className="grid size-11 place-items-center border border-white/25 hover:bg-white hover:text-black"><HugeiconsIcon icon={ArrowRight01Icon} /></button>
-          </div>
-        </div>
+    <div
+      className={styles.carousel}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Featured Jetour promotions"
+    >
+      <div className={styles.stage}>
+        {[currentLayer, preparedLayer]}
+        <div className={styles.topShade} aria-hidden="true" />
       </div>
-      <div className="pointer-events-none absolute inset-x-[13%] top-24 h-[24%] sm:inset-x-3 sm:h-[42%] lg:inset-y-[15%] lg:left-[42%] lg:h-auto">
-        {campaign.image ? (
-          <Image src={campaign.image} alt={`Jetour ${campaign.model}`} fill loading="eager" fetchPriority="high" sizes="(max-width: 639px) 74vw, (max-width: 1023px) 100vw, 58vw" className="object-contain drop-shadow-[0_30px_45px_rgba(0,0,0,.8)]" />
-        ) : (
-          <div className="flex h-full items-center justify-center"><span className="text-[clamp(6rem,18vw,18rem)] font-semibold tracking-[-.09em] text-white/[.045]">{campaign.model}</span></div>
-        )}
-      </div>
-    </Container>
+
+      <button
+        type="button"
+        className={`${styles.edgeButton} ${styles.previousButton}`}
+        onClick={() => move(-1)}
+        onPointerEnter={() => setControlsActive(true)}
+        onPointerLeave={() => setControlsActive(false)}
+        onFocusCapture={() => setControlsActive(true)}
+        onBlurCapture={() => setControlsActive(false)}
+        aria-label="Previous hero image"
+      >
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={25} />
+      </button>
+
+      <button
+        type="button"
+        className={`${styles.edgeButton} ${styles.nextButton}`}
+        onClick={() => move(1)}
+        onPointerEnter={() => setControlsActive(true)}
+        onPointerLeave={() => setControlsActive(false)}
+        onFocusCapture={() => setControlsActive(true)}
+        onBlurCapture={() => setControlsActive(false)}
+        aria-label="Next hero image"
+      >
+        <HugeiconsIcon icon={ArrowRight01Icon} size={25} />
+      </button>
+
+      <button
+        type="button"
+        className={styles.pauseButton}
+        onClick={() => {
+          setPaused((value) => !value);
+          setTimerEpoch((value) => value + 1);
+        }}
+        onPointerEnter={() => setControlsActive(true)}
+        onPointerLeave={() => setControlsActive(false)}
+        onFocusCapture={() => setControlsActive(true)}
+        onBlurCapture={() => setControlsActive(false)}
+        aria-label={paused ? "Play hero carousel" : "Pause hero carousel"}
+      >
+        <HugeiconsIcon icon={paused ? PlayIcon : PauseIcon} size={18} />
+      </button>
+    </div>
   );
 }
