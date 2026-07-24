@@ -2,6 +2,7 @@ import { Container } from "@/components/ui/container";
 import { JetourButton } from "@/components/ui/jetour-button";
 import { modelCatalogue } from "@/data/model-catalogue";
 import { getHomeModel } from "./home-model-data";
+import { CinematicVideoSection } from "./cinematic-video-section";
 import { ModelRangeShowcase } from "./model-range-showcase";
 import { VehicleColorPicker } from "./vehicle-color-picker";
 
@@ -12,6 +13,7 @@ export function ModelsSection() {
 
   return <>
     <ModelRangeShowcase models={featuredModels} />
+    <CinematicVideoSection />
     <section data-header-theme="dark" className="section-pad bg-jetour-black">
       <div id="t2" className="mt-20 border-y border-white/10 bg-[#0d0e0f] py-16 lg:py-24">
         <Container>
