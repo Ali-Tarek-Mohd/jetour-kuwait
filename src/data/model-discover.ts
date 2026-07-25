@@ -21,6 +21,14 @@ export type ModelDiscoverStoryImage = {
   objectPosition: string;
 };
 
+export type ModelDiscoverInteriorFeature = {
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  objectPosition: string;
+};
+
 export type ModelDiscoverData = {
   slug: string;
   name: string;
@@ -53,6 +61,18 @@ export type ModelDiscoverData = {
       heading: string;
       description: string;
       images: ModelDiscoverStoryImage[];
+    };
+  };
+  interior: {
+    viewer: {
+      index: string;
+      heading: string;
+      images: ModelDiscoverStoryImage[];
+    };
+    features: {
+      index: string;
+      heading: string;
+      items: ModelDiscoverInteriorFeature[];
     };
   };
 };
@@ -164,6 +184,95 @@ const discoverModels: ModelDiscoverData[] = [
             alt: "Blue Jetour G700 viewed from a low angle in the desert",
             subtitle: "Built around a bold silhouette",
             objectPosition: "56% 50%",
+          },
+        ],
+      },
+    },
+    interior: {
+      viewer: {
+        index: "05 / Interior",
+        heading: "Interior experience.",
+        images: [
+          {
+            src: "/images/vehicles/g700/discover/interior/editorial/interior-1.webp",
+            alt: "Wide view across the Jetour G700 cabin",
+            subtitle: "Wide cabin view",
+            objectPosition: "51% 50%",
+          },
+          {
+            src: "/images/vehicles/g700/discover/interior/editorial/interior-2.webp",
+            alt: "Driver-focused view inside the Jetour G700",
+            subtitle: "Driver-focused cockpit",
+            objectPosition: "60% 50%",
+          },
+          {
+            src: "/images/vehicles/g700/discover/interior/editorial/interior-3.webp",
+            alt: "Jetour G700 seating and centre console",
+            subtitle: "Premium seating",
+            objectPosition: "52% 50%",
+          },
+          {
+            src: "/images/vehicles/g700/discover/interior/editorial/interior-4.webp",
+            alt: "Full dashboard view inside the Jetour G700",
+            subtitle: "Full dashboard view",
+            objectPosition: "50% 50%",
+          },
+          {
+            src: "/images/vehicles/g700/discover/interior/editorial/interior-5.webp",
+            alt: "Rear cabin view looking toward the Jetour G700 dashboard",
+            subtitle: "Rear cabin view",
+            objectPosition: "50% 50%",
+          },
+        ],
+      },
+      features: {
+        index: "06 / Interior Details",
+        heading: "Interior details.",
+        items: [
+          {
+            title: "Digital Cockpit",
+            description:
+              "A modern cabin centred around a 15.6-inch touchscreen and integrated digital controls.",
+            image:
+              "/images/vehicles/g700/discover/interior/editorial/interior-4.webp",
+            imageAlt: "Full dashboard and digital cockpit inside the Jetour G700",
+            objectPosition: "50% 50%",
+          },
+          {
+            title: "Seamless Connectivity",
+            description:
+              "Apple CarPlay, Android Auto and conveniently positioned USB-A and USB-C connections.",
+            image:
+              "/images/vehicles/g700/discover/interior/features/seamless-connectivity.webp",
+            imageAlt: "Jetour G700 cabin viewed from the rear seating area",
+            objectPosition: "50% 50%",
+          },
+          {
+            title: "Cabin Comfort",
+            description:
+              "Automatic climate control supports a comfortable and considered cabin environment.",
+            image:
+              "/images/vehicles/g700/discover/interior/editorial/interior-2.webp",
+            imageAlt: "Driver seated inside the Jetour G700 cabin",
+            objectPosition: "60% 50%",
+          },
+          {
+            title: "Interior Space",
+            description:
+              "A spacious cabin designed around passenger comfort and everyday versatility.",
+            image:
+              "/images/vehicles/g700/discover/interior/editorial/interior-3.webp",
+            imageAlt: "Jetour G700 front and rear seating layout",
+            objectPosition: "52% 50%",
+          },
+          {
+            title: "Immersive Audio Experience",
+            description:
+              "Integrated cabin audio creates a more engaging experience for every journey.",
+            image:
+              "/images/vehicles/g700/discover/interior/features/immersive-audio.webp",
+            imageAlt: "Lexicon speaker detail inside the Jetour G700",
+            objectPosition: "50% 50%",
           },
         ],
       },

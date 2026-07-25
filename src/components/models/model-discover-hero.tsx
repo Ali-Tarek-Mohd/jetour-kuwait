@@ -84,7 +84,16 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
     const overview = document.getElementById("overview");
     const exteriorStudio = document.getElementById("exterior-studio");
     const exteriorDesign = document.getElementById("exterior-design");
-    if (!hero || !overview || !exteriorStudio || !exteriorDesign) {
+    const interiorExperience = document.getElementById("interior-experience");
+    const interiorDetails = document.getElementById("interior-details");
+    if (
+      !hero ||
+      !overview ||
+      !exteriorStudio ||
+      !exteriorDesign ||
+      !interiorExperience ||
+      !interiorDetails
+    ) {
       return;
     }
 
@@ -106,7 +115,14 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
         const desktopPointer = window.matchMedia(
           "(min-width: 1025px) and (hover: hover) and (pointer: fine)",
         );
-        const sections = [hero, overview, exteriorStudio, exteriorDesign];
+        const sections = [
+          hero,
+          overview,
+          exteriorStudio,
+          exteriorDesign,
+          interiorExperience,
+          interiorDetails,
+        ];
         let state: HandoffState = "idle";
         let accumulatedIntent = 0;
         let intentDirection = 0;

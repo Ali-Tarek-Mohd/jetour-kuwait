@@ -4,6 +4,8 @@ import type { ModelDiscoverData } from "@/data/model-discover";
 import { ModelDiscoverExteriorStory } from "./model-discover-exterior-story";
 import { ModelDiscoverExteriorStudio } from "./model-discover-exterior-studio";
 import { ModelDiscoverHero } from "./model-discover-hero";
+import { ModelDiscoverInteriorDetails } from "./model-discover-interior-details";
+import { ModelDiscoverInteriorViewer } from "./model-discover-interior-viewer";
 import { ModelDiscoverOverview } from "./model-discover-overview";
 import styles from "./model-discover.module.css";
 
@@ -15,6 +17,8 @@ export function ModelDiscoverPage({ model }: { model: ModelDiscoverData }) {
       <ModelDiscoverOverview model={model} />
       <ModelDiscoverExteriorStudio model={model} />
       <ModelDiscoverExteriorStory model={model} />
+      <ModelDiscoverInteriorViewer model={model} />
+      <ModelDiscoverInteriorDetails model={model} />
       <SiteFooter />
     </main>
   );
