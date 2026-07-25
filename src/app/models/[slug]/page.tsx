@@ -16,8 +16,10 @@ import { RelatedModels } from "@/components/models/related-models";
 import { ModelCta } from "@/components/models/model-cta";
 import { MobileModelActions } from "@/components/models/mobile-model-actions";
 import { ModelComingSoon } from "@/components/models/model-coming-soon";
+import { ModelDiscoverPage } from "@/components/models/model-discover-page";
 import { getVehiclePage } from "@/data/vehicle-pages";
 import { getModelCatalogueEntry, modelCatalogue } from "@/data/model-catalogue";
+import { getModelDiscoverData } from "@/data/model-discover";
 import { absoluteCanonical, siteUrl } from "@/lib/site-url";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -28,6 +30,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const catalogueModel = getModelCatalogueEntry(slug);
   if (!catalogueModel) return { title: "Model not found" };
+  const discoverModel = getModelDiscoverData(slug);
+  if (discoverModel) return {
+    title: `JETOUR ${discoverModel.name}`,
+    description: discoverModel.metadataDescription,
+    alternates: { canonical: absoluteCanonical(`/models/${discoverModel.slug}`) },
+    openGraph: {
+      title: `JETOUR ${discoverModel.name} | JETOUR Kuwait`,
+      description: discoverModel.metadataDescription,
+      type: "website",
+      images: siteUrl
+        ? [{
+            url: new URL(discoverModel.hero.image, siteUrl).toString(),
+            alt: discoverModel.hero.imageAlt,
+          }]
+        : undefined,
+    },
+  };
   if (catalogueModel.detailStatus === "coming-soon") return {
     title: `JETOUR ${catalogueModel.name}`,
     description: `JETOUR ${catalogueModel.name} model information for Kuwait is coming soon.`,
@@ -52,6 +71,8 @@ export default async function VehiclePage({ params }: Props) {
   const { slug } = await params;
   const catalogueModel = getModelCatalogueEntry(slug);
   if (!catalogueModel) notFound();
+  const discoverModel = getModelDiscoverData(slug);
+  if (discoverModel) return <ModelDiscoverPage model={discoverModel} />;
   if (catalogueModel.detailStatus === "coming-soon") return <ModelComingSoon model={catalogueModel} />;
   const vehicle = getVehiclePage(slug);
   if (!vehicle) notFound();
