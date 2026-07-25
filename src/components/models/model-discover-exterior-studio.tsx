@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { flushSync } from "react-dom";
 
 import type { ModelDiscoverData } from "@/data/model-discover";
 
@@ -99,10 +100,11 @@ export function ModelDiscoverExteriorStudio({
     transitionRef.current = gsap
       .timeline({
         onComplete: () => {
+          flushSync(() => {
+            setDisplayedIndex(incomingIndex);
+            setIncomingIndex(null);
+          });
           gsap.set(currentLayer, { opacity: 1 });
-          gsap.set(incomingLayer, { opacity: 0 });
-          setDisplayedIndex(incomingIndex);
-          setIncomingIndex(null);
           transitionRef.current = null;
         },
       })
@@ -110,8 +112,8 @@ export function ModelDiscoverExteriorStudio({
         currentLayer,
         {
           opacity: 0,
-          duration: reduceMotion ? 0.04 : 0.22,
-          ease: "power2.inOut",
+          duration: reduceMotion ? 0.02 : 0.1,
+          ease: "power2.in",
         },
         0,
       )
@@ -119,10 +121,10 @@ export function ModelDiscoverExteriorStudio({
         incomingLayer,
         {
           opacity: 1,
-          duration: reduceMotion ? 0.04 : 0.22,
-          ease: "power2.inOut",
+          duration: reduceMotion ? 0.02 : 0.12,
+          ease: "power2.out",
         },
-        0,
+        reduceMotion ? 0.02 : 0.1,
       );
 
     return () => {

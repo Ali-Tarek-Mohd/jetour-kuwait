@@ -13,6 +13,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { flushSync } from "react-dom";
 
 import type { ModelDiscoverData } from "@/data/model-discover";
 
@@ -171,11 +172,12 @@ export function ModelDiscoverExteriorStory({
     transitionRef.current = gsap
       .timeline({
         onComplete: () => {
+          flushSync(() => {
+            setDisplayedIndex(incomingIndex);
+            setIncomingIndex(null);
+          });
           gsap.set(currentLayer, { opacity: 1 });
-          gsap.set(incomingLayer, { opacity: 0 });
           gsap.set(subtitle, { opacity: 1, y: 0 });
-          setDisplayedIndex(incomingIndex);
-          setIncomingIndex(null);
           transitioningRef.current = false;
           transitionRef.current = null;
         },
