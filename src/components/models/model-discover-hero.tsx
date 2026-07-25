@@ -12,7 +12,7 @@ import { NAVIGATION_ACTIVITY_EVENT } from "@/lib/navigation-events";
 
 import styles from "./model-discover.module.css";
 
-type HandoffState = "ready" | "aligning" | "overview" | "released";
+type HandoffState = "idle" | "aligning" | "cooldown";
 
 export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
   const heroRef = useRef<HTMLElement>(null);
@@ -82,7 +82,9 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
   useEffect(() => {
     const hero = heroRef.current;
     const overview = document.getElementById("overview");
-    if (!hero || !overview) {
+    const exteriorStudio = document.getElementById("exterior-studio");
+    const exteriorDesign = document.getElementById("exterior-design");
+    if (!hero || !overview || !exteriorStudio || !exteriorDesign) {
       return;
     }
 
@@ -104,30 +106,52 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
         const desktopPointer = window.matchMedia(
           "(min-width: 1025px) and (hover: hover) and (pointer: fine)",
         );
-        let state: HandoffState =
-          window.scrollY <= Math.max(24, window.innerHeight * 0.08)
-            ? "ready"
-            : "released";
+        const sections = [hero, overview, exteriorStudio, exteriorDesign];
+        let state: HandoffState = "idle";
         let accumulatedIntent = 0;
+        let intentDirection = 0;
         let resetTimer: ReturnType<typeof setTimeout> | null = null;
+        let cooldownTimer: ReturnType<typeof setTimeout> | null = null;
         let scrollTween: gsap.core.Tween | null = null;
         let navigationOpen = false;
 
         const clearIntent = () => {
           accumulatedIntent = 0;
+          intentDirection = 0;
           if (resetTimer) {
             clearTimeout(resetTimer);
             resetTimer = null;
           }
         };
 
+        const clearCooldown = () => {
+          if (cooldownTimer) {
+            clearTimeout(cooldownTimer);
+            cooldownTimer = null;
+          }
+          if (state === "cooldown") {
+            state = "idle";
+          }
+        };
+
+        const armCooldown = () => {
+          if (cooldownTimer) {
+            clearTimeout(cooldownTimer);
+          }
+          cooldownTimer = setTimeout(() => {
+            cooldownTimer = null;
+            if (state === "cooldown") {
+              state = "idle";
+            }
+          }, 170);
+        };
+
         const cancelAlignment = () => {
           scrollTween?.kill();
           scrollTween = null;
           clearIntent();
-          if (state === "aligning") {
-            state = "released";
-          }
+          clearCooldown();
+          state = "idle";
         };
 
         const canAlign = () =>
@@ -146,29 +170,39 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
             return;
           }
 
-          const overviewTop = overview.getBoundingClientRect().top;
-          if (Math.abs(overviewTop) <= 3) {
-            state = event.deltaY > 0 ? "released" : "overview";
-            clearIntent();
+          const alignedIndex = sections.findIndex(
+            (section) => Math.abs(section.getBoundingClientRect().top) <= 4,
+          );
+
+          if (state === "cooldown") {
+            if (alignedIndex >= 0) {
+              event.preventDefault();
+              armCooldown();
+            }
             return;
           }
 
-          const heroBottom = hero.getBoundingClientRect().bottom;
-          const heroIsActive =
-            heroBottom > window.innerHeight * 0.58 &&
-            window.scrollY < hero.offsetHeight * 0.42;
-
           if (
-            state !== "ready" ||
-            !heroIsActive ||
-            event.deltaY <= 0 ||
+            alignedIndex < 0 ||
+            event.deltaY === 0 ||
             Math.abs(event.deltaX) >= Math.abs(event.deltaY)
           ) {
             return;
           }
 
+          const direction = event.deltaY > 0 ? 1 : -1;
+          const targetIndex = alignedIndex + direction;
+          if (targetIndex < 0 || targetIndex >= sections.length) {
+            clearIntent();
+            return;
+          }
+
           event.preventDefault();
-          accumulatedIntent += event.deltaY;
+          if (intentDirection !== 0 && intentDirection !== direction) {
+            clearIntent();
+          }
+          intentDirection = direction;
+          accumulatedIntent += Math.abs(event.deltaY);
           if (resetTimer) {
             clearTimeout(resetTimer);
           }
@@ -181,30 +215,20 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
           state = "aligning";
           clearIntent();
           scrollTween = runtimeGsap.to(window, {
-            scrollTo: { y: overview, offsetY: 0, autoKill: false },
+            scrollTo: {
+              y: sections[targetIndex],
+              offsetY: 0,
+              autoKill: false,
+            },
             duration: 0.7,
             ease: "power3.inOut",
             overwrite: true,
             onComplete: () => {
               scrollTween = null;
-              state = "overview";
+              state = "cooldown";
+              armCooldown();
             },
           });
-        };
-
-        const onScroll = () => {
-          if (state === "aligning") {
-            return;
-          }
-
-          if (
-            hero.getBoundingClientRect().bottom >= window.innerHeight * 0.68 &&
-            window.scrollY <= hero.offsetHeight * 0.32
-          ) {
-            state = "ready";
-          } else if (overview.getBoundingClientRect().top < -64) {
-            state = "released";
-          }
         };
 
         const onNavigationActivity = (event: Event) => {
@@ -229,7 +253,6 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
         };
 
         window.addEventListener("wheel", onWheel, { passive: false });
-        window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener(
           NAVIGATION_ACTIVITY_EVENT,
           onNavigationActivity,
@@ -240,7 +263,6 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
 
         removeListeners = () => {
           window.removeEventListener("wheel", onWheel);
-          window.removeEventListener("scroll", onScroll);
           window.removeEventListener(
             NAVIGATION_ACTIVITY_EVENT,
             onNavigationActivity,
@@ -265,6 +287,7 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
   return (
     <section
       ref={heroRef}
+      id="g700-discover-hero"
       className={styles.hero}
       data-header-theme="dark"
       aria-labelledby="g700-discover-title"

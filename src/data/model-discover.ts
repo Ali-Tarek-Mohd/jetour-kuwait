@@ -8,6 +8,19 @@ export type ModelDiscoverFact = {
   label: string;
 };
 
+export type ModelDiscoverColor = {
+  name: string;
+  image: string;
+  swatch: string;
+};
+
+export type ModelDiscoverStoryImage = {
+  src: string;
+  alt: string;
+  subtitle: string;
+  objectPosition: string;
+};
+
 export type ModelDiscoverData = {
   slug: string;
   name: string;
@@ -27,6 +40,20 @@ export type ModelDiscoverData = {
     image: string;
     imageAlt: string;
     facts: ModelDiscoverFact[];
+  };
+  exterior: {
+    index: string;
+    heading: string;
+    description: string;
+    disclaimer: string;
+    defaultColorIndex: number;
+    colors: ModelDiscoverColor[];
+    story: {
+      index: string;
+      heading: string;
+      description: string;
+      images: ModelDiscoverStoryImage[];
+    };
   };
 };
 
@@ -61,6 +88,85 @@ const discoverModels: ModelDiscoverData[] = [
         { value: "Dual", label: "Electric Motors" },
         { value: "2-speed", label: "DHT" },
       ],
+    },
+    exterior: {
+      index: "03 / Exterior",
+      heading: "Commanding from every angle.",
+      description:
+        "A bold, upright profile and carefully resolved exterior details give the G700 a distinctive presence.",
+      disclaimer:
+        "Colours shown are for visual reference. Local availability may vary.",
+      defaultColorIndex: 1,
+      colors: [
+        {
+          name: "Black",
+          image: "/images/vehicles/g700/discover/exterior/colors/black.webp",
+          swatch: "#17191a",
+        },
+        {
+          name: "Blue",
+          image: "/images/vehicles/g700/discover/exterior/colors/blue.webp",
+          swatch: "#365a76",
+        },
+        {
+          name: "Brown",
+          image: "/images/vehicles/g700/discover/exterior/colors/brown.webp",
+          swatch: "#74513e",
+        },
+        {
+          name: "Orange",
+          image: "/images/vehicles/g700/discover/exterior/colors/orange.webp",
+          swatch: "#bd612c",
+        },
+        {
+          name: "Snow Silver",
+          image:
+            "/images/vehicles/g700/discover/exterior/colors/silver-snow.webp",
+          swatch: "#d3d5d3",
+        },
+        {
+          name: "Silver",
+          image: "/images/vehicles/g700/discover/exterior/colors/silver.webp",
+          swatch: "#858b8d",
+        },
+        {
+          name: "White",
+          image: "/images/vehicles/g700/discover/exterior/colors/white.webp",
+          swatch: "#edeae3",
+        },
+      ],
+      story: {
+        index: "04 / Exterior Design",
+        heading: "Designed with presence.",
+        description:
+          "An upright silhouette, strong front graphic and carefully resolved exterior details create a composed view from every angle.",
+        images: [
+          {
+            src: "/images/vehicles/g700/discover/hero.webp",
+            alt: "Blue Jetour G700 moving through a desert landscape",
+            subtitle: "A commanding exterior profile",
+            objectPosition: "56% 50%",
+          },
+          {
+            src: "/images/vehicles/g700/discover/exterior/exterior-presence.webp",
+            alt: "Blue Jetour G700 shown in side profile at sunset",
+            subtitle: "A composed view from every angle",
+            objectPosition: "60% 50%",
+          },
+          {
+            src: "/images/vehicles/g700/discover/exterior/front-detail.webp",
+            alt: "Front grille and lighting detail of the Jetour G700",
+            subtitle: "Distinctive front design",
+            objectPosition: "48% 50%",
+          },
+          {
+            src: "/images/vehicles/g700/discover/exterior/low-angle-action.webp",
+            alt: "Blue Jetour G700 viewed from a low angle in the desert",
+            subtitle: "Built around a bold silhouette",
+            objectPosition: "56% 50%",
+          },
+        ],
+      },
     },
   },
 ];
