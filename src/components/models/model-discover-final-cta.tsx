@@ -7,14 +7,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { type CSSProperties, useLayoutEffect, useRef } from "react";
 
-import type { ModelDiscoverData } from "@/data/model-discover";
+import type { ModelDiscoverFinalCta as ModelDiscoverFinalCtaData } from "@/data/model-discover";
 
 import styles from "./model-discover-final-cta.module.css";
 
 export function ModelDiscoverFinalCta({
-  model,
+  modelSlug,
+  finalCta,
 }: {
-  model: ModelDiscoverData;
+  modelSlug: string;
+  finalCta: ModelDiscoverFinalCtaData;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -91,22 +93,22 @@ export function ModelDiscoverFinalCta({
   return (
     <section
       ref={sectionRef}
-      id="g700-final-cta"
+      id={finalCta.id}
       className={styles.section}
       data-header-theme="dark"
-      aria-labelledby="g700-final-cta-title"
+      aria-labelledby={finalCta.headingId}
       style={
         {
           "--final-cta-position-desktop":
-            model.finalCta.objectPositionDesktop,
-          "--final-cta-position-mobile": model.finalCta.objectPositionMobile,
+            finalCta.objectPositionDesktop,
+          "--final-cta-position-mobile": finalCta.objectPositionMobile,
         } as CSSProperties
       }
     >
       <Image
         className={styles.image}
-        src={model.finalCta.image}
-        alt={model.finalCta.imageAlt}
+        src={finalCta.image}
+        alt={finalCta.imageAlt}
         fill
         loading="lazy"
         sizes="100vw"
@@ -116,19 +118,19 @@ export function ModelDiscoverFinalCta({
 
       <div className={styles.content}>
         <p className={styles.eyebrow} data-final-cta-eyebrow>
-          {model.finalCta.eyebrow}
+          {finalCta.eyebrow}
         </p>
-        <h2 id="g700-final-cta-title" data-final-cta-heading>
-          {model.finalCta.heading}
+        <h2 id={finalCta.headingId} data-final-cta-heading>
+          {finalCta.heading}
         </h2>
         <p className={styles.description} data-final-cta-description>
-          {model.finalCta.description}
+          {finalCta.description}
         </p>
 
         <div className={styles.actions} data-final-cta-actions>
           <Link
             className={styles.primaryAction}
-            href={`/book-test-drive?model=${model.slug}`}
+            href={`/book-test-drive?model=${modelSlug}`}
           >
             <span>Book a Test Drive</span>
             <HugeiconsIcon icon={ArrowUpRight01Icon} size={18} />

@@ -13,8 +13,8 @@ import {
 import { flushSync } from "react-dom";
 
 import type {
-  ModelDiscoverData,
   ModelDiscoverSpecificationCategory,
+  ModelDiscoverSpecifications as ModelDiscoverSpecificationsData,
 } from "@/data/model-discover";
 
 import styles from "./model-discover-specifications.module.css";
@@ -30,24 +30,11 @@ function SpecificationContent({
     <>
       <div className={styles.leadValues}>
         {category.leadValues.map((lead) => {
-          const lines =
-            lead.label === "Battery Warranty"
-              ? ["8 Years /", "160,000 km"]
-              : lead.label === "Smartphone Integration"
-                ? ["Apple CarPlay", "and Android Auto"]
-                : null;
-          const modifier =
-            lead.label === "Battery Warranty"
-              ? "battery-warranty"
-              : lead.label === "Smartphone Integration"
-                ? "smartphone-integration"
-                : undefined;
-
           return (
             <div key={`${lead.value}-${lead.label}`}>
-              <p data-lead-value={modifier}>
-                {lines
-                  ? lines.map((line) => (
+              <p data-lead-value={lead.typography}>
+                {lead.displayLines
+                  ? lead.displayLines.map((line) => (
                       <span className={styles.leadValueLine} key={line}>
                         {line}
                       </span>
@@ -76,11 +63,13 @@ function SpecificationContent({
 }
 
 export function ModelDiscoverSpecifications({
-  model,
+  modelName,
+  specifications,
 }: {
-  model: ModelDiscoverData;
+  modelName: string;
+  specifications: ModelDiscoverSpecificationsData;
 }) {
-  const categories = model.specifications.categories;
+  const categories = specifications.categories;
   const sectionRef = useRef<HTMLElement>(null);
   const desktopContentRef = useRef<HTMLDivElement>(null);
   const mobileContentRef = useRef<HTMLDivElement>(null);
@@ -282,29 +271,29 @@ export function ModelDiscoverSpecifications({
   return (
     <section
       ref={sectionRef}
-      id="kuwait-specifications"
+      id={specifications.id}
       className={styles.section}
       data-header-theme="dark"
-      aria-labelledby="g700-specifications-title"
+      aria-labelledby={specifications.headingId}
     >
       <div className={styles.inner}>
         <p className={styles.label} data-specification-label>
-          {model.specifications.index}
+          {specifications.index}
         </p>
 
         <div className={styles.desktopLayout}>
           <div className={styles.sidebar}>
             <h2
-              id="g700-specifications-title"
+              id={specifications.headingId}
               data-specification-heading
             >
-              {model.specifications.heading}
+              {specifications.heading}
             </h2>
 
             <div
               className={styles.categoryNavigation}
               role="tablist"
-              aria-label="G700 specification categories"
+              aria-label={`${modelName} specification categories`}
               aria-orientation="vertical"
             >
               {categories.map((category, index) => (
@@ -312,12 +301,12 @@ export function ModelDiscoverSpecifications({
                   ref={(node) => {
                     tabRefs.current[index] = node;
                   }}
-                  id={`g700-specification-tab-${index}`}
+                  id={`${specifications.controlIdPrefix}-tab-${index}`}
                   type="button"
                   role="tab"
                   data-specification-category
                   aria-selected={index === activeIndex}
-                  aria-controls="g700-specification-panel"
+                  aria-controls={`${specifications.controlIdPrefix}-panel`}
                   tabIndex={index === activeIndex ? 0 : -1}
                   key={category.name}
                   onClick={() => requestCategory(index)}
@@ -332,20 +321,20 @@ export function ModelDiscoverSpecifications({
 
           <div
             ref={desktopContentRef}
-            id="g700-specification-panel"
+            id={`${specifications.controlIdPrefix}-panel`}
             className={styles.content}
             role="tabpanel"
-            aria-labelledby={`g700-specification-tab-${activeIndex}`}
+            aria-labelledby={`${specifications.controlIdPrefix}-tab-${activeIndex}`}
             data-specification-content
           >
             <SpecificationContent category={activeCategory} />
-            <p className={styles.note}>{model.specifications.note}</p>
+            <p className={styles.note}>{specifications.note}</p>
           </div>
         </div>
 
         <div className={styles.mobileLayout}>
           <h2 data-specification-heading>
-            {model.specifications.heading}
+            {specifications.heading}
           </h2>
 
           <div className={styles.accordions}>
@@ -358,7 +347,7 @@ export function ModelDiscoverSpecifications({
                       type="button"
                       data-specification-category
                       aria-expanded={expanded}
-                      aria-controls={`g700-specification-accordion-${index}`}
+                      aria-controls={`${specifications.controlIdPrefix}-accordion-${index}`}
                       onClick={() => requestCategory(index)}
                     >
                       <span>{String(index + 1).padStart(2, "0")}</span>
@@ -369,7 +358,7 @@ export function ModelDiscoverSpecifications({
                   {expanded ? (
                     <div
                       ref={mobileContentRef}
-                      id={`g700-specification-accordion-${index}`}
+                      id={`${specifications.controlIdPrefix}-accordion-${index}`}
                       className={styles.mobileContent}
                       data-specification-content
                     >
@@ -381,7 +370,7 @@ export function ModelDiscoverSpecifications({
             })}
           </div>
 
-          <p className={styles.note}>{model.specifications.note}</p>
+          <p className={styles.note}>{specifications.note}</p>
         </div>
 
         <p className={styles.announcement} aria-live="polite">

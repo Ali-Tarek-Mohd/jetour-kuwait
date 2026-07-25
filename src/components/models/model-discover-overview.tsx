@@ -1,27 +1,25 @@
 "use client";
 
 import gsap from "gsap";
+import Image from "next/image";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-import type { ModelDiscoverData } from "@/data/model-discover";
+import type {
+  ModelDiscoverOverview as ModelDiscoverOverviewData,
+} from "@/data/model-discover";
 import { NAVIGATION_ACTIVITY_EVENT } from "@/lib/navigation-events";
 
 import styles from "./model-discover.module.css";
 
-const OVERVIEW_VIDEO =
-  "/images/vehicles/g700/discover/video/g700-overview.mp4";
-const OVERVIEW_POSTER =
-  "/images/vehicles/g700/discover/video/g700-overview-poster.webp";
-
 export function ModelDiscoverOverview({
-  model,
+  overview,
 }: {
-  model: ModelDiscoverData;
+  overview: ModelDiscoverOverviewData;
 }) {
-  const headingMatch = model.overview.heading.match(/^(.*\bthe)\s+(.+)$/i);
+  const headingMatch = overview.heading.match(/^(.*\bthe)\s+(.+)$/i);
   const headingLines = headingMatch
     ? [headingMatch[1], headingMatch[2]]
-    : [model.overview.heading];
+    : [overview.heading];
   const overviewRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const activeRef = useRef(false);
@@ -31,9 +29,9 @@ export function ModelDiscoverOverview({
   const [reducedMotion, setReducedMotion] = useState(true);
 
   useEffect(() => {
-    const overview = overviewRef.current;
+    const overviewElement = overviewRef.current;
     const video = videoRef.current;
-    if (!overview || !video) {
+    if (!overviewElement || !video || !overview.video) {
       return;
     }
 
@@ -106,7 +104,7 @@ export function ModelDiscoverOverview({
     video.muted = true;
     video.defaultMuted = true;
     applyMotionPreference();
-    observer.observe(overview);
+    observer.observe(overviewElement);
     motionQuery.addEventListener("change", applyMotionPreference);
     document.addEventListener("visibilitychange", onVisibilityChange);
     window.addEventListener(
@@ -124,7 +122,7 @@ export function ModelDiscoverOverview({
       );
       video.pause();
     };
-  }, []);
+  }, [overview.video]);
 
   useLayoutEffect(() => {
     const overview = overviewRef.current;
@@ -209,35 +207,45 @@ export function ModelDiscoverOverview({
   return (
     <section
       ref={overviewRef}
-      id="overview"
+      id={overview.id}
       className={styles.overview}
       data-header-theme="dark"
-      aria-labelledby="g700-overview-title"
+      aria-labelledby={overview.headingId}
     >
       <div className={styles.overviewMedia} data-overview-media>
-        <video
-          ref={videoRef}
-          className={styles.overviewVideo}
-          autoPlay={isActive && !reducedMotion}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={OVERVIEW_POSTER}
-          aria-hidden="true"
-        >
-          <source src={OVERVIEW_VIDEO} type="video/mp4" />
-        </video>
+        {overview.video ? (
+          <video
+            ref={videoRef}
+            className={styles.overviewVideo}
+            autoPlay={isActive && !reducedMotion}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={overview.video.poster}
+            aria-hidden="true"
+          >
+            <source src={overview.video.src} type="video/mp4" />
+          </video>
+        ) : (
+          <Image
+            className={styles.overviewVideo}
+            src={overview.image}
+            alt={overview.imageAlt}
+            fill
+            sizes="100vw"
+          />
+        )}
       </div>
       <div className={styles.overviewShade} aria-hidden="true" />
 
       <div className={styles.overviewInner}>
         <div className={styles.overviewCopy}>
           <p className={styles.overviewIndex} data-overview-copy>
-            {model.overview.index}
+            {overview.index}
           </p>
           <h2
-            id="g700-overview-title"
+            id={overview.headingId}
             className={styles.overviewTitle}
             data-overview-copy
           >
@@ -246,12 +254,12 @@ export function ModelDiscoverOverview({
             ))}
           </h2>
           <p className={styles.overviewDescription} data-overview-copy>
-            {model.overview.description}
+            {overview.description}
           </p>
         </div>
 
         <dl className={styles.overviewDetails}>
-          {model.overview.facts.map((fact) => (
+          {overview.facts.map((fact) => (
             <div
               className={styles.overviewDetail}
               data-overview-stat

@@ -11,14 +11,16 @@ import {
 } from "react";
 import { flushSync } from "react-dom";
 
-import type { ModelDiscoverData } from "@/data/model-discover";
+import type { ModelDiscoverExteriorStudio as ModelDiscoverExteriorStudioData } from "@/data/model-discover";
 
 import styles from "./model-discover-exterior.module.css";
 
 export function ModelDiscoverExteriorStudio({
-  model,
+  modelName,
+  exterior,
 }: {
-  model: ModelDiscoverData;
+  modelName: string;
+  exterior: ModelDiscoverExteriorStudioData;
 }) {
   const studioRef = useRef<HTMLElement>(null);
   const currentLayerRef = useRef<HTMLDivElement>(null);
@@ -30,14 +32,14 @@ export function ModelDiscoverExteriorStudio({
   const generationRef = useRef(0);
   const loadedRef = useRef(
     new Set([
-      model.exterior.colors[model.exterior.defaultColorIndex].image,
+      exterior.colors[exterior.defaultColorIndex].image,
     ]),
   );
   const [displayedIndex, setDisplayedIndex] = useState(
-    model.exterior.defaultColorIndex,
+    exterior.defaultColorIndex,
   );
   const [selectedIndex, setSelectedIndex] = useState(
-    model.exterior.defaultColorIndex,
+    exterior.defaultColorIndex,
   );
   const [incomingIndex, setIncomingIndex] = useState<number | null>(null);
 
@@ -45,7 +47,7 @@ export function ModelDiscoverExteriorStudio({
     let cancelled = false;
     const preloadPromises = new Map<string, Promise<boolean>>();
     preloadPromisesRef.current = preloadPromises;
-    const preloaders = model.exterior.colors.map((color) => {
+    const preloaders = exterior.colors.map((color) => {
       const loader = new window.Image();
       loader.decoding = "async";
       const decoded = new Promise<boolean>((resolve) => {
@@ -77,7 +79,7 @@ export function ModelDiscoverExteriorStudio({
       preloadersRef.current = [];
       preloadPromises.clear();
     };
-  }, [model.exterior.colors]);
+  }, [exterior.colors]);
 
   useEffect(() => {
     if (incomingIndex === null) {
@@ -138,7 +140,7 @@ export function ModelDiscoverExteriorStudio({
     }
 
     const generation = ++generationRef.current;
-    const imagePath = model.exterior.colors[index].image;
+    const imagePath = exterior.colors[index].image;
 
     const reveal = () => {
       if (generation !== generationRef.current) {
@@ -257,15 +259,15 @@ export function ModelDiscoverExteriorStudio({
     let nextIndex: number | null = null;
 
     if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-      nextIndex = (index + 1) % model.exterior.colors.length;
+      nextIndex = (index + 1) % exterior.colors.length;
     } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
       nextIndex =
-        (index - 1 + model.exterior.colors.length) %
-        model.exterior.colors.length;
+        (index - 1 + exterior.colors.length) %
+        exterior.colors.length;
     } else if (event.key === "Home") {
       nextIndex = 0;
     } else if (event.key === "End") {
-      nextIndex = model.exterior.colors.length - 1;
+      nextIndex = exterior.colors.length - 1;
     }
 
     if (nextIndex === null) {
@@ -277,37 +279,37 @@ export function ModelDiscoverExteriorStudio({
     selectColor(nextIndex);
   };
 
-  const selectedColor = model.exterior.colors[selectedIndex];
-  const displayedColor = model.exterior.colors[displayedIndex];
+  const selectedColor = exterior.colors[selectedIndex];
+  const displayedColor = exterior.colors[displayedIndex];
   const incomingColor =
-    incomingIndex === null ? null : model.exterior.colors[incomingIndex];
+    incomingIndex === null ? null : exterior.colors[incomingIndex];
 
   return (
     <section
       ref={studioRef}
-      id="exterior-studio"
+      id={exterior.id}
       className={styles.studio}
       data-header-theme="dark"
-      aria-labelledby="g700-exterior-title"
+      aria-labelledby={exterior.headingId}
     >
       <div className={styles.studioWordmark} aria-hidden="true">
-        G700
+        {modelName}
       </div>
       <div className={styles.studioLight} aria-hidden="true" />
 
       <div className={styles.studioCopy}>
         <p className={styles.studioIndex} data-exterior-copy>
-          {model.exterior.index}
+          {exterior.index}
         </p>
         <h2
-          id="g700-exterior-title"
+          id={exterior.headingId}
           className={styles.studioTitle}
           data-exterior-copy
         >
-          {model.exterior.heading}
+          {exterior.heading}
         </h2>
         <p className={styles.studioDescription} data-exterior-copy>
-          {model.exterior.description}
+          {exterior.description}
         </p>
       </div>
 
@@ -317,7 +319,7 @@ export function ModelDiscoverExteriorStudio({
           <Image
             className={styles.vehicleImage}
             src={displayedColor.image}
-            alt={`${model.name} exterior in ${displayedColor.name}`}
+            alt={`${modelName} exterior in ${displayedColor.name}`}
             fill
             unoptimized
             sizes="(max-width: 1024px) 100vw, 82vw"
@@ -349,16 +351,16 @@ export function ModelDiscoverExteriorStudio({
         <div
           className={styles.swatches}
           role="group"
-          aria-label="Choose G700 exterior colour"
+          aria-label={`Choose ${modelName} exterior colour`}
         >
-          {model.exterior.colors.map((color, index) => (
+          {exterior.colors.map((color, index) => (
             <button
               ref={(button) => {
                 swatchRefs.current[index] = button;
               }}
               className={styles.swatchButton}
               type="button"
-              aria-label={`View G700 in ${color.name}`}
+              aria-label={`View ${modelName} in ${color.name}`}
               aria-pressed={selectedIndex === index}
               data-exterior-swatch
               key={color.name}
@@ -373,7 +375,7 @@ export function ModelDiscoverExteriorStudio({
             </button>
           ))}
         </div>
-        <p className={styles.disclaimer}>{model.exterior.disclaimer}</p>
+        <p className={styles.disclaimer}>{exterior.disclaimer}</p>
       </div>
     </section>
   );

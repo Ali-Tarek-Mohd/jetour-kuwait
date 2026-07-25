@@ -17,7 +17,7 @@ import {
 } from "react";
 import { flushSync } from "react-dom";
 
-import type { ModelDiscoverData } from "@/data/model-discover";
+import type { ModelDiscoverInteriorDetails as ModelDiscoverInteriorDetailsData } from "@/data/model-discover";
 
 import styles from "./model-discover-interior.module.css";
 
@@ -49,11 +49,13 @@ function formatCounter(index: number, length: number) {
 }
 
 export function ModelDiscoverInteriorDetails({
-  model,
+  modelName,
+  interior,
 }: {
-  model: ModelDiscoverData;
+  modelName: string;
+  interior: ModelDiscoverInteriorDetailsData;
 }) {
-  const features = model.interior.features.items;
+  const features = interior.items;
   const sectionRef = useRef<HTMLElement>(null);
   const metadataRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -317,26 +319,26 @@ export function ModelDiscoverInteriorDetails({
   return (
     <section
       ref={sectionRef}
-      id="interior-details"
+      id={interior.id}
       className={styles.details}
       data-header-theme="dark"
-      aria-labelledby="g700-interior-details-title"
+      aria-labelledby={interior.headingId}
       tabIndex={0}
       onKeyDown={onKeyDown}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
       <header className={styles.detailsHeader}>
-        <p>{model.interior.features.index}</p>
-        <h2 id="g700-interior-details-title">
-          {model.interior.features.heading}
+        <p>{interior.index}</p>
+        <h2 id={interior.headingId}>
+          {interior.heading}
         </h2>
       </header>
 
       <div className={styles.detailsStage}>
         <div
           className={styles.detailsGallery}
-          aria-label="G700 interior detail gallery"
+          aria-label={`${modelName} interior detail gallery`}
         >
           {features.map((feature, index) => {
             const offset = wrapIndex(index - activeIndex, features.length);

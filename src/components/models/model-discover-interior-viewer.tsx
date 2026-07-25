@@ -15,14 +15,14 @@ import {
 } from "react";
 import { flushSync } from "react-dom";
 
-import type { ModelDiscoverData } from "@/data/model-discover";
+import type { ModelDiscoverInteriorViewer as ModelDiscoverInteriorViewerData } from "@/data/model-discover";
 
 import styles from "./model-discover-interior.module.css";
 
 export function ModelDiscoverInteriorViewer({
-  model,
+  interior,
 }: {
-  model: ModelDiscoverData;
+  interior: ModelDiscoverInteriorViewerData;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const currentLayerRef = useRef<HTMLDivElement>(null);
@@ -34,7 +34,7 @@ export function ModelDiscoverInteriorViewer({
   const pointerStartRef = useRef<number | null>(null);
   const preloadersRef = useRef<HTMLImageElement[]>([]);
   const preloadPromisesRef = useRef(new Map<string, Promise<boolean>>());
-  const loadedRef = useRef(new Set([model.interior.viewer.images[0].src]));
+  const loadedRef = useRef(new Set([interior.images[0].src]));
   const [displayedIndex, setDisplayedIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [metadataIndex, setMetadataIndex] = useState(0);
@@ -44,7 +44,7 @@ export function ModelDiscoverInteriorViewer({
     let cancelled = false;
     const preloadPromises = new Map<string, Promise<boolean>>();
     preloadPromisesRef.current = preloadPromises;
-    const preloaders = model.interior.viewer.images.map((slide) => {
+    const preloaders = interior.images.map((slide) => {
       const loader = new window.Image();
       loader.decoding = "async";
       const decoded = new Promise<boolean>((resolve) => {
@@ -76,7 +76,7 @@ export function ModelDiscoverInteriorViewer({
       preloadersRef.current = [];
       preloadPromises.clear();
     };
-  }, [model.interior.viewer.images]);
+  }, [interior.images]);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -242,7 +242,7 @@ export function ModelDiscoverInteriorViewer({
     }
 
     const generation = ++generationRef.current;
-    const imagePath = model.interior.viewer.images[index].src;
+    const imagePath = interior.images[index].src;
     const reveal = () => {
       if (generation !== generationRef.current) {
         return;
@@ -278,8 +278,8 @@ export function ModelDiscoverInteriorViewer({
 
   const moveSlide = (direction: 1 | -1) => {
     requestSlide(
-      (selectedIndex + direction + model.interior.viewer.images.length) %
-        model.interior.viewer.images.length,
+      (selectedIndex + direction + interior.images.length) %
+        interior.images.length,
     );
   };
 
@@ -311,20 +311,20 @@ export function ModelDiscoverInteriorViewer({
     }
   };
 
-  const displayedSlide = model.interior.viewer.images[displayedIndex];
-  const metadataSlide = model.interior.viewer.images[metadataIndex];
+  const displayedSlide = interior.images[displayedIndex];
+  const metadataSlide = interior.images[metadataIndex];
   const incomingSlide =
     incomingIndex === null
       ? null
-      : model.interior.viewer.images[incomingIndex];
+      : interior.images[incomingIndex];
 
   return (
     <section
       ref={sectionRef}
-      id="interior-experience"
+      id={interior.id}
       className={styles.viewer}
       data-header-theme="dark"
-      aria-labelledby="g700-interior-title"
+      aria-labelledby={interior.headingId}
       tabIndex={0}
       onKeyDown={onKeyDown}
       onPointerDown={onPointerDown}
@@ -361,9 +361,9 @@ export function ModelDiscoverInteriorViewer({
       <div className={styles.viewerShade} aria-hidden="true" />
 
       <div className={styles.viewerCopy}>
-        <p data-interior-copy>{model.interior.viewer.index}</p>
-        <h2 id="g700-interior-title" data-interior-copy>
-          {model.interior.viewer.heading}
+        <p data-interior-copy>{interior.index}</p>
+        <h2 id={interior.headingId} data-interior-copy>
+          {interior.heading}
         </h2>
       </div>
 
@@ -373,7 +373,7 @@ export function ModelDiscoverInteriorViewer({
         </p>
         <span data-interior-meta>
           {String(metadataIndex + 1).padStart(2, "0")} /{" "}
-          {String(model.interior.viewer.images.length).padStart(2, "0")}
+          {String(interior.images.length).padStart(2, "0")}
         </span>
       </div>
 
@@ -401,7 +401,7 @@ export function ModelDiscoverInteriorViewer({
         aria-label="Interior image selection"
         data-interior-control
       >
-        {model.interior.viewer.images.map((slide, index) => (
+        {interior.images.map((slide, index) => (
           <button
             type="button"
             aria-label={`Show interior image ${index + 1}`}

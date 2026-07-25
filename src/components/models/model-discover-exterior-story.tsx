@@ -15,14 +15,14 @@ import {
 } from "react";
 import { flushSync } from "react-dom";
 
-import type { ModelDiscoverData } from "@/data/model-discover";
+import type { ModelDiscoverExteriorStory as ModelDiscoverExteriorStoryData } from "@/data/model-discover";
 
 import styles from "./model-discover-exterior.module.css";
 
 export function ModelDiscoverExteriorStory({
-  model,
+  exterior,
 }: {
-  model: ModelDiscoverData;
+  exterior: ModelDiscoverExteriorStoryData;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const currentLayerRef = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ export function ModelDiscoverExteriorStory({
   const preloadersRef = useRef<HTMLImageElement[]>([]);
   const preloadPromisesRef = useRef(new Map<string, Promise<boolean>>());
   const loadedRef = useRef(
-    new Set([model.exterior.story.images[0].src]),
+    new Set([exterior.images[0].src]),
   );
   const [displayedIndex, setDisplayedIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -46,7 +46,7 @@ export function ModelDiscoverExteriorStory({
     let cancelled = false;
     const preloadPromises = new Map<string, Promise<boolean>>();
     preloadPromisesRef.current = preloadPromises;
-    const preloaders = model.exterior.story.images.map((slide) => {
+    const preloaders = exterior.images.map((slide) => {
       const loader = new window.Image();
       loader.decoding = "async";
       const decoded = new Promise<boolean>((resolve) => {
@@ -78,7 +78,7 @@ export function ModelDiscoverExteriorStory({
       preloadersRef.current = [];
       preloadPromises.clear();
     };
-  }, [model.exterior.story.images]);
+  }, [exterior.images]);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -250,7 +250,7 @@ export function ModelDiscoverExteriorStory({
 
     const generation = ++generationRef.current;
 
-    const imagePath = model.exterior.story.images[index].src;
+    const imagePath = exterior.images[index].src;
     const reveal = () => {
       if (generation !== generationRef.current) {
         return;
@@ -286,8 +286,8 @@ export function ModelDiscoverExteriorStory({
 
   const moveSlide = (direction: 1 | -1) => {
     requestSlide(
-      (selectedIndex + direction + model.exterior.story.images.length) %
-        model.exterior.story.images.length,
+      (selectedIndex + direction + exterior.images.length) %
+        exterior.images.length,
     );
   };
 
@@ -319,20 +319,20 @@ export function ModelDiscoverExteriorStory({
     }
   };
 
-  const displayedSlide = model.exterior.story.images[displayedIndex];
-  const metadataSlide = model.exterior.story.images[metadataIndex];
+  const displayedSlide = exterior.images[displayedIndex];
+  const metadataSlide = exterior.images[metadataIndex];
   const incomingSlide =
     incomingIndex === null
       ? null
-      : model.exterior.story.images[incomingIndex];
+      : exterior.images[incomingIndex];
 
   return (
     <section
       ref={sectionRef}
-      id="exterior-design"
+      id={exterior.id}
       className={styles.story}
       data-header-theme="dark"
-      aria-labelledby="g700-exterior-story-title"
+      aria-labelledby={exterior.headingId}
       tabIndex={0}
       onKeyDown={onKeyDown}
       onPointerDown={onPointerDown}
@@ -370,10 +370,10 @@ export function ModelDiscoverExteriorStory({
 
       <div className={styles.storyCopy}>
         <p className={styles.storyIndex} data-story-copy>
-          {model.exterior.story.index}
+          {exterior.index}
         </p>
-        <h2 id="g700-exterior-story-title" data-story-copy>
-          {model.exterior.story.heading}
+        <h2 id={exterior.headingId} data-story-copy>
+          {exterior.heading}
         </h2>
       </div>
 
@@ -383,7 +383,7 @@ export function ModelDiscoverExteriorStory({
         </p>
         <span data-story-meta>
           {String(metadataIndex + 1).padStart(2, "0")} /{" "}
-          {String(model.exterior.story.images.length).padStart(2, "0")}
+          {String(exterior.images.length).padStart(2, "0")}
         </span>
       </div>
 
@@ -411,7 +411,7 @@ export function ModelDiscoverExteriorStory({
         aria-label="Exterior image selection"
         data-story-control
       >
-        {model.exterior.story.images.map((slide, index) => (
+        {exterior.images.map((slide, index) => (
           <button
             type="button"
             aria-label={`Show exterior image ${index + 1}`}

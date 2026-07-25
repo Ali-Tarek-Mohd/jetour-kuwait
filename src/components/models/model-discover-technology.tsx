@@ -16,7 +16,7 @@ import {
 } from "react";
 import { flushSync } from "react-dom";
 
-import type { ModelDiscoverData } from "@/data/model-discover";
+import type { ModelDiscoverTechnology as ModelDiscoverTechnologyData } from "@/data/model-discover";
 
 import styles from "./model-discover-technology.module.css";
 
@@ -31,11 +31,11 @@ function formatCounter(index: number, length: number) {
 }
 
 export function ModelDiscoverTechnology({
-  model,
+  technology,
 }: {
-  model: ModelDiscoverData;
+  technology: ModelDiscoverTechnologyData;
 }) {
-  const slides = model.technology.slides;
+  const slides = technology.slides;
   const sectionRef = useRef<HTMLElement>(null);
   const labelRef = useRef<HTMLParagraphElement>(null);
   const imageRevealRef = useRef<HTMLDivElement>(null);
@@ -286,17 +286,17 @@ export function ModelDiscoverTechnology({
   return (
     <section
       ref={sectionRef}
-      id="intelligent-technology"
+      id={technology.id}
       className={styles.section}
       data-header-theme="dark"
-      aria-labelledby="g700-technology-title"
+      aria-labelledby={technology.headingId}
       tabIndex={0}
       onKeyDown={onKeyDown}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
       <p ref={labelRef} className={styles.label}>
-        {model.technology.index}
+        {technology.index}
       </p>
 
       <div className={styles.layout}>
@@ -322,7 +322,7 @@ export function ModelDiscoverTechnology({
               <p className={styles.counter}>
                 {formatCounter(activeIndex, slides.length)}
               </p>
-              <h2 id="g700-technology-title">{slide.heading}</h2>
+              <h2 id={technology.headingId}>{slide.heading}</h2>
             </div>
 
             <div className={styles.details}>

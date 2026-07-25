@@ -6,6 +6,8 @@ export type ModelDiscoverHighlight = {
 export type ModelDiscoverFact = {
   value: string;
   label: string;
+  displayLines?: string[];
+  typography?: "battery-warranty" | "smartphone-integration";
 };
 
 export type ModelDiscoverColor = {
@@ -49,11 +51,92 @@ export type ModelDiscoverSpecificationCategory = {
   details: ModelDiscoverSpecificationDetail[];
 };
 
+export type ModelDiscoverSectionIdentity = {
+  id: string;
+  headingId: string;
+};
+
+export type ModelDiscoverSectionKey =
+  | "hero"
+  | "overview"
+  | "exteriorStudio"
+  | "exteriorDesign"
+  | "interiorViewer"
+  | "interiorDetails"
+  | "technology"
+  | "specifications"
+  | "finalCta";
+
+export type ModelDiscoverOverview = ModelDiscoverSectionIdentity & {
+  index: string;
+  heading: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  video?: {
+    src: string;
+    poster: string;
+  };
+  facts: ModelDiscoverFact[];
+};
+
+export type ModelDiscoverExteriorStudio = ModelDiscoverSectionIdentity & {
+  index: string;
+  heading: string;
+  description: string;
+  disclaimer: string;
+  defaultColorIndex: number;
+  colors: ModelDiscoverColor[];
+};
+
+export type ModelDiscoverExteriorStory = ModelDiscoverSectionIdentity & {
+  index: string;
+  heading: string;
+  description: string;
+  images: ModelDiscoverStoryImage[];
+};
+
+export type ModelDiscoverInteriorViewer = ModelDiscoverSectionIdentity & {
+  index: string;
+  heading: string;
+  images: ModelDiscoverStoryImage[];
+};
+
+export type ModelDiscoverInteriorDetails = ModelDiscoverSectionIdentity & {
+  index: string;
+  heading: string;
+  items: ModelDiscoverInteriorFeature[];
+};
+
+export type ModelDiscoverTechnology = ModelDiscoverSectionIdentity & {
+  index: string;
+  slides: ModelDiscoverTechnologySlide[];
+};
+
+export type ModelDiscoverSpecifications = ModelDiscoverSectionIdentity & {
+  controlIdPrefix: string;
+  index: string;
+  heading: string;
+  note: string;
+  categories: ModelDiscoverSpecificationCategory[];
+};
+
+export type ModelDiscoverFinalCta = ModelDiscoverSectionIdentity & {
+  eyebrow: string;
+  heading: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  objectPositionDesktop: string;
+  objectPositionMobile: string;
+};
+
 export type ModelDiscoverData = {
   slug: string;
   name: string;
   metadataDescription: string;
-  hero: {
+  sectionOrder: ModelDiscoverSectionKey[];
+  hero: ModelDiscoverSectionIdentity & {
     eyebrow: string;
     supportingLine: string;
     image: string;
@@ -61,59 +144,18 @@ export type ModelDiscoverData = {
     objectPosition: string;
     highlights: ModelDiscoverHighlight[];
   };
-  overview: {
-    index: string;
-    heading: string;
-    description: string;
-    image: string;
-    imageAlt: string;
-    facts: ModelDiscoverFact[];
+  overview?: ModelDiscoverOverview;
+  exterior?: {
+    studio?: ModelDiscoverExteriorStudio;
+    story?: ModelDiscoverExteriorStory;
   };
-  exterior: {
-    index: string;
-    heading: string;
-    description: string;
-    disclaimer: string;
-    defaultColorIndex: number;
-    colors: ModelDiscoverColor[];
-    story: {
-      index: string;
-      heading: string;
-      description: string;
-      images: ModelDiscoverStoryImage[];
-    };
+  interior?: {
+    viewer?: ModelDiscoverInteriorViewer;
+    features?: ModelDiscoverInteriorDetails;
   };
-  interior: {
-    viewer: {
-      index: string;
-      heading: string;
-      images: ModelDiscoverStoryImage[];
-    };
-    features: {
-      index: string;
-      heading: string;
-      items: ModelDiscoverInteriorFeature[];
-    };
-  };
-  technology: {
-    index: string;
-    slides: ModelDiscoverTechnologySlide[];
-  };
-  specifications: {
-    index: string;
-    heading: string;
-    note: string;
-    categories: ModelDiscoverSpecificationCategory[];
-  };
-  finalCta: {
-    eyebrow: string;
-    heading: string;
-    description: string;
-    image: string;
-    imageAlt: string;
-    objectPositionDesktop: string;
-    objectPositionMobile: string;
-  };
+  technology?: ModelDiscoverTechnology;
+  specifications?: ModelDiscoverSpecifications;
+  finalCta?: ModelDiscoverFinalCta;
 };
 
 const discoverModels: ModelDiscoverData[] = [
@@ -122,7 +164,20 @@ const discoverModels: ModelDiscoverData[] = [
     name: "G700",
     metadataDescription:
       "Discover the Jetour G700 plug-in hybrid for Kuwait, with 904 PS combined system power, 4WD and dual electric motors.",
+    sectionOrder: [
+      "hero",
+      "overview",
+      "exteriorStudio",
+      "exteriorDesign",
+      "interiorViewer",
+      "interiorDetails",
+      "technology",
+      "specifications",
+      "finalCta",
+    ],
     hero: {
+      id: "g700-discover-hero",
+      headingId: "g700-discover-title",
       eyebrow: "Jetour G700",
       supportingLine: "Plug-in Hybrid Power",
       image: "/images/vehicles/g700/discover/hero.webp",
@@ -136,12 +191,19 @@ const discoverModels: ModelDiscoverData[] = [
       ],
     },
     overview: {
+      id: "overview",
+      headingId: "g700-overview-title",
       index: "01 / G700",
       heading: "Power for the unexpected.",
       description:
         "The G700 brings together a 2.0-litre turbocharged four-cylinder engine, dual electric motors and a two-speed DHT in a plug-in hybrid system with 4WD.",
       image: "/images/vehicles/g700/discover/overview-vehicle.webp",
       imageAlt: "Blue Jetour G700 plug-in hybrid exterior",
+      video: {
+        src: "/images/vehicles/g700/discover/video/g700-overview.mp4",
+        poster:
+          "/images/vehicles/g700/discover/video/g700-overview-poster.webp",
+      },
       facts: [
         { value: "2.0L", label: "Turbocharged Engine" },
         { value: "Dual", label: "Electric Motors" },
@@ -149,14 +211,17 @@ const discoverModels: ModelDiscoverData[] = [
       ],
     },
     exterior: {
-      index: "03 / Exterior",
-      heading: "Commanding from every angle.",
-      description:
-        "A bold, upright profile and carefully resolved exterior details give the G700 a distinctive presence.",
-      disclaimer:
-        "Colours shown are for visual reference. Local availability may vary.",
-      defaultColorIndex: 1,
-      colors: [
+      studio: {
+        id: "exterior-studio",
+        headingId: "g700-exterior-title",
+        index: "03 / Exterior",
+        heading: "Commanding from every angle.",
+        description:
+          "A bold, upright profile and carefully resolved exterior details give the G700 a distinctive presence.",
+        disclaimer:
+          "Colours shown are for visual reference. Local availability may vary.",
+        defaultColorIndex: 1,
+        colors: [
         {
           name: "Black",
           image: "/images/vehicles/g700/discover/exterior/colors/black.webp",
@@ -193,8 +258,11 @@ const discoverModels: ModelDiscoverData[] = [
           image: "/images/vehicles/g700/discover/exterior/colors/white.webp",
           swatch: "#edeae3",
         },
-      ],
+        ],
+      },
       story: {
+        id: "exterior-design",
+        headingId: "g700-exterior-story-title",
         index: "04 / Exterior Design",
         heading: "Designed with presence.",
         description:
@@ -229,6 +297,8 @@ const discoverModels: ModelDiscoverData[] = [
     },
     interior: {
       viewer: {
+        id: "interior-experience",
+        headingId: "g700-interior-title",
         index: "05 / Interior",
         heading: "Interior experience.",
         images: [
@@ -265,6 +335,8 @@ const discoverModels: ModelDiscoverData[] = [
         ],
       },
       features: {
+        id: "interior-details",
+        headingId: "g700-interior-details-title",
         index: "06 / Interior Details",
         heading: "Interior details.",
         items: [
@@ -317,6 +389,8 @@ const discoverModels: ModelDiscoverData[] = [
       },
     },
     technology: {
+      id: "intelligent-technology",
+      headingId: "g700-technology-title",
       index: "07 / Intelligent Technology",
       slides: [
         {
@@ -353,6 +427,9 @@ const discoverModels: ModelDiscoverData[] = [
       ],
     },
     specifications: {
+      id: "kuwait-specifications",
+      headingId: "g700-specifications-title",
+      controlIdPrefix: "g700-specification",
       index: "08 / Kuwait Specifications",
       heading: "Engineered\nin detail.",
       note:
@@ -380,7 +457,12 @@ const discoverModels: ModelDiscoverData[] = [
           name: "Vehicle & Ownership",
           leadValues: [
             { value: "230 mm", label: "Minimum Ground Clearance" },
-            { value: "8 Years / 160,000 km", label: "Battery Warranty" },
+            {
+              value: "8 Years / 160,000 km",
+              label: "Battery Warranty",
+              displayLines: ["8 Years /", "160,000 km"],
+              typography: "battery-warranty",
+            },
           ],
           details: [
             { label: "Vehicle Width", value: "2050 mm" },
@@ -417,6 +499,8 @@ const discoverModels: ModelDiscoverData[] = [
             {
               value: "Apple CarPlay and Android Auto",
               label: "Smartphone Integration",
+              displayLines: ["Apple CarPlay", "and Android Auto"],
+              typography: "smartphone-integration",
             },
           ],
           details: [
@@ -439,6 +523,8 @@ const discoverModels: ModelDiscoverData[] = [
       ],
     },
     finalCta: {
+      id: "g700-final-cta",
+      headingId: "g700-final-cta-title",
       eyebrow: "Experience G700",
       heading: "Ready for\nwhat’s next?",
       description:
@@ -454,4 +540,25 @@ const discoverModels: ModelDiscoverData[] = [
 
 export function getModelDiscoverData(slug: string) {
   return discoverModels.find((model) => model.slug === slug);
+}
+
+export function getModelDiscoverSectionIds(model: ModelDiscoverData) {
+  const sections: Partial<
+    Record<ModelDiscoverSectionKey, ModelDiscoverSectionIdentity>
+  > = {
+    hero: model.hero,
+    overview: model.overview,
+    exteriorStudio: model.exterior?.studio,
+    exteriorDesign: model.exterior?.story,
+    interiorViewer: model.interior?.viewer,
+    interiorDetails: model.interior?.features,
+    technology: model.technology,
+    specifications: model.specifications,
+    finalCta: model.finalCta,
+  };
+
+  return model.sectionOrder.flatMap((section) => {
+    const id = sections[section]?.id;
+    return id ? [id] : [];
+  });
 }

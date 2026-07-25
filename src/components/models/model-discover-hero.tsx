@@ -14,7 +14,13 @@ import styles from "./model-discover.module.css";
 
 type HandoffState = "idle" | "aligning" | "cooldown";
 
-export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
+export function ModelDiscoverHero({
+  model,
+  sectionIds,
+}: {
+  model: ModelDiscoverData;
+  sectionIds: string[];
+}) {
   const heroRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
@@ -81,25 +87,10 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
 
   useEffect(() => {
     const hero = heroRef.current;
-    const overview = document.getElementById("overview");
-    const exteriorStudio = document.getElementById("exterior-studio");
-    const exteriorDesign = document.getElementById("exterior-design");
-    const interiorExperience = document.getElementById("interior-experience");
-    const interiorDetails = document.getElementById("interior-details");
-    const technology = document.getElementById("intelligent-technology");
-    const specifications = document.getElementById("kuwait-specifications");
-    const finalCta = document.getElementById("g700-final-cta");
-    if (
-      !hero ||
-      !overview ||
-      !exteriorStudio ||
-      !exteriorDesign ||
-      !interiorExperience ||
-      !interiorDetails ||
-      !technology ||
-      !specifications ||
-      !finalCta
-    ) {
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+    if (!hero || sections.length !== sectionIds.length) {
       return;
     }
 
@@ -121,17 +112,6 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
         const desktopPointer = window.matchMedia(
           "(min-width: 1025px) and (hover: hover) and (pointer: fine)",
         );
-        const sections = [
-          hero,
-          overview,
-          exteriorStudio,
-          exteriorDesign,
-          interiorExperience,
-          interiorDetails,
-          technology,
-          specifications,
-          finalCta,
-        ];
         let state: HandoffState = "idle";
         let accumulatedIntent = 0;
         let intentDirection = 0;
@@ -258,7 +238,7 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
 
         const onNavigationActivity = (event: Event) => {
           navigationOpen = Boolean(
-            (event as CustomEvent<{ open?: boolean }>).detail?.open,
+            (event as CustomEvent<{ active?: boolean }>).detail?.active,
           );
           if (navigationOpen) {
             cancelAlignment();
@@ -307,15 +287,15 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
       disposed = true;
       removeListeners();
     };
-  }, []);
+  }, [sectionIds]);
 
   return (
     <section
       ref={heroRef}
-      id="g700-discover-hero"
+      id={model.hero.id}
       className={styles.hero}
       data-header-theme="dark"
-      aria-labelledby="g700-discover-title"
+      aria-labelledby={model.hero.headingId}
     >
       <Image
         className={styles.heroImage}
@@ -335,7 +315,7 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
             {model.hero.eyebrow}
           </p>
           <h1
-            id="g700-discover-title"
+            id={model.hero.headingId}
             className={styles.heroTitle}
             data-hero-title
           >
@@ -361,7 +341,10 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
 
         </div>
 
-        <dl className={styles.heroHighlights} aria-label="G700 highlights">
+        <dl
+          className={styles.heroHighlights}
+          aria-label={`${model.name} highlights`}
+        >
           {model.hero.highlights.map((highlight) => (
             <div
               className={styles.heroHighlight}
