@@ -29,6 +29,15 @@ export type ModelDiscoverInteriorFeature = {
   objectPosition: string;
 };
 
+export type ModelDiscoverTechnologySlide = {
+  heading: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  objectPosition: string;
+  points: string[];
+};
+
 export type ModelDiscoverData = {
   slug: string;
   name: string;
@@ -74,6 +83,10 @@ export type ModelDiscoverData = {
       heading: string;
       items: ModelDiscoverInteriorFeature[];
     };
+  };
+  technology: {
+    index: string;
+    slides: ModelDiscoverTechnologySlide[];
   };
 };
 
@@ -276,6 +289,42 @@ const discoverModels: ModelDiscoverData[] = [
           },
         ],
       },
+    },
+    technology: {
+      index: "07 / Intelligent Technology",
+      slides: [
+        {
+          heading: "Digital\ncockpit.",
+          description:
+            "A 15.6-inch central touchscreen brings vehicle controls and connected features together in one focused interface.",
+          image:
+            "/images/vehicles/g700/discover/technology/digital-cockpit.webp",
+          imageAlt: "Wide dashboard and central touchscreen inside the Jetour G700",
+          objectPosition: "42% 50%",
+          points: [
+            "15.6-inch central touchscreen",
+            "Apple CarPlay",
+            "Android Auto",
+            "USB-A and USB-C connections",
+          ],
+        },
+        {
+          heading: "Assistance\nall around.",
+          description:
+            "Camera and driver-assistance systems support awareness, manoeuvring and everyday confidence.",
+          image:
+            "/images/vehicles/g700/discover/technology/driver-assistance.webp",
+          imageAlt:
+            "Overhead view of a Jetour G700 with surrounding detection graphics",
+          objectPosition: "40% 50%",
+          points: [
+            "360° surround-view monitor",
+            "Automatic Parking Assist",
+            "Level 2 driver assistance",
+            "Blind Spot Detection",
+          ],
+        },
+      ],
     },
   },
 ];

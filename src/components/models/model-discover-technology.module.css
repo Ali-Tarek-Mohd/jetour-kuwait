@@ -1,0 +1,385 @@
+.section {
+  --technology-bronze: #d09151;
+  --technology-ivory: #f5f0e8;
+  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  background: #080a0c;
+  color: var(--technology-ivory);
+  isolation: isolate;
+  outline: none;
+}
+
+.section:focus-visible {
+  outline: 2px solid rgba(210, 153, 91, 0.84);
+  outline-offset: -4px;
+}
+
+.label {
+  position: absolute;
+  z-index: 4;
+  top: clamp(6.4rem, 11vh, 8rem);
+  right: clamp(2rem, 4vw, 5rem);
+  display: flex;
+  width: min(35vw, 42rem);
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0;
+  color: var(--technology-bronze);
+  font-size: 0.7rem;
+  font-weight: 680;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.label::after {
+  width: 3.5rem;
+  height: 1px;
+  background: rgba(208, 145, 81, 0.65);
+  content: "";
+}
+
+.layout {
+  position: absolute;
+  inset: 0;
+}
+
+.imageStage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0b0d0f;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+.image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageShade {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 7, 9, 0.13) 0%, transparent 33%, rgba(5, 7, 9, 0.08) 48%, rgba(5, 7, 9, 0.74) 68%, rgba(5, 7, 9, 0.97) 100%),
+    linear-gradient(180deg, rgba(5, 7, 9, 0.2) 0%, transparent 30%, transparent 72%, rgba(5, 7, 9, 0.4) 100%);
+  pointer-events: none;
+}
+
+.information {
+  position: absolute;
+  z-index: 3;
+  top: clamp(9.6rem, 17vh, 12rem);
+  right: clamp(2rem, 4vw, 5rem);
+  bottom: clamp(2rem, 4vh, 3.5rem);
+  display: flex;
+  width: min(35vw, 42rem);
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.metadata {
+  min-width: 0;
+  will-change: transform, opacity;
+}
+
+.identity {
+  padding: 0;
+}
+
+.counter {
+  margin: 0 0 clamp(0.9rem, 1.7vh, 1.4rem);
+  color: var(--technology-bronze);
+  font-size: 0.72rem;
+  font-weight: 680;
+  letter-spacing: 0.2em;
+}
+
+.identity h2 {
+  max-width: 11ch;
+  margin: 0;
+  color: var(--technology-ivory);
+  font-size: clamp(3rem, 4.5vw, 5.6rem);
+  font-weight: 560;
+  letter-spacing: -0.062em;
+  line-height: 0.88;
+  text-transform: uppercase;
+  white-space: pre-line;
+}
+
+.details {
+  margin-top: clamp(1.5rem, 3vh, 2.5rem);
+}
+
+.description {
+  max-width: 34rem;
+  margin: 0;
+  color: rgba(228, 222, 213, 0.68);
+  font-size: clamp(0.88rem, 0.96vw, 1.02rem);
+  line-height: 1.65;
+}
+
+.details ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: clamp(1.5rem, 2.8vh, 2.3rem) 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(245, 240, 232, 0.14);
+  list-style: none;
+}
+
+.details li {
+  position: relative;
+  min-width: 0;
+  padding: clamp(0.65rem, 1.2vh, 0.9rem) 0.75rem clamp(0.65rem, 1.2vh, 0.9rem) 1.1rem;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.11);
+  color: rgba(245, 240, 232, 0.82);
+  font-size: clamp(0.76rem, 0.81vw, 0.88rem);
+  line-height: 1.4;
+}
+
+.details li::before {
+  position: absolute;
+  top: 1.15rem;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #648ca4;
+  content: "";
+}
+
+.navigation {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+}
+
+.progress button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.progress span {
+  width: 28px;
+  height: 2px;
+  background: rgba(245, 240, 232, 0.28);
+  transition:
+    background-color 220ms ease,
+    transform 220ms ease;
+}
+
+.progress button[aria-current="true"] span {
+  background: var(--technology-bronze);
+  transform: scaleX(1.12);
+}
+
+.arrows {
+  display: flex;
+}
+
+.arrows button {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border: 1px solid rgba(245, 240, 232, 0.3);
+  background: rgba(7, 9, 11, 0.28);
+  color: var(--technology-ivory);
+  cursor: pointer;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+.arrows button + button {
+  margin-left: -1px;
+}
+
+.arrows button:hover {
+  border-color: var(--technology-bronze);
+  background: var(--technology-bronze);
+  color: #080a0c;
+}
+
+.arrows button:focus-visible,
+.progress button:focus-visible {
+  position: relative;
+  z-index: 2;
+  outline: 2px solid #d2985c;
+  outline-offset: 3px;
+}
+
+.announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 1025px) and (max-height: 820px) {
+  .section {
+    min-height: 620px;
+  }
+
+  .label {
+    top: 5.75rem;
+    right: 2.2rem;
+    width: min(36vw, 38rem);
+  }
+
+  .information {
+    top: 7.8rem;
+    right: 2.2rem;
+    bottom: 1.35rem;
+    width: min(36vw, 38rem);
+  }
+
+  .counter {
+    margin-bottom: 0.6rem;
+  }
+
+  .identity h2 {
+    font-size: clamp(2.5rem, 4vw, 4.4rem);
+  }
+
+  .details {
+    margin-top: 1rem;
+  }
+
+  .description {
+    line-height: 1.5;
+  }
+
+  .details ul {
+    margin-top: 0.9rem;
+  }
+
+  .details li {
+    padding-top: 0.48rem;
+    padding-bottom: 0.48rem;
+  }
+
+  .details li::before {
+    top: 0.93rem;
+  }
+
+  .arrows button {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .section {
+    height: auto;
+    min-height: 0;
+    padding: 7rem 1.25rem 4.5rem;
+  }
+
+  .label {
+    position: static;
+    width: auto;
+  }
+
+  .layout {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+
+  .imageStage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1808 / 678;
+  }
+
+  .image img {
+    object-fit: contain;
+    object-position: center !important;
+  }
+
+  .imageShade {
+    background: linear-gradient(180deg, transparent 70%, rgba(5, 7, 9, 0.15));
+  }
+
+  .information {
+    position: static;
+    width: 100%;
+    margin-top: 1.7rem;
+  }
+
+  .identity h2 {
+    max-width: 12ch;
+    font-size: clamp(3rem, 11vw, 5rem);
+  }
+
+  .details {
+    margin-top: 1.4rem;
+  }
+
+  .description {
+    max-width: 38rem;
+  }
+
+  .details ul {
+    margin-top: 1.5rem;
+  }
+
+  .navigation {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(245, 240, 232, 0.12);
+  }
+
+  .arrows button {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 560px) {
+  .details ul {
+    grid-template-columns: 1fr;
+  }
+
+  .navigation {
+    gap: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress span,
+  .arrows button {
+    transition: none;
+  }
+}

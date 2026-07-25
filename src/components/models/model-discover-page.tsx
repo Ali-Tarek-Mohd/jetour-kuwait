@@ -7,6 +7,7 @@ import { ModelDiscoverHero } from "./model-discover-hero";
 import { ModelDiscoverInteriorDetails } from "./model-discover-interior-details";
 import { ModelDiscoverInteriorViewer } from "./model-discover-interior-viewer";
 import { ModelDiscoverOverview } from "./model-discover-overview";
+import { ModelDiscoverTechnology } from "./model-discover-technology";
 import styles from "./model-discover.module.css";
 
 export function ModelDiscoverPage({ model }: { model: ModelDiscoverData }) {
@@ -19,6 +20,7 @@ export function ModelDiscoverPage({ model }: { model: ModelDiscoverData }) {
       <ModelDiscoverExteriorStory model={model} />
       <ModelDiscoverInteriorViewer model={model} />
       <ModelDiscoverInteriorDetails model={model} />
+      <ModelDiscoverTechnology model={model} />
       <SiteFooter />
     </main>
   );

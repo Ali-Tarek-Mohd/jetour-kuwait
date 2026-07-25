@@ -86,13 +86,15 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
     const exteriorDesign = document.getElementById("exterior-design");
     const interiorExperience = document.getElementById("interior-experience");
     const interiorDetails = document.getElementById("interior-details");
+    const technology = document.getElementById("intelligent-technology");
     if (
       !hero ||
       !overview ||
       !exteriorStudio ||
       !exteriorDesign ||
       !interiorExperience ||
-      !interiorDetails
+      !interiorDetails ||
+      !technology
     ) {
       return;
     }
@@ -122,6 +124,7 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
           exteriorDesign,
           interiorExperience,
           interiorDetails,
+          technology,
         ];
         let state: HandoffState = "idle";
         let accumulatedIntent = 0;
