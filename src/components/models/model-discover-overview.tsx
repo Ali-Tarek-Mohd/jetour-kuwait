@@ -220,6 +220,7 @@ export function ModelDiscoverOverview({
           className={styles.overviewVideo}
           autoPlay={isActive && !reducedMotion}
           muted
+          loop
           playsInline
           preload="metadata"
           poster={OVERVIEW_POSTER}
