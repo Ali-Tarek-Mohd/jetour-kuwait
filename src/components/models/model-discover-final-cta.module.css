@@ -1,0 +1,217 @@
+.section {
+  --final-cta-ivory: #f5f0e8;
+  --final-cta-bronze: #d09151;
+  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  background: #090a0b;
+  color: var(--final-cta-ivory);
+  isolation: isolate;
+}
+
+.image {
+  object-fit: cover;
+  object-position: var(--final-cta-position-desktop, 56% 50%);
+}
+
+.shade {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 6, 7, 0.93) 0%, rgba(5, 6, 7, 0.76) 28%, rgba(5, 6, 7, 0.36) 49%, transparent 72%),
+    linear-gradient(180deg, rgba(5, 6, 7, 0.24) 0%, transparent 34%, transparent 70%, rgba(5, 6, 7, 0.42) 100%);
+  pointer-events: none;
+}
+
+.content {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: clamp(1.5rem, 4vw, 5.5rem);
+  width: min(43rem, 43vw);
+  transform: translateY(-45%);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 0 clamp(1.2rem, 2.3vh, 2rem);
+  color: var(--final-cta-bronze);
+  font-size: 0.7rem;
+  font-weight: 680;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.eyebrow::after {
+  width: 3.5rem;
+  height: 1px;
+  background: rgba(208, 145, 81, 0.68);
+  content: "";
+}
+
+.content h2 {
+  max-width: 9ch;
+  margin: 0;
+  color: var(--final-cta-ivory);
+  font-size: clamp(4rem, 7vw, 8.5rem);
+  font-weight: 550;
+  letter-spacing: -0.072em;
+  line-height: 0.84;
+  text-transform: uppercase;
+  white-space: pre-line;
+}
+
+.description {
+  max-width: 35rem;
+  margin: clamp(1.5rem, 3vh, 2.5rem) 0 0;
+  color: rgba(245, 240, 232, 0.68);
+  font-size: clamp(0.9rem, 1vw, 1.05rem);
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.7rem);
+  margin-top: clamp(1.8rem, 3.8vh, 3rem);
+}
+
+.primaryAction,
+.secondaryAction {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.3rem;
+  font-size: 0.72rem;
+  font-weight: 680;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+.primaryAction {
+  border: 1px solid var(--final-cta-ivory);
+  background: var(--final-cta-ivory);
+  color: #090a0b;
+}
+
+.primaryAction:hover {
+  border-color: var(--final-cta-bronze);
+  background: var(--final-cta-bronze);
+}
+
+.secondaryAction {
+  min-width: 44px;
+  border: 1px solid transparent;
+  color: var(--final-cta-ivory);
+}
+
+.secondaryAction:hover {
+  border-color: rgba(245, 240, 232, 0.35);
+}
+
+.primaryAction:focus-visible,
+.secondaryAction:focus-visible {
+  outline: 2px solid #d2985c;
+  outline-offset: 4px;
+}
+
+@media (min-width: 1025px) and (max-height: 800px) {
+  .section {
+    min-height: 620px;
+  }
+
+  .content {
+    transform: translateY(-42%);
+  }
+
+  .content h2 {
+    font-size: clamp(3.4rem, 6.3vw, 6.8rem);
+  }
+
+  .description {
+    margin-top: 1.15rem;
+    line-height: 1.55;
+  }
+
+  .actions {
+    margin-top: 1.4rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .section {
+    height: auto;
+    min-height: min(780px, 100svh);
+    padding: 8rem 1.25rem 4.5rem;
+  }
+
+  .image {
+    object-position: var(--final-cta-position-mobile, 61% 50%);
+  }
+
+  .shade {
+    background:
+      linear-gradient(90deg, rgba(5, 6, 7, 0.88) 0%, rgba(5, 6, 7, 0.58) 64%, rgba(5, 6, 7, 0.25) 100%),
+      linear-gradient(180deg, rgba(5, 6, 7, 0.34) 0%, transparent 30%, rgba(5, 6, 7, 0.22) 58%, rgba(5, 6, 7, 0.78) 100%);
+  }
+
+  .content {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(100%, 38rem);
+    transform: none;
+  }
+
+  .content h2 {
+    font-size: clamp(3.7rem, 15vw, 6.5rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .section {
+    min-height: 760px;
+  }
+
+  .content {
+    display: flex;
+    min-height: calc(760px - 12.5rem);
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .content h2 {
+    font-size: clamp(3.4rem, 16vw, 5rem);
+  }
+
+  .actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryAction,
+  .secondaryAction {
+    transition: none;
+  }
+}

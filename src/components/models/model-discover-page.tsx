@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import type { ModelDiscoverData } from "@/data/model-discover";
 import { ModelDiscoverExteriorStory } from "./model-discover-exterior-story";
 import { ModelDiscoverExteriorStudio } from "./model-discover-exterior-studio";
+import { ModelDiscoverFinalCta } from "./model-discover-final-cta";
 import { ModelDiscoverHero } from "./model-discover-hero";
 import { ModelDiscoverInteriorDetails } from "./model-discover-interior-details";
 import { ModelDiscoverInteriorViewer } from "./model-discover-interior-viewer";
@@ -23,6 +24,7 @@ export function ModelDiscoverPage({ model }: { model: ModelDiscoverData }) {
       <ModelDiscoverInteriorDetails model={model} />
       <ModelDiscoverTechnology model={model} />
       <ModelDiscoverSpecifications model={model} />
+      <ModelDiscoverFinalCta model={model} />
       <SiteFooter />
     </main>
   );

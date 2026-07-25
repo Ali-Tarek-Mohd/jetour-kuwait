@@ -88,6 +88,7 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
     const interiorDetails = document.getElementById("interior-details");
     const technology = document.getElementById("intelligent-technology");
     const specifications = document.getElementById("kuwait-specifications");
+    const finalCta = document.getElementById("g700-final-cta");
     if (
       !hero ||
       !overview ||
@@ -96,7 +97,8 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
       !interiorExperience ||
       !interiorDetails ||
       !technology ||
-      !specifications
+      !specifications ||
+      !finalCta
     ) {
       return;
     }
@@ -128,6 +130,7 @@ export function ModelDiscoverHero({ model }: { model: ModelDiscoverData }) {
           interiorDetails,
           technology,
           specifications,
+          finalCta,
         ];
         let state: HandoffState = "idle";
         let accumulatedIntent = 0;

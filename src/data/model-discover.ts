@@ -105,6 +105,15 @@ export type ModelDiscoverData = {
     note: string;
     categories: ModelDiscoverSpecificationCategory[];
   };
+  finalCta: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    image: string;
+    imageAlt: string;
+    objectPositionDesktop: string;
+    objectPositionMobile: string;
+  };
 };
 
 const discoverModels: ModelDiscoverData[] = [
@@ -428,6 +437,17 @@ const discoverModels: ModelDiscoverData[] = [
           ],
         },
       ],
+    },
+    finalCta: {
+      eyebrow: "Experience G700",
+      heading: "Ready for\nwhat’s next?",
+      description:
+        "Experience the G700 in person and discover its presence, technology and comfort from behind the wheel.",
+      image:
+        "/images/vehicles/g700/discover/exterior/low-angle-action.webp",
+      imageAlt: "Blue Jetour G700 driving through a desert landscape",
+      objectPositionDesktop: "56% 50%",
+      objectPositionMobile: "61% 50%",
     },
   },
 ];
