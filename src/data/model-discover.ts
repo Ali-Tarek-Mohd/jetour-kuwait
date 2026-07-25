@@ -38,6 +38,17 @@ export type ModelDiscoverTechnologySlide = {
   points: string[];
 };
 
+export type ModelDiscoverSpecificationDetail = {
+  label: string;
+  value?: string;
+};
+
+export type ModelDiscoverSpecificationCategory = {
+  name: string;
+  leadValues: ModelDiscoverFact[];
+  details: ModelDiscoverSpecificationDetail[];
+};
+
 export type ModelDiscoverData = {
   slug: string;
   name: string;
@@ -87,6 +98,12 @@ export type ModelDiscoverData = {
   technology: {
     index: string;
     slides: ModelDiscoverTechnologySlide[];
+  };
+  specifications: {
+    index: string;
+    heading: string;
+    note: string;
+    categories: ModelDiscoverSpecificationCategory[];
   };
 };
 
@@ -322,6 +339,92 @@ const discoverModels: ModelDiscoverData[] = [
             "Automatic Parking Assist",
             "Level 2 driver assistance",
             "Blind Spot Detection",
+          ],
+        },
+      ],
+    },
+    specifications: {
+      index: "08 / Kuwait Specifications",
+      heading: "Engineered\nin detail.",
+      note:
+        "Specifications shown are based on available Jetour Kuwait materials. Equipment and availability may vary.",
+      categories: [
+        {
+          name: "Powertrain & Hybrid",
+          leadValues: [
+            { value: "904 PS", label: "Combined System Power" },
+            { value: "34.13 kWh", label: "Battery Capacity" },
+          ],
+          details: [
+            { label: "Powertrain", value: "Plug-in Hybrid" },
+            {
+              label: "Engine",
+              value: "2.0L Turbocharged 4-Cylinder",
+            },
+            { label: "Electric Motors", value: "Dual" },
+            { label: "Drivetrain", value: "4WD" },
+            { label: "Transmission", value: "2-Speed DHT" },
+            { label: "Fuel Tank", value: "100 L" },
+          ],
+        },
+        {
+          name: "Vehicle & Ownership",
+          leadValues: [
+            { value: "230 mm", label: "Minimum Ground Clearance" },
+            { value: "8 Years / 160,000 km", label: "Battery Warranty" },
+          ],
+          details: [
+            { label: "Vehicle Width", value: "2050 mm" },
+            { label: "Number of Doors", value: "5" },
+            { label: "Fuel Tank", value: "100 L" },
+            { label: "Battery Capacity", value: "34.13 kWh" },
+            { label: "Minimum Ground Clearance", value: "230 mm" },
+            { label: "Battery Warranty", value: "8 Years or 160,000 km" },
+          ],
+        },
+        {
+          name: "Safety & Assistance",
+          leadValues: [
+            { value: "360°", label: "Surround-View Monitor" },
+            { value: "Level 2", label: "Driver Assistance" },
+          ],
+          details: [
+            { label: "Anti-lock Braking System", value: "ABS" },
+            { label: "Electronic Stability Control", value: "ESC" },
+            { label: "Active Emergency Braking", value: "AEB" },
+            { label: "Adaptive Cruise Control" },
+            { label: "Intelligent Cruise Assist", value: "ICA" },
+            { label: "Blind Spot Detection", value: "BSD" },
+            { label: "Lane Change Assist", value: "LCA" },
+            { label: "Lane Keeping Assist", value: "LKA" },
+            { label: "Rear Collision Warning", value: "RCW" },
+            { label: "Door Opening Warning", value: "DOW" },
+          ],
+        },
+        {
+          name: "Interior & Connectivity",
+          leadValues: [
+            { value: "15.6-inch", label: "Central Touchscreen" },
+            {
+              value: "Apple CarPlay and Android Auto",
+              label: "Smartphone Integration",
+            },
+          ],
+          details: [
+            { label: "Climate Control", value: "Automatic" },
+            {
+              label: "Connectivity",
+              value: "Apple CarPlay and Android Auto",
+            },
+            { label: "Ports", value: "USB-A and USB-C" },
+            { label: "Starting System", value: "Keyless Start" },
+            { label: "Roof", value: "Panoramic Sunroof" },
+            { label: "Seat Material", value: "Faux Leather" },
+            { label: "Rear Seating", value: "Second Row Folds Flat" },
+            {
+              label: "Steering Wheel",
+              value: "Manual 4-Way Adjustment",
+            },
           ],
         },
       ],
