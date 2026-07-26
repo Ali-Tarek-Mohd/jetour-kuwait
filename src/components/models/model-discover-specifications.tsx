@@ -1,5 +1,7 @@
 "use client";
 
+import FileDownloadIcon from "@hugeicons/core-free-icons/FileDownloadIcon";
+import { HugeiconsIcon } from "@hugeicons/react";
 import gsap from "gsap";
 import {
   type CSSProperties,
@@ -59,6 +61,41 @@ function SpecificationContent({
         ))}
       </dl>
     </>
+  );
+}
+
+function SpecificationFooter({
+  specifications,
+}: {
+  specifications: ModelDiscoverSpecificationsData;
+}) {
+  return (
+    <div className={styles.specificationFooter}>
+      <p className={styles.note}>{specifications.note}</p>
+      {specifications.document ? (
+        <a
+          className={styles.documentAction}
+          href={specifications.document.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={specifications.document.ariaLabel}
+        >
+          <HugeiconsIcon
+            className={styles.documentIcon}
+            icon={FileDownloadIcon}
+            size={21}
+            aria-hidden="true"
+          />
+          <span className={styles.documentCopy}>
+            <small>{specifications.document.eyebrow}</small>
+            <strong>{specifications.document.label}</strong>
+          </span>
+          <span className={styles.documentMetadata}>
+            {specifications.document.metadata}
+          </span>
+        </a>
+      ) : null}
+    </div>
   );
 }
 
@@ -328,7 +365,7 @@ export function ModelDiscoverSpecifications({
             data-specification-content
           >
             <SpecificationContent category={activeCategory} />
-            <p className={styles.note}>{specifications.note}</p>
+            <SpecificationFooter specifications={specifications} />
           </div>
         </div>
 
@@ -370,7 +407,7 @@ export function ModelDiscoverSpecifications({
             })}
           </div>
 
-          <p className={styles.note}>{specifications.note}</p>
+          <SpecificationFooter specifications={specifications} />
         </div>
 
         <p className={styles.announcement} aria-live="polite">

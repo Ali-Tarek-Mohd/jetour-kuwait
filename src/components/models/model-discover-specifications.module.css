@@ -280,10 +280,77 @@
 .note {
   flex: 0 0 auto;
   max-width: 55rem;
-  margin: clamp(1rem, 2vh, 1.6rem) 0 0;
+  margin: 0;
   color: rgba(245, 240, 232, 0.38);
   font-size: clamp(0.66rem, 0.72vw, 0.76rem);
   line-height: 1.55;
+}
+
+.specificationFooter {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 3vw, 3rem);
+  margin-top: clamp(1rem, 2vh, 1.6rem);
+}
+
+.documentAction {
+  display: grid;
+  min-height: 44px;
+  flex: 0 0 auto;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--specification-ivory);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.documentIcon {
+  color: var(--specification-bronze);
+}
+
+.documentCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+.documentCopy small,
+.documentMetadata {
+  color: rgba(208, 145, 81, 0.78);
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.13em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.documentCopy strong {
+  color: rgba(245, 240, 232, 0.9);
+  font-size: 0.69rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.documentMetadata {
+  padding-left: 0.8rem;
+  border-left: 1px solid rgba(208, 145, 81, 0.22);
+  color: rgba(245, 240, 232, 0.38);
+  white-space: nowrap;
+}
+
+.documentAction:hover .documentCopy strong {
+  color: #fff;
+}
+
+.documentAction:focus-visible {
+  border-radius: 1px;
+  outline: 2px solid #d2985c;
+  outline-offset: 4px;
 }
 
 .mobileLayout,
@@ -338,7 +405,7 @@
     min-height: 39px;
   }
 
-  .note {
+  .specificationFooter {
     margin-top: 0.7rem;
   }
 }
@@ -457,8 +524,19 @@
     font-size: 0.78rem;
   }
 
-  .mobileLayout > .note {
+  .mobileLayout > .specificationFooter {
     margin-top: 1.8rem;
+  }
+
+  .specificationFooter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .documentAction {
+    width: 100%;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    padding: 0.65rem 0;
   }
 
   .announcement {
@@ -486,7 +564,8 @@
   }
 
   .categoryNavigation button,
-  .categoryNavigation button::before {
+  .categoryNavigation button::before,
+  .documentAction {
     transition: none;
   }
 }

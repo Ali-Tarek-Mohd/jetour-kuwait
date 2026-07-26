@@ -118,6 +118,13 @@ export type ModelDiscoverSpecifications = ModelDiscoverSectionIdentity & {
   index: string;
   heading: string;
   note: string;
+  document?: {
+    eyebrow: string;
+    label: string;
+    metadata: string;
+    href: string;
+    ariaLabel: string;
+  };
   categories: ModelDiscoverSpecificationCategory[];
 };
 
@@ -434,6 +441,14 @@ const discoverModels: ModelDiscoverData[] = [
       heading: "Engineered\nin detail.",
       note:
         "Specifications shown are based on available Jetour Kuwait materials. Equipment and availability may vary.",
+      document: {
+        eyebrow: "Official Kuwait Brochure",
+        label: "View / Download PDF",
+        metadata: "PDF · 2 Pages",
+        href: "/documents/g700/g700-kuwait-brochure.pdf",
+        ariaLabel:
+          "View or download the official G700 Kuwait brochure PDF in a new tab",
+      },
       categories: [
         {
           name: "Powertrain & Hybrid",
