@@ -609,6 +609,7 @@ const discoverModels: ModelDiscoverData[] = [
       "interiorViewer",
       "interiorDetails",
       "specifications",
+      "finalCta",
     ],
     hero: {
       id: "t2-discover-hero",
@@ -1010,6 +1011,19 @@ const discoverModels: ModelDiscoverData[] = [
           ],
         },
       ],
+    },
+    finalCta: {
+      id: "t2-final-cta",
+      headingId: "t2-final-cta-title",
+      eyebrow: "07 / Take the Next Step",
+      heading: "Ready for\nwhat’s next?",
+      description:
+        "Experience the T2 in person and explore its confident design, five-seat cabin and 4×4 drivetrain.",
+      image:
+        "/images/vehicles/t2/discover/exterior/editorial/water-crossing.webp",
+      imageAlt: "Jetour T2 in a cinematic mountain landscape",
+      objectPositionDesktop: "68% 58%",
+      objectPositionMobile: "66% 50%",
     },
   },
   {

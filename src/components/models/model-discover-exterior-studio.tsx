@@ -140,11 +140,12 @@ export function ModelDiscoverExteriorStudio({
   }, [incomingIndex]);
 
   const selectColor = (index: number) => {
+    const generation = ++generationRef.current;
+
     if (index === selectedIndex && incomingIndex === null) {
       return;
     }
 
-    const generation = ++generationRef.current;
     const imagePath = exterior.colors[index].image;
 
     const reveal = () => {
