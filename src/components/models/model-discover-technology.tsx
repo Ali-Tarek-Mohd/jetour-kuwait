@@ -19,6 +19,7 @@ import { flushSync } from "react-dom";
 import type { ModelDiscoverTechnology as ModelDiscoverTechnologyData } from "@/data/model-discover";
 
 import styles from "./model-discover-technology.module.css";
+import { observeDiscoverMediaProximity } from "./model-discover-media-preload";
 
 const SWIPE_THRESHOLD = 42;
 
@@ -54,37 +55,49 @@ export function ModelDiscoverTechnology({
 
   useEffect(() => {
     mountedRef.current = true;
-    preloadPromisesRef.current = slides.map(
-      (slide) =>
-        new Promise<boolean>((resolve) => {
-          const image = new window.Image();
-          let settled = false;
-          const finish = (loaded: boolean) => {
-            if (!settled) {
-              settled = true;
-              resolve(loaded);
-            }
-          };
+    const preloaders: HTMLImageElement[] = [];
+    const stopObserving = observeDiscoverMediaProximity(
+      sectionRef.current,
+      () => {
+        preloadPromisesRef.current = slides.map(
+          (slide) =>
+            new Promise<boolean>((resolve) => {
+              const image = new window.Image();
+              preloaders.push(image);
+              let settled = false;
+              const finish = (loaded: boolean) => {
+                if (!settled) {
+                  settled = true;
+                  resolve(loaded);
+                }
+              };
 
-          image.src = slide.image;
-          image.onload = () => {
-            void image
-              .decode()
-              .then(() => finish(true))
-              .catch(() => finish(true));
-          };
-          image.onerror = () => finish(false);
-          if (image.complete && image.naturalWidth > 0) {
-            void image
-              .decode()
-              .then(() => finish(true))
-              .catch(() => finish(true));
-          }
-        }),
+              image.src = slide.image;
+              image.onload = () => {
+                void image
+                  .decode()
+                  .then(() => finish(true))
+                  .catch(() => finish(true));
+              };
+              image.onerror = () => finish(false);
+              if (image.complete && image.naturalWidth > 0) {
+                void image
+                  .decode()
+                  .then(() => finish(true))
+                  .catch(() => finish(true));
+              }
+            }),
+        );
+      },
     );
 
     return () => {
       mountedRef.current = false;
+      stopObserving();
+      for (const image of preloaders) {
+        image.onload = null;
+        image.onerror = null;
+      }
       transitionTimelineRef.current?.kill();
     };
   }, [slides]);

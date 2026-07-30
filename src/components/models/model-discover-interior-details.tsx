@@ -20,6 +20,7 @@ import { flushSync } from "react-dom";
 import type { ModelDiscoverInteriorDetails as ModelDiscoverInteriorDetailsData } from "@/data/model-discover";
 
 import styles from "./model-discover-interior.module.css";
+import { observeDiscoverMediaProximity } from "./model-discover-media-preload";
 
 const DESKTOP_GALLERY_QUERY =
   "(min-width: 1025px) and (hover: hover) and (pointer: fine)";
@@ -72,23 +73,41 @@ export function ModelDiscoverInteriorDetails({
 
   useEffect(() => {
     mountedRef.current = true;
-    preloadPromisesRef.current = features.map(
-      (feature) =>
-        new Promise<void>((resolve) => {
-          const image = new window.Image();
-          image.src = feature.image;
-          image.onload = () => {
-            void image.decode().catch(() => undefined).finally(resolve);
-          };
-          image.onerror = () => resolve();
-          if (image.complete) {
-            void image.decode().catch(() => undefined).finally(resolve);
-          }
-        }),
+    const preloaders: HTMLImageElement[] = [];
+    const stopObserving = observeDiscoverMediaProximity(
+      sectionRef.current,
+      () => {
+        preloadPromisesRef.current = features.map(
+          (feature) =>
+            new Promise<void>((resolve) => {
+              const image = new window.Image();
+              preloaders.push(image);
+              image.src = feature.image;
+              image.onload = () => {
+                void image
+                  .decode()
+                  .catch(() => undefined)
+                  .finally(resolve);
+              };
+              image.onerror = () => resolve();
+              if (image.complete) {
+                void image
+                  .decode()
+                  .catch(() => undefined)
+                  .finally(resolve);
+              }
+            }),
+        );
+      },
     );
 
     return () => {
       mountedRef.current = false;
+      stopObserving();
+      for (const image of preloaders) {
+        image.onload = null;
+        image.onerror = null;
+      }
       transitionTimelineRef.current?.kill();
     };
   }, [features]);
@@ -366,7 +385,7 @@ export function ModelDiscoverInteriorDetails({
                   src={feature.image}
                   alt={index === activeIndex ? feature.imageAlt : ""}
                   fill
-                  loading={index === 0 ? "eager" : "lazy"}
+                  loading="lazy"
                   sizes="(max-width: 1024px) 100vw, 52vw"
                 />
               </button>

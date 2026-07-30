@@ -308,6 +308,11 @@
   margin-top: clamp(1rem, 2vh, 1.6rem);
 }
 
+.specificationFooter .note {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
 .documentAction {
   display: grid;
   min-height: 44px;

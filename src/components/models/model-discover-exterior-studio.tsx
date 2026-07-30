@@ -14,6 +14,7 @@ import { flushSync } from "react-dom";
 import type { ModelDiscoverExteriorStudio as ModelDiscoverExteriorStudioData } from "@/data/model-discover";
 
 import styles from "./model-discover-exterior.module.css";
+import { observeDiscoverMediaProximity } from "./model-discover-media-preload";
 
 export function ModelDiscoverExteriorStudio({
   modelName,
@@ -47,32 +48,36 @@ export function ModelDiscoverExteriorStudio({
     let cancelled = false;
     const preloadPromises = new Map<string, Promise<boolean>>();
     preloadPromisesRef.current = preloadPromises;
-    const preloaders = exterior.colors.map((color) => {
-      const loader = new window.Image();
-      loader.decoding = "async";
-      const decoded = new Promise<boolean>((resolve) => {
-        loader.onload = () => {
-          void loader
-            .decode()
-            .catch(() => undefined)
-            .finally(() => {
-              if (!cancelled) {
-                loadedRef.current.add(color.image);
-              }
-              resolve(true);
-            });
-        };
-        loader.onerror = () => resolve(false);
+    const stopObserving = observeDiscoverMediaProximity(
+      studioRef.current,
+      () => {
+        preloadersRef.current = exterior.colors.map((color) => {
+          const loader = new window.Image();
+          loader.decoding = "async";
+          const decoded = new Promise<boolean>((resolve) => {
+            loader.onload = () => {
+              void loader
+                .decode()
+                .catch(() => undefined)
+                .finally(() => {
+                  if (!cancelled) {
+                    loadedRef.current.add(color.image);
+                  }
+                  resolve(true);
+                });
+            };
+            loader.onerror = () => resolve(false);
+          });
+          preloadPromises.set(color.image, decoded);
+          loader.src = color.image;
+          return loader;
+        });
       });
-      preloadPromises.set(color.image, decoded);
-      loader.src = color.image;
-      return loader;
-    });
 
-    preloadersRef.current = preloaders;
     return () => {
       cancelled = true;
-      for (const loader of preloaders) {
+      stopObserving();
+      for (const loader of preloadersRef.current) {
         loader.onload = null;
         loader.onerror = null;
       }

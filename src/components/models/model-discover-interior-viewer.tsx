@@ -18,6 +18,7 @@ import { flushSync } from "react-dom";
 import type { ModelDiscoverInteriorViewer as ModelDiscoverInteriorViewerData } from "@/data/model-discover";
 
 import styles from "./model-discover-interior.module.css";
+import { observeDiscoverMediaProximity } from "./model-discover-media-preload";
 
 export function ModelDiscoverInteriorViewer({
   interior,
@@ -44,32 +45,36 @@ export function ModelDiscoverInteriorViewer({
     let cancelled = false;
     const preloadPromises = new Map<string, Promise<boolean>>();
     preloadPromisesRef.current = preloadPromises;
-    const preloaders = interior.images.map((slide) => {
-      const loader = new window.Image();
-      loader.decoding = "async";
-      const decoded = new Promise<boolean>((resolve) => {
-        loader.onload = () => {
-          void loader
-            .decode()
-            .catch(() => undefined)
-            .finally(() => {
-              if (!cancelled) {
-                loadedRef.current.add(slide.src);
-              }
-              resolve(true);
-            });
-        };
-        loader.onerror = () => resolve(false);
+    const stopObserving = observeDiscoverMediaProximity(
+      sectionRef.current,
+      () => {
+        preloadersRef.current = interior.images.map((slide) => {
+          const loader = new window.Image();
+          loader.decoding = "async";
+          const decoded = new Promise<boolean>((resolve) => {
+            loader.onload = () => {
+              void loader
+                .decode()
+                .catch(() => undefined)
+                .finally(() => {
+                  if (!cancelled) {
+                    loadedRef.current.add(slide.src);
+                  }
+                  resolve(true);
+                });
+            };
+            loader.onerror = () => resolve(false);
+          });
+          preloadPromises.set(slide.src, decoded);
+          loader.src = slide.src;
+          return loader;
+        });
       });
-      preloadPromises.set(slide.src, decoded);
-      loader.src = slide.src;
-      return loader;
-    });
 
-    preloadersRef.current = preloaders;
     return () => {
       cancelled = true;
-      for (const loader of preloaders) {
+      stopObserving();
+      for (const loader of preloadersRef.current) {
         loader.onload = null;
         loader.onerror = null;
       }

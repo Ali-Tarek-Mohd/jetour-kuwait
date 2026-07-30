@@ -227,7 +227,7 @@ const discoverModels: ModelDiscoverData[] = [
       description:
         "The T1 combines a 2.0-litre turbocharged four-cylinder GDI engine, an eight-speed automatic transmission and 4×4 capability in a confident five-seat SUV.",
       image:
-        "/images/vehicles/t1/discover/overview/t1-overview.webp",
+        "/images/vehicles/t1/discover/exterior/colors/green.webp",
       imageAlt: "Green Jetour T1 five-seat SUV",
       imagePresentation: "vehicle-cutout",
       imageObjectPosition: "68% 54%",
