@@ -6,6 +6,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import gsap from "gsap";
 import Image from "next/image";
 import {
+  type CSSProperties,
   type KeyboardEvent,
   type PointerEvent,
   useEffect,
@@ -29,6 +30,7 @@ export function ModelDiscoverExteriorStory({
   const currentLayerRef = useRef<HTMLDivElement>(null);
   const incomingLayerRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const metadataCopyRef = useRef<HTMLDivElement>(null);
   const transitionRef = useRef<gsap.core.Timeline | null>(null);
   const generationRef = useRef(0);
   const transitioningRef = useRef(false);
@@ -160,7 +162,7 @@ export function ModelDiscoverExteriorStory({
 
     const currentLayer = currentLayerRef.current;
     const incomingLayer = incomingLayerRef.current;
-    const subtitle = subtitleRef.current;
+    const subtitle = subtitleRef.current ?? metadataCopyRef.current;
     if (!currentLayer || !incomingLayer || !subtitle) {
       return;
     }
@@ -344,7 +346,18 @@ export function ModelDiscoverExteriorStory({
       onPointerUp={onPointerUp}
     >
       <div className={styles.storyStage} data-story-image>
-        <div ref={currentLayerRef} className={styles.storyLayer}>
+        <div
+          ref={currentLayerRef}
+          className={styles.storyLayer}
+          data-media-scaled={displayedSlide.mediaScale ? "true" : undefined}
+          style={
+            displayedSlide.mediaScale
+              ? ({
+                  "--story-media-scale": displayedSlide.mediaScale,
+                } as CSSProperties)
+              : undefined
+          }
+        >
           <Image
             src={displayedSlide.src}
             alt={displayedSlide.alt}
@@ -358,6 +371,14 @@ export function ModelDiscoverExteriorStory({
           <div
             ref={incomingLayerRef}
             className={styles.storyLayer}
+            data-media-scaled={incomingSlide.mediaScale ? "true" : undefined}
+            style={
+              incomingSlide.mediaScale
+                ? ({
+                    "--story-media-scale": incomingSlide.mediaScale,
+                  } as CSSProperties)
+                : undefined
+            }
             aria-hidden="true"
           >
             <Image
@@ -383,9 +404,23 @@ export function ModelDiscoverExteriorStory({
       </div>
 
       <div className={styles.storyMetadata}>
-        <p ref={subtitleRef} data-story-meta aria-live="polite">
-          {metadataSlide.subtitle}
-        </p>
+        {metadataSlide.description ? (
+          <div
+            ref={metadataCopyRef}
+            className={styles.storyMetadataCopy}
+            data-story-meta
+            aria-live="polite"
+          >
+            <p>{metadataSlide.subtitle}</p>
+            <p className={styles.storyDescription}>
+              {metadataSlide.description}
+            </p>
+          </div>
+        ) : (
+          <p ref={subtitleRef} data-story-meta aria-live="polite">
+            {metadataSlide.subtitle}
+          </p>
+        )}
         <span data-story-meta>
           {String(metadataIndex + 1).padStart(2, "0")} /{" "}
           {String(exterior.images.length).padStart(2, "0")}

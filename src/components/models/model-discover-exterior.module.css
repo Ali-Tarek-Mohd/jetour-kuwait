@@ -257,6 +257,13 @@
   object-fit: cover;
 }
 
+@media (min-width: 1025px) {
+  .storyLayer[data-media-scaled="true"] img {
+    transform: scale(var(--story-media-scale, 1));
+    transform-origin: left center;
+  }
+}
+
 .storyShade {
   position: absolute;
   inset: 0;
@@ -306,6 +313,26 @@
   color: rgba(243, 240, 233, 0.82);
   font-size: clamp(0.82rem, 1vw, 0.98rem);
   letter-spacing: 0.04em;
+}
+
+.storyMetadataCopy {
+  max-width: min(34rem, 48vw);
+}
+
+.storyMetadataCopy > p:first-child {
+  color: var(--exterior-ivory);
+  font-weight: 620;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.storyMetadataCopy .storyDescription {
+  max-width: 32rem;
+  margin-top: 0.48rem;
+  color: rgba(243, 240, 233, 0.64);
+  font-size: clamp(0.72rem, 0.82vw, 0.86rem);
+  letter-spacing: 0;
+  line-height: 1.55;
 }
 
 .storyMetadata span {
@@ -542,6 +569,15 @@
 
   .storyMetadata p {
     max-width: 15rem;
+  }
+
+  .storyMetadataCopy {
+    max-width: min(72vw, 24rem);
+  }
+
+  .storyMetadataCopy > p:first-child,
+  .storyMetadataCopy .storyDescription {
+    max-width: none;
   }
 
   .storyArrow {

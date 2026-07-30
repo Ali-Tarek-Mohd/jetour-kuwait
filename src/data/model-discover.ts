@@ -20,7 +20,9 @@ export type ModelDiscoverStoryImage = {
   src: string;
   alt: string;
   subtitle: string;
+  description?: string;
   objectPosition: string;
+  mediaScale?: number;
 };
 
 export type ModelDiscoverInteriorFeature = {
@@ -598,7 +600,12 @@ const discoverModels: ModelDiscoverData[] = [
     name: "T2",
     metadataDescription:
       "Discover the Jetour T2 Luxury 2026 for Kuwait, with a 2.0-litre turbocharged four-cylinder GDI engine, 254 hp, 4×4 and a seven-speed dual-clutch transmission.",
-    sectionOrder: ["hero", "overview"],
+    sectionOrder: [
+      "hero",
+      "overview",
+      "exteriorStudio",
+      "exteriorDesign",
+    ],
     hero: {
       id: "t2-discover-hero",
       headingId: "t2-discover-title",
@@ -640,6 +647,92 @@ const discoverModels: ModelDiscoverData[] = [
         { value: "4×4", label: "Drivetrain" },
         { value: "7-Speed DCT", label: "Transmission" },
       ],
+    },
+    exterior: {
+      studio: {
+        id: "t2-exterior-studio",
+        headingId: "t2-exterior-title",
+        index: "02 / Exterior",
+        heading: "A presence that stands apart.",
+        description:
+          "Bold proportions, sculpted surfaces and an upright silhouette give the T2 a confident exterior character.",
+        disclaimer:
+          "Colours shown are for visual reference. Local availability may vary.",
+        defaultColorIndex: 1,
+        colors: [
+          {
+            name: "Black",
+            image:
+              "/images/vehicles/t2/discover/exterior/colors/black.webp",
+            swatch: "#17191a",
+          },
+          {
+            name: "Cyan",
+            image:
+              "/images/vehicles/t2/discover/exterior/colors/cyan.webp",
+            swatch: "#718c9f",
+          },
+          {
+            name: "Sand",
+            image:
+              "/images/vehicles/t2/discover/exterior/colors/sand.webp",
+            swatch: "#c8b08c",
+          },
+          {
+            name: "Silver",
+            image:
+              "/images/vehicles/t2/discover/exterior/colors/silver.webp",
+            swatch: "#aeb3b4",
+          },
+        ],
+      },
+      story: {
+        id: "t2-exterior-design",
+        headingId: "t2-exterior-design-title",
+        index: "03 / Exterior Design",
+        heading: "Shaped with purpose.",
+        description:
+          "Four visual studies explore the T2's exterior form and character.",
+        images: [
+          {
+            src:
+              "/images/vehicles/t2/discover/exterior/editorial/rugged-profile.webp",
+            alt: "Jetour T2 shown from the rear three-quarter angle",
+            subtitle: "Rugged Profile",
+            description:
+              "Defined surfaces and a confident stance give the T2 a purposeful character.",
+            objectPosition: "48% 54%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/exterior/editorial/open-road-presence.webp",
+            alt: "Jetour T2 presented in an open mountain landscape",
+            subtitle: "Open-Road Presence",
+            description:
+              "A strong front profile and upright proportions create a distinctive road presence.",
+            objectPosition: "46% 58%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/exterior/editorial/water-crossing.webp",
+            alt: "Jetour T2 photographed in a mountain stream",
+            subtitle: "Dynamic Character",
+            description:
+              "A bold silhouette remains visually composed across changing surroundings.",
+            objectPosition: "68% 58%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/exterior/editorial/structural-form.webp",
+            alt: "Transparent visual study of the Jetour T2 exterior form",
+            subtitle: "Structural Form",
+            description:
+              "A transparent visual study reveals the form and packaging beneath the exterior design.",
+            objectPosition: "42% 48%",
+            mediaScale: 1.22,
+          },
+        ],
+      },
     },
   },
   {
