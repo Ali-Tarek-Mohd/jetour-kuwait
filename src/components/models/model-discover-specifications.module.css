@@ -89,6 +89,11 @@
   gap: clamp(2.4rem, 5.5vh, 5rem);
 }
 
+.sidebarIntro {
+  display: grid;
+  gap: clamp(1rem, 2vh, 1.5rem);
+}
+
 .sidebar h2,
 .mobileLayout > h2 {
   max-width: 9ch;
@@ -100,6 +105,14 @@
   line-height: 0.84;
   text-transform: uppercase;
   white-space: pre-line;
+}
+
+.intro {
+  max-width: 31rem;
+  margin: 0;
+  color: rgba(245, 240, 232, 0.5);
+  font-size: clamp(0.78rem, 0.86vw, 0.92rem);
+  line-height: 1.65;
 }
 
 .categoryNavigation {
@@ -380,6 +393,10 @@
     font-size: clamp(3.2rem, 5.2vw, 5.7rem);
   }
 
+  .sidebarIntro {
+    gap: 0.75rem;
+  }
+
   .categoryNavigation button {
     min-height: 47px;
   }
@@ -438,6 +455,10 @@
   .mobileLayout > h2 {
     max-width: 9ch;
     font-size: clamp(3.5rem, 14vw, 6rem);
+  }
+
+  .mobileLayout > .intro {
+    margin-top: 1.25rem;
   }
 
   .accordions {

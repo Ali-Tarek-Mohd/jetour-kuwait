@@ -122,6 +122,7 @@ export type ModelDiscoverSpecifications = ModelDiscoverSectionIdentity & {
   controlIdPrefix: string;
   index: string;
   heading: string;
+  intro?: string;
   note: string;
   document?: {
     eyebrow: string;
@@ -189,6 +190,8 @@ const discoverModels: ModelDiscoverData[] = [
       "exteriorDesign",
       "interiorViewer",
       "interiorDetails",
+      "technology",
+      "specifications",
     ],
     hero: {
       id: "t1-discover-hero",
@@ -416,6 +419,160 @@ const discoverModels: ModelDiscoverData[] = [
           },
         ],
       },
+    },
+    technology: {
+      id: "t1-intelligent-technology",
+      headingId: "t1-technology-title",
+      index: "06 / Technology",
+      slides: [
+        {
+          heading: "Digital\ncontrol.",
+          description:
+            "A 15.6-inch central touchscreen and 10.56-inch digital instrument display bring key information, media and vehicle controls together.",
+          image:
+            "/images/vehicles/t1/discover/interior/editorial/digital-cockpit.webp",
+          imageAlt:
+            "Wide view of the Jetour T1 dashboard, touchscreen and digital instrument display",
+          objectPosition: "42% 50%",
+          points: [
+            "15.6-inch touchscreen",
+            "10.56-inch instrument display",
+            "Bluetooth connectivity",
+            "Wireless charging",
+            "USB-A and USB-C connectivity",
+            "Nine-speaker Sony audio",
+          ],
+        },
+        {
+          heading: "Assistance\nall around.",
+          description:
+            "A range of awareness and assistance features supports the driver across everyday journeys.",
+          image:
+            "/images/vehicles/t1/discover/interior/editorial/thoughtful-cabin-detailing.webp",
+          imageAlt:
+            "Jetour T1 steering wheel, displays and centre console",
+          objectPosition: "44% 50%",
+          points: [
+            "Forward-collision warning",
+            "Lane-departure warning",
+            "Lane-keeping assistance",
+            "Lane-change assistance",
+            "Door-opening warning",
+            "Rear traffic alert",
+            "Tyre-pressure monitoring",
+            "Low-speed emergency braking",
+          ],
+        },
+      ],
+    },
+    specifications: {
+      id: "t1-kuwait-specifications",
+      headingId: "t1-specifications-title",
+      controlIdPrefix: "t1-specification",
+      index: "07 / Kuwait Specifications",
+      heading: "T1\nat a glance.",
+      intro:
+        "Key equipment and dimensions based on the supplied Jetour Kuwait specification material.",
+      note:
+        "Specifications and equipment are based on the supplied Kuwait-market material and may vary by trim, availability or later distributor updates. Contact Jetour Kuwait for final confirmation.",
+      document: {
+        eyebrow: "Official Kuwait Brochure",
+        label: "View Kuwait Brochure",
+        metadata: "PDF · 1.87 MB",
+        href: "/documents/t1/t1-kuwait-brochure.pdf",
+        ariaLabel:
+          "View the official T1 Kuwait brochure PDF in a new tab",
+      },
+      categories: [
+        {
+          name: "Powertrain & Drivetrain",
+          leadValues: [
+            { value: "2.0L", label: "Turbocharged GDI Engine" },
+            { value: "4×4", label: "Drivetrain" },
+          ],
+          details: [
+            {
+              label: "Engine",
+              value: "2.0L turbocharged four-cylinder GDI",
+            },
+            { label: "Transmission", value: "8-speed automatic" },
+            { label: "Drivetrain", value: "4×4" },
+            { label: "Fuel tank", value: "70 L" },
+            {
+              label: "XWD system",
+              value: "Listed on Kuwait specification sheet",
+            },
+          ],
+        },
+        {
+          name: "Dimensions & Capacity",
+          leadValues: [
+            { value: "4705 mm", label: "Length" },
+            { value: "2800 mm", label: "Wheelbase" },
+          ],
+          details: [
+            {
+              label: "Length × Width × Height",
+              value: "4705 × 1967 × 1843 mm",
+            },
+            { label: "Wheelbase", value: "2800 mm" },
+            { label: "Seating capacity", value: "5" },
+            { label: "Wheel and tyre size", value: "235/60 R19" },
+          ],
+        },
+        {
+          name: "Interior & Connectivity",
+          leadValues: [
+            { value: "15.6 inches", label: "Central Touchscreen" },
+            { value: "10.56 inches", label: "Instrument Display" },
+          ],
+          details: [
+            { label: "Central touchscreen", value: "15.6 inches" },
+            { label: "Instrument display", value: "10.56 inches" },
+            { label: "Climate control", value: "Dual-zone" },
+            { label: "Mobile connection", value: "Bluetooth" },
+            {
+              label: "USB connectivity",
+              value: "2 × USB-A and 2 × USB-C",
+            },
+            { label: "Wireless charger", value: "Available" },
+            { label: "Audio system", value: "9-speaker Sony system" },
+            { label: "Front-seat ventilation", value: "Available" },
+            { label: "Passenger-seat leg rest", value: "Electric" },
+          ],
+        },
+        {
+          name: "Safety & Driver Support",
+          leadValues: [
+            { value: "6", label: "Airbags" },
+            { value: "TPMS", label: "Tyre-Pressure Monitoring" },
+          ],
+          details: [
+            { label: "Airbags", value: "6" },
+            { label: "Tyre-pressure monitoring", value: "Available" },
+            { label: "Anti-lock braking", value: "ABS" },
+            { label: "Brake-force distribution", value: "EBD" },
+            {
+              label: "Parking brake",
+              value: "Electronic parking brake with Auto Hold",
+            },
+            { label: "Forward-collision warning", value: "Available" },
+            { label: "Lane-departure warning", value: "Available" },
+            { label: "Lane-keeping assistance", value: "Available" },
+            { label: "Lane-change assistance", value: "Available" },
+            { label: "Door-opening warning", value: "Available" },
+            { label: "Rear traffic alert", value: "Available" },
+            {
+              label: "Low-speed emergency braking",
+              value: "Available",
+            },
+            {
+              label: "Wading radar",
+              value: "Listed on Kuwait specification sheet",
+            },
+          ],
+        },
+      ],
     },
   },
   {

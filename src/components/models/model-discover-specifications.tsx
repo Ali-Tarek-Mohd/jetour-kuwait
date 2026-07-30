@@ -320,12 +320,17 @@ export function ModelDiscoverSpecifications({
 
         <div className={styles.desktopLayout}>
           <div className={styles.sidebar}>
-            <h2
-              id={specifications.headingId}
-              data-specification-heading
-            >
-              {specifications.heading}
-            </h2>
+            <div className={styles.sidebarIntro}>
+              <h2
+                id={specifications.headingId}
+                data-specification-heading
+              >
+                {specifications.heading}
+              </h2>
+              {specifications.intro ? (
+                <p className={styles.intro}>{specifications.intro}</p>
+              ) : null}
+            </div>
 
             <div
               className={styles.categoryNavigation}
@@ -373,6 +378,9 @@ export function ModelDiscoverSpecifications({
           <h2 data-specification-heading>
             {specifications.heading}
           </h2>
+          {specifications.intro ? (
+            <p className={styles.intro}>{specifications.intro}</p>
+          ) : null}
 
           <div className={styles.accordions}>
             {categories.map((category, index) => {
