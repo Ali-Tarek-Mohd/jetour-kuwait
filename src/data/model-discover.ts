@@ -608,6 +608,7 @@ const discoverModels: ModelDiscoverData[] = [
       "exteriorDesign",
       "interiorViewer",
       "interiorDetails",
+      "specifications",
     ],
     hero: {
       id: "t2-discover-hero",
@@ -908,6 +909,107 @@ const discoverModels: ModelDiscoverData[] = [
           },
         ],
       },
+    },
+    specifications: {
+      id: "t2-kuwait-specifications",
+      headingId: "t2-specifications-title",
+      controlIdPrefix: "t2-specification",
+      index: "06 / Kuwait Specifications",
+      heading: "T2 Luxury\nat a glance.",
+      intro:
+        "Key specifications and equipment based on the supplied T2 Luxury 2026 Kuwait material.",
+      note:
+        "Specifications and equipment are based on the supplied T2 Luxury 2026 Kuwait material and may vary by availability or later distributor updates. Contact Jetour Kuwait for final confirmation.",
+      document: {
+        eyebrow: "Official Kuwait Specification",
+        label: "View Kuwait Specification",
+        metadata: "PDF · 451 KB",
+        href: "/documents/t2/t2-kuwait-luxury-2026.pdf",
+        ariaLabel:
+          "Open the T2 Luxury 2026 Kuwait specification PDF in a new tab",
+      },
+      categories: [
+        {
+          name: "Powertrain & Drivetrain",
+          leadValues: [
+            { value: "254 hp", label: "Power" },
+            { value: "4×4", label: "Drivetrain" },
+          ],
+          details: [
+            {
+              label: "Engine",
+              value: "2.0L Turbocharged 4-Cylinder GDI",
+            },
+            { label: "Power", value: "254 hp" },
+            {
+              label: "Transmission",
+              value: "7-Speed Dual-Clutch Transmission",
+            },
+            { label: "Drivetrain", value: "4×4" },
+            { label: "Fuel Tank", value: "70 L" },
+          ],
+        },
+        {
+          name: "Wheels & Practicality",
+          leadValues: [
+            { value: "5", label: "Seating Capacity" },
+            { value: "20-inch", label: "Alloy Wheels" },
+          ],
+          details: [
+            { label: "Seating Capacity", value: "5" },
+            { label: "Alloy Wheels", value: "20 inches" },
+            { label: "Tyre Size", value: "255/55 R20" },
+            { label: "Trunk Storage Box", value: "Available" },
+            { label: "Luggage Rack", value: "Available" },
+          ],
+        },
+        {
+          name: "Interior & Connectivity",
+          leadValues: [
+            { value: "15.6-inch", label: "Central Touchscreen" },
+            { value: "12-speaker", label: "Sony Audio System" },
+          ],
+          details: [
+            {
+              label: "Central Touchscreen",
+              value: "15.6-inch HD Display",
+            },
+            {
+              label: "Instrument Display",
+              value: "10.25-inch LCD",
+            },
+            { label: "Panoramic Sunroof", value: "Available" },
+            { label: "Wireless Phone Charging", value: "Available" },
+            { label: "Audio System", value: "12-Speaker Sony System" },
+            { label: "Front-Seat Ventilation", value: "Available" },
+            {
+              label: "USB Connectivity",
+              value: "USB and Type-C Connections",
+            },
+            { label: "Smart Keys", value: "2" },
+          ],
+        },
+        {
+          name: "Safety & Convenience",
+          leadValues: [
+            { value: "8", label: "Airbags" },
+            { value: "ABS", label: "Anti-Lock Braking" },
+          ],
+          details: [
+            { label: "Airbags", value: "8" },
+            {
+              label: "Tyre-Pressure Monitoring",
+              value: "Available",
+            },
+            { label: "Anti-Lock Braking", value: "ABS" },
+            { label: "Parking Assistance", value: "Auto Hold" },
+            { label: "Child Lock", value: "Manual" },
+            { label: "Front Fog Lights", value: "Available" },
+            { label: "Tail Lights", value: "LED" },
+            { label: "Power Windows", value: "Front and Rear" },
+          ],
+        },
+      ],
     },
   },
   {
