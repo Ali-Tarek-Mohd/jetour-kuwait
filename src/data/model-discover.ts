@@ -180,7 +180,7 @@ const discoverModels: ModelDiscoverData[] = [
     name: "T1",
     metadataDescription:
       "Discover the Jetour T1 for Kuwait, with a 2.0-litre turbocharged GDI engine, 4×4 and an eight-speed automatic transmission.",
-    sectionOrder: ["hero", "overview"],
+    sectionOrder: ["hero", "overview", "exteriorStudio", "exteriorDesign"],
     hero: {
       id: "t1-discover-hero",
       headingId: "t1-discover-title",
@@ -222,6 +222,85 @@ const discoverModels: ModelDiscoverData[] = [
         { value: "4×4", label: "Drivetrain" },
         { value: "8-Speed Automatic", label: "Transmission" },
       ],
+    },
+    exterior: {
+      studio: {
+        id: "t1-exterior-studio",
+        headingId: "t1-exterior-title",
+        index: "02 / Exterior",
+        heading: "Distinctive from every angle.",
+        description:
+          "A confident upright profile, sculpted surfaces and a purposeful stance give the T1 a strong road presence.",
+        disclaimer:
+          "Colours shown are for visual reference. Local availability may vary.",
+        defaultColorIndex: 0,
+        colors: [
+          {
+            name: "Green",
+            image:
+              "/images/vehicles/t1/discover/exterior/colors/green.webp",
+            swatch: "#435f58",
+          },
+          {
+            name: "Sand",
+            image:
+              "/images/vehicles/t1/discover/exterior/colors/sand.webp",
+            swatch: "#a89c82",
+          },
+          {
+            name: "White",
+            image:
+              "/images/vehicles/t1/discover/exterior/colors/white.webp",
+            swatch: "#e9e8e2",
+          },
+          {
+            name: "Silver",
+            image:
+              "/images/vehicles/t1/discover/exterior/colors/silver.webp",
+            swatch: "#9da2a3",
+          },
+          {
+            name: "Black",
+            image:
+              "/images/vehicles/t1/discover/exterior/colors/black.webp",
+            swatch: "#181b1b",
+          },
+        ],
+      },
+      story: {
+        id: "t1-exterior-design",
+        headingId: "t1-exterior-design-title",
+        index: "03 / Exterior Design",
+        heading: "Exterior in focus.",
+        description:
+          "Four perspectives reveal the T1's confident exterior character.",
+        images: [
+          {
+            src: "/images/vehicles/t1/discover/exterior/editorial/desert-drive.webp",
+            alt: "Green Jetour T1 driving through a desert landscape",
+            subtitle: "Desert Drive",
+            objectPosition: "52% 50%",
+          },
+          {
+            src: "/images/vehicles/t1/discover/exterior/editorial/coastal-presence.webp",
+            alt: "Silver Jetour T1 presented beside the coast",
+            subtitle: "Coastal Presence",
+            objectPosition: "47% 50%",
+          },
+          {
+            src: "/images/vehicles/t1/discover/exterior/editorial/strong-profile.webp",
+            alt: "Jetour T1 shown in side profile",
+            subtitle: "Strong Profile",
+            objectPosition: "50% 55%",
+          },
+          {
+            src: "/images/vehicles/t1/discover/exterior/editorial/open-road-character.webp",
+            alt: "Jetour T1 driving on an open road",
+            subtitle: "Open-Road Character",
+            objectPosition: "48% 54%",
+          },
+        ],
+      },
     },
   },
   {
