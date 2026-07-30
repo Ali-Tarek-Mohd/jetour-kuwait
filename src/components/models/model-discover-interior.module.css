@@ -107,6 +107,28 @@
   letter-spacing: 0.04em;
 }
 
+.viewerMetadataCopy {
+  max-width: min(38rem, 52vw);
+}
+
+.viewerMetadataCopy .viewerDescription {
+  max-width: 36rem;
+  margin-top: 0.48rem;
+  color: rgba(245, 240, 232, 0.7);
+  font-size: clamp(0.76rem, 0.88vw, 0.92rem);
+  letter-spacing: 0;
+  line-height: 1.55;
+}
+
+.viewerMetadataCopy .viewerNote {
+  max-width: 36rem;
+  margin-top: 0.42rem;
+  color: rgba(245, 240, 232, 0.45);
+  font-size: clamp(0.66rem, 0.7vw, 0.75rem);
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+}
+
 .viewerMetadata span {
   color: #d09151;
   font-size: 0.68rem;
@@ -497,6 +519,14 @@
 
   .viewerMetadata p {
     max-width: 15rem;
+  }
+
+  .viewerMetadataCopy {
+    max-width: min(72vw, 28rem);
+  }
+
+  .viewerMetadataCopy p {
+    max-width: none;
   }
 
   .viewerArrow {

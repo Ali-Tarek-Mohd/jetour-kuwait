@@ -105,6 +105,7 @@ export type ModelDiscoverExteriorStory = ModelDiscoverSectionIdentity & {
 export type ModelDiscoverInteriorViewer = ModelDiscoverSectionIdentity & {
   index: string;
   heading: string;
+  note?: string;
   images: ModelDiscoverStoryImage[];
 };
 
@@ -605,6 +606,8 @@ const discoverModels: ModelDiscoverData[] = [
       "overview",
       "exteriorStudio",
       "exteriorDesign",
+      "interiorViewer",
+      "interiorDetails",
     ],
     hero: {
       id: "t2-discover-hero",
@@ -730,6 +733,178 @@ const discoverModels: ModelDiscoverData[] = [
               "A transparent visual study reveals the form and packaging beneath the exterior design.",
             objectPosition: "42% 48%",
             mediaScale: 1.22,
+          },
+        ],
+      },
+    },
+    interior: {
+      viewer: {
+        id: "t2-interior-experience",
+        headingId: "t2-interior-title",
+        index: "04 / Interior",
+        heading: "Designed around\nthe driver.",
+        note:
+          "Interior colours shown are for visual reference. Local availability may vary.",
+        images: [
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/black-cabin-panorama.webp",
+            alt: "Panoramic black cabin presentation inside the Jetour T2",
+            subtitle: "Black Cabin Panorama",
+            description:
+              "A dark cabin presentation highlights the T2’s upright layout and interior contrast.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/black-cabin-detail.webp",
+            alt: "Closer view of the black Jetour T2 cabin and seating",
+            subtitle: "Black Cabin Detail",
+            description:
+              "A closer view reveals the seating design, centre console and cabin detailing.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/warm-cabin-panorama.webp",
+            alt: "Panoramic warm cabin presentation inside the Jetour T2",
+            subtitle: "Warm Cabin Panorama",
+            description:
+              "A warm-toned cabin presentation gives the T2 interior a distinct visual character.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/warm-cabin-detail.webp",
+            alt: "Closer view of the warm Jetour T2 cabin and seating",
+            subtitle: "Warm Cabin Detail",
+            description:
+              "A closer perspective highlights the seating surfaces and cockpit arrangement.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/green-cabin-panorama.webp",
+            alt: "Panoramic green cabin presentation inside the Jetour T2",
+            subtitle: "Green Cabin Panorama",
+            description:
+              "A green cabin presentation provides another visual expression of the T2 interior.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/green-cabin-detail.webp",
+            alt: "Closer view of the green Jetour T2 cabin and seating",
+            subtitle: "Green Cabin Detail",
+            description:
+              "A detailed cabin view focuses on the seating design and centre-console layout.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/flexible-seating-layout.webp",
+            alt: "Top-down five-seat layout study of the Jetour T2 cabin",
+            subtitle: "Flexible Seating Layout",
+            description:
+              "A five-seat layout study shows the relationship between passenger space and the surrounding cabin.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/centre-console-detail.webp",
+            alt: "Close-up view of the Jetour T2 centre-console controls and selector",
+            subtitle: "Centre Console Detail",
+            description:
+              "A close-up view focuses on the centre-console controls and selector design.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/cargo-storage-practicality.webp",
+            alt: "Overhead Jetour T2 passenger and cargo storage study",
+            subtitle: "Cargo & Storage Practicality",
+            description:
+              "An overhead view illustrates how passenger and storage areas can support everyday journeys.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/driver-controls.webp",
+            alt: "Jetour T2 steering wheel, driver display and primary controls",
+            subtitle: "Driver Controls",
+            description:
+              "A focused view highlights the steering wheel, driver display and primary controls.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src:
+              "/images/vehicles/t2/discover/interior/editorial/driver-focused-cockpit.webp",
+            alt: "Symmetrical dashboard and cockpit view inside the Jetour T2",
+            subtitle: "Driver-Focused Cockpit",
+            description:
+              "A symmetrical dashboard view brings the central display, instrument panel and cockpit controls together.",
+            objectPosition: "50% 50%",
+          },
+        ],
+      },
+      features: {
+        id: "t2-highlights",
+        headingId: "t2-highlights-title",
+        index: "05 / T2 Highlights",
+        heading: "Details with\na purpose.",
+        note:
+          "Equipment shown is based on the supplied T2 Luxury 2026 material and may vary by availability or later distributor updates.",
+        items: [
+          {
+            title: "Driver Controls",
+            description:
+              "A clearly arranged steering wheel and driver display place essential information and controls within easy reach.",
+            image:
+              "/images/vehicles/t2/discover/interior/editorial/driver-controls.webp",
+            imageAlt:
+              "Jetour T2 steering wheel, driver display and dashboard controls",
+            objectPosition: "50% 50%",
+          },
+          {
+            title: "Five-Seat Layout",
+            description:
+              "A five-seat cabin provides practical passenger space for everyday journeys.",
+            image:
+              "/images/vehicles/t2/discover/interior/editorial/flexible-seating-layout.webp",
+            imageAlt: "Top-down cutaway view of the Jetour T2 five-seat cabin",
+            objectPosition: "50% 50%",
+            imageFit: "contain",
+          },
+          {
+            title: "Centre Console Detail",
+            description:
+              "A sculpted centre-console detail creates a distinctive visual focal point within the cockpit.",
+            image:
+              "/images/vehicles/t2/discover/interior/editorial/centre-console-detail.webp",
+            imageAlt: "Close view of the Jetour T2 centre console",
+            objectPosition: "50% 50%",
+          },
+          {
+            title: "Storage Practicality",
+            description:
+              "A trunk storage box supports practical organization for everyday use.",
+            image:
+              "/images/vehicles/t2/discover/interior/editorial/cargo-storage-practicality.webp",
+            imageAlt:
+              "Jetour T2 cabin cutaway showing an organized trunk storage box",
+            objectPosition: "50% 50%",
+            imageFit: "contain",
+          },
+          {
+            title: "Eight Airbags",
+            description:
+              "Eight airbags are listed as part of the supplied T2 Luxury 2026 Kuwait specification.",
+            image:
+              "/images/vehicles/t2/discover/highlights/eight-airbags.webp",
+            imageAlt:
+              "Jetour T2 cabin illustration showing eight deployed airbags",
+            objectPosition: "50% 50%",
+            imageFit: "contain",
           },
         ],
       },

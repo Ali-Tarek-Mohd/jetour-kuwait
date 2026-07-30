@@ -28,7 +28,7 @@ export function ModelDiscoverInteriorViewer({
   const sectionRef = useRef<HTMLElement>(null);
   const currentLayerRef = useRef<HTMLDivElement>(null);
   const incomingLayerRef = useRef<HTMLDivElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const metadataCopyRef = useRef<HTMLElement | null>(null);
   const transitionRef = useRef<gsap.core.Timeline | null>(null);
   const generationRef = useRef(0);
   const transitioningRef = useRef(false);
@@ -155,8 +155,8 @@ export function ModelDiscoverInteriorViewer({
 
     const currentLayer = currentLayerRef.current;
     const incomingLayer = incomingLayerRef.current;
-    const subtitle = subtitleRef.current;
-    if (!currentLayer || !incomingLayer || !subtitle) {
+    const metadataCopy = metadataCopyRef.current;
+    if (!currentLayer || !incomingLayer || !metadataCopy) {
       return;
     }
 
@@ -167,7 +167,7 @@ export function ModelDiscoverInteriorViewer({
     transitioningRef.current = true;
     gsap.set(currentLayer, { opacity: 1 });
     gsap.set(incomingLayer, { opacity: 0 });
-    gsap.set(subtitle, { opacity: 1, y: 0 });
+    gsap.set(metadataCopy, { opacity: 1, y: 0 });
 
     transitionRef.current = gsap
       .timeline({
@@ -177,7 +177,7 @@ export function ModelDiscoverInteriorViewer({
             setIncomingIndex(null);
           });
           gsap.set(currentLayer, { opacity: 1 });
-          gsap.set(subtitle, { opacity: 1, y: 0 });
+          gsap.set(metadataCopy, { opacity: 1, y: 0 });
           transitioningRef.current = false;
           transitionRef.current = null;
         },
@@ -192,7 +192,7 @@ export function ModelDiscoverInteriorViewer({
         0,
       )
       .to(
-        subtitle,
+        metadataCopy,
         {
           opacity: 0,
           y: reduceMotion ? 0 : 5,
@@ -216,7 +216,7 @@ export function ModelDiscoverInteriorViewer({
         reduceMotion ? 0.02 : 0.13,
       )
       .to(
-        subtitle,
+        metadataCopy,
         {
           opacity: 1,
           y: 0,
@@ -336,7 +336,10 @@ export function ModelDiscoverInteriorViewer({
       onPointerUp={onPointerUp}
     >
       <div className={styles.viewerStage} data-interior-image>
-        <div ref={currentLayerRef} className={styles.viewerLayer}>
+        <div
+          ref={currentLayerRef}
+          className={styles.viewerLayer}
+        >
           <Image
             src={displayedSlide.src}
             alt={displayedSlide.alt}
@@ -373,9 +376,36 @@ export function ModelDiscoverInteriorViewer({
       </div>
 
       <div className={styles.viewerMetadata}>
-        <p ref={subtitleRef} data-interior-meta aria-live="polite">
-          {metadataSlide.subtitle}
-        </p>
+        {metadataSlide.description || interior.note ? (
+          <div
+            ref={(node) => {
+              metadataCopyRef.current = node;
+            }}
+            className={styles.viewerMetadataCopy}
+            data-interior-meta
+            aria-live="polite"
+          >
+            <p>{metadataSlide.subtitle}</p>
+            {metadataSlide.description ? (
+              <p className={styles.viewerDescription}>
+                {metadataSlide.description}
+              </p>
+            ) : null}
+            {interior.note ? (
+              <p className={styles.viewerNote}>{interior.note}</p>
+            ) : null}
+          </div>
+        ) : (
+          <p
+            ref={(node) => {
+              metadataCopyRef.current = node;
+            }}
+            data-interior-meta
+            aria-live="polite"
+          >
+            {metadataSlide.subtitle}
+          </p>
+        )}
         <span data-interior-meta>
           {String(metadataIndex + 1).padStart(2, "0")} /{" "}
           {String(interior.images.length).padStart(2, "0")}
