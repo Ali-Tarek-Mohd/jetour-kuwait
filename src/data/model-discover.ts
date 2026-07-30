@@ -158,6 +158,8 @@ export type ModelDiscoverData = {
     objectPosition: string;
     copyPosition?: "left" | "right";
     primaryAction?: "booking" | "discover";
+    highlightTone?: "default" | "bronze-values";
+    mediaPresentation?: "default" | "letterboxed-cinematic";
     video?: {
       src: string;
       poster: string;
@@ -589,6 +591,55 @@ const discoverModels: ModelDiscoverData[] = [
       contentPosition: "right",
       objectPositionDesktop: "50% 50%",
       objectPositionMobile: "48% 50%",
+    },
+  },
+  {
+    slug: "t2",
+    name: "T2",
+    metadataDescription:
+      "Discover the Jetour T2 Luxury 2026 for Kuwait, with a 2.0-litre turbocharged four-cylinder GDI engine, 254 hp, 4×4 and a seven-speed dual-clutch transmission.",
+    sectionOrder: ["hero", "overview"],
+    hero: {
+      id: "t2-discover-hero",
+      headingId: "t2-discover-title",
+      eyebrow: "Jetour T2",
+      supportingLine: "Confidence for every journey",
+      image:
+        "/images/vehicles/t2/discover/hero/t2-hero-poster.webp",
+      imageAlt: "Jetour T2 driving through a desert landscape",
+      objectPosition: "52% 50%",
+      primaryAction: "discover",
+      highlightTone: "bronze-values",
+      mediaPresentation: "letterboxed-cinematic",
+      video: {
+        src: "/images/vehicles/t2/discover/hero/t2-hero.mp4",
+        poster:
+          "/images/vehicles/t2/discover/hero/t2-hero-poster.webp",
+      },
+      highlights: [
+        { value: "2.0L", label: "Turbo GDI" },
+        { value: "254 hp", label: "Power" },
+        { value: "4×4", label: "Drivetrain" },
+        { value: "7-Speed", label: "DCT" },
+      ],
+    },
+    overview: {
+      id: "overview",
+      headingId: "t2-overview-title",
+      index: "01 / T2",
+      heading: "Designed for the journey ahead.",
+      headingLines: ["Designed for", "The journey", "Ahead."],
+      description:
+        "The T2 pairs a 2.0-litre turbocharged four-cylinder GDI engine with a seven-speed dual-clutch transmission and 4×4 drivetrain in a confident five-seat SUV.",
+      image: "/images/vehicles/t2/t2-hero.png",
+      imageAlt: "Cyan Jetour T2 five-seat SUV",
+      imagePresentation: "vehicle-cutout",
+      imageObjectPosition: "68% 54%",
+      facts: [
+        { value: "254 hp", label: "Power" },
+        { value: "4×4", label: "Drivetrain" },
+        { value: "7-Speed DCT", label: "Transmission" },
+      ],
     },
   },
   {

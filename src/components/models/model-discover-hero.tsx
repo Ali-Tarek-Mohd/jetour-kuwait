@@ -399,6 +399,8 @@ export function ModelDiscoverHero({
       className={styles.hero}
       data-copy-position={model.hero.copyPosition ?? "left"}
       data-has-video={model.hero.video ? "true" : "false"}
+      data-highlight-tone={model.hero.highlightTone}
+      data-media-presentation={model.hero.mediaPresentation ?? "default"}
       data-header-theme="dark"
       aria-labelledby={model.hero.headingId}
     >
