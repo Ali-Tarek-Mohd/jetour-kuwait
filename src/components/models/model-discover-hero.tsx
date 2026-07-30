@@ -5,7 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import type { ModelDiscoverData } from "@/data/model-discover";
 import { NAVIGATION_ACTIVITY_EVENT } from "@/lib/navigation-events";
@@ -22,6 +22,109 @@ export function ModelDiscoverHero({
   sectionIds: string[];
 }) {
   const heroRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const mediaActiveRef = useRef(false);
+  const navigationOpenRef = useRef(false);
+  const reducedMotionRef = useRef(true);
+  const [isMediaActive, setIsMediaActive] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(true);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    const video = videoRef.current;
+    if (!hero || !video || !model.hero.video) {
+      return;
+    }
+
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const applyMotionPreference = () => {
+      reducedMotionRef.current = motionQuery.matches;
+      setReducedMotion(motionQuery.matches);
+      if (motionQuery.matches) {
+        video.pause();
+        video.currentTime = 0;
+      }
+    };
+
+    const playWhenAllowed = () => {
+      video.muted = true;
+      video.defaultMuted = true;
+      if (
+        mediaActiveRef.current &&
+        !reducedMotionRef.current &&
+        !navigationOpenRef.current &&
+        !document.hidden
+      ) {
+        void video.play().catch(() => undefined);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) {
+          return;
+        }
+
+        if (entry.intersectionRatio >= 0.58 && !mediaActiveRef.current) {
+          mediaActiveRef.current = true;
+          setIsMediaActive(true);
+          video.currentTime = 0;
+          playWhenAllowed();
+          return;
+        }
+
+        if (entry.intersectionRatio <= 0.15 && mediaActiveRef.current) {
+          mediaActiveRef.current = false;
+          setIsMediaActive(false);
+          video.pause();
+          video.currentTime = 0;
+        }
+      },
+      { threshold: [0, 0.15, 0.58] },
+    );
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        video.pause();
+      } else {
+        playWhenAllowed();
+      }
+    };
+
+    const onNavigationActivity = (event: Event) => {
+      navigationOpenRef.current = Boolean(
+        (event as CustomEvent<{ active?: boolean }>).detail?.active,
+      );
+      if (navigationOpenRef.current) {
+        video.pause();
+      } else {
+        playWhenAllowed();
+      }
+    };
+
+    video.muted = true;
+    video.defaultMuted = true;
+    applyMotionPreference();
+    observer.observe(hero);
+    motionQuery.addEventListener("change", applyMotionPreference);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    window.addEventListener(
+      NAVIGATION_ACTIVITY_EVENT,
+      onNavigationActivity,
+    );
+
+    return () => {
+      observer.disconnect();
+      motionQuery.removeEventListener("change", applyMotionPreference);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener(
+        NAVIGATION_ACTIVITY_EVENT,
+        onNavigationActivity,
+      );
+      video.pause();
+      video.currentTime = 0;
+    };
+  }, [model.hero.video]);
 
   useLayoutEffect(() => {
     const hero = heroRef.current;
@@ -294,6 +397,8 @@ export function ModelDiscoverHero({
       ref={heroRef}
       id={model.hero.id}
       className={styles.hero}
+      data-copy-position={model.hero.copyPosition ?? "left"}
+      data-has-video={model.hero.video ? "true" : "false"}
       data-header-theme="dark"
       aria-labelledby={model.hero.headingId}
     >
@@ -307,6 +412,22 @@ export function ModelDiscoverHero({
         sizes="100vw"
         style={{ objectPosition: model.hero.objectPosition }}
       />
+      {model.hero.video ? (
+        <video
+          ref={videoRef}
+          className={styles.heroVideo}
+          autoPlay={isMediaActive && !reducedMotion}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={model.hero.video.poster}
+          aria-hidden="true"
+          style={{ objectPosition: model.hero.objectPosition }}
+        >
+          <source src={model.hero.video.src} type="video/mp4" />
+        </video>
+      ) : null}
       <div className={styles.heroShade} aria-hidden="true" />
 
       <div className={styles.heroInner}>
@@ -326,17 +447,35 @@ export function ModelDiscoverHero({
           </p>
 
           <div className={styles.heroActions} data-hero-actions>
-            <Link
-              className={styles.heroPrimaryAction}
-              href={`/book-test-drive?model=${model.slug}`}
-            >
-              <span>Book a Test Drive</span>
-              <HugeiconsIcon icon={ArrowUpRight01Icon} size={18} />
-            </Link>
-            <Link className={styles.heroDiscoverAction} href="#overview">
-              <span>Discover {model.name}</span>
-              <HugeiconsIcon icon={ArrowDown01Icon} size={18} />
-            </Link>
+            {model.hero.primaryAction === "discover" ? (
+              <>
+                <Link className={styles.heroPrimaryAction} href="#overview">
+                  <span>Discover {model.name}</span>
+                  <HugeiconsIcon icon={ArrowDown01Icon} size={18} />
+                </Link>
+                <Link
+                  className={styles.heroDiscoverAction}
+                  href={`/book-test-drive?model=${model.slug}`}
+                >
+                  <span>Book a Test Drive</span>
+                  <HugeiconsIcon icon={ArrowUpRight01Icon} size={18} />
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  className={styles.heroPrimaryAction}
+                  href={`/book-test-drive?model=${model.slug}`}
+                >
+                  <span>Book a Test Drive</span>
+                  <HugeiconsIcon icon={ArrowUpRight01Icon} size={18} />
+                </Link>
+                <Link className={styles.heroDiscoverAction} href="#overview">
+                  <span>Discover {model.name}</span>
+                  <HugeiconsIcon icon={ArrowDown01Icon} size={18} />
+                </Link>
+              </>
+            )}
           </div>
 
         </div>

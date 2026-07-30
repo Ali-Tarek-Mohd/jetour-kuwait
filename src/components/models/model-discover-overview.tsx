@@ -17,9 +17,9 @@ export function ModelDiscoverOverview({
   overview: ModelDiscoverOverviewData;
 }) {
   const headingMatch = overview.heading.match(/^(.*\bthe)\s+(.+)$/i);
-  const headingLines = headingMatch
-    ? [headingMatch[1], headingMatch[2]]
-    : [overview.heading];
+  const headingLines =
+    overview.headingLines ??
+    (headingMatch ? [headingMatch[1], headingMatch[2]] : [overview.heading]);
   const overviewRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const activeRef = useRef(false);
@@ -229,11 +229,18 @@ export function ModelDiscoverOverview({
           </video>
         ) : (
           <Image
-            className={styles.overviewVideo}
+            className={`${styles.overviewVideo} ${
+              overview.imagePresentation === "vehicle-cutout"
+                ? styles.overviewVehicle
+                : ""
+            }`}
             src={overview.image}
             alt={overview.imageAlt}
             fill
             sizes="100vw"
+            style={{
+              objectPosition: overview.imageObjectPosition ?? "50% 50%",
+            }}
           />
         )}
       </div>

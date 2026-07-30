@@ -70,9 +70,12 @@ export type ModelDiscoverSectionKey =
 export type ModelDiscoverOverview = ModelDiscoverSectionIdentity & {
   index: string;
   heading: string;
+  headingLines?: string[];
   description: string;
   image: string;
   imageAlt: string;
+  imagePresentation?: "full-bleed" | "vehicle-cutout";
+  imageObjectPosition?: string;
   video?: {
     src: string;
     poster: string;
@@ -149,6 +152,12 @@ export type ModelDiscoverData = {
     image: string;
     imageAlt: string;
     objectPosition: string;
+    copyPosition?: "left" | "right";
+    primaryAction?: "booking" | "discover";
+    video?: {
+      src: string;
+      poster: string;
+    };
     highlights: ModelDiscoverHighlight[];
   };
   overview?: ModelDiscoverOverview;
@@ -166,6 +175,55 @@ export type ModelDiscoverData = {
 };
 
 const discoverModels: ModelDiscoverData[] = [
+  {
+    slug: "t1",
+    name: "T1",
+    metadataDescription:
+      "Discover the Jetour T1 for Kuwait, with a 2.0-litre turbocharged GDI engine, 4×4 and an eight-speed automatic transmission.",
+    sectionOrder: ["hero", "overview"],
+    hero: {
+      id: "t1-discover-hero",
+      headingId: "t1-discover-title",
+      eyebrow: "Jetour T1",
+      supportingLine: "Built for every journey",
+      image:
+        "/images/vehicles/t1/discover/hero/t1-hero-poster.webp",
+      imageAlt: "Jetour T1 driving along a tree-lined road",
+      objectPosition: "50% 50%",
+      copyPosition: "right",
+      primaryAction: "discover",
+      video: {
+        src: "/images/vehicles/t1/discover/hero/t1-hero.mp4",
+        poster:
+          "/images/vehicles/t1/discover/hero/t1-hero-poster.webp",
+      },
+      highlights: [
+        { value: "2.0L", label: "Turbocharged GDI" },
+        { value: "4×4", label: "Drivetrain" },
+        { value: "8-Speed", label: "Automatic" },
+        { value: "5", label: "Seats" },
+      ],
+    },
+    overview: {
+      id: "overview",
+      headingId: "t1-overview-title",
+      index: "01 / T1",
+      heading: "Ready for every road.",
+      headingLines: ["Ready for", "Every road."],
+      description:
+        "The T1 combines a 2.0-litre turbocharged four-cylinder GDI engine, an eight-speed automatic transmission and 4×4 capability in a confident five-seat SUV.",
+      image:
+        "/images/vehicles/t1/discover/overview/t1-overview.webp",
+      imageAlt: "Green Jetour T1 five-seat SUV",
+      imagePresentation: "vehicle-cutout",
+      imageObjectPosition: "68% 54%",
+      facts: [
+        { value: "2.0L Turbocharged GDI", label: "Engine" },
+        { value: "4×4", label: "Drivetrain" },
+        { value: "8-Speed Automatic", label: "Transmission" },
+      ],
+    },
+  },
   {
     slug: "g700",
     name: "G700",
