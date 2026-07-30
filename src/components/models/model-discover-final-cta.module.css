@@ -36,6 +36,19 @@
   transform: translateY(-45%);
 }
 
+@media (min-width: 1025px) {
+  .section[data-content-position="right"] .shade {
+    background:
+      linear-gradient(270deg, rgba(5, 6, 7, 0.93) 0%, rgba(5, 6, 7, 0.76) 28%, rgba(5, 6, 7, 0.36) 49%, transparent 72%),
+      linear-gradient(180deg, rgba(5, 6, 7, 0.24) 0%, transparent 34%, transparent 70%, rgba(5, 6, 7, 0.42) 100%);
+  }
+
+  .section[data-content-position="right"] .content {
+    right: clamp(1.5rem, 4vw, 5.5rem);
+    left: auto;
+  }
+}
+
 .eyebrow {
   display: flex;
   align-items: center;

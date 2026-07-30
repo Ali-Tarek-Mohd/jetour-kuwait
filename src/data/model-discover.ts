@@ -140,6 +140,7 @@ export type ModelDiscoverFinalCta = ModelDiscoverSectionIdentity & {
   description: string;
   image: string;
   imageAlt: string;
+  contentPosition?: "left" | "right";
   objectPositionDesktop: string;
   objectPositionMobile: string;
 };
@@ -192,6 +193,7 @@ const discoverModels: ModelDiscoverData[] = [
       "interiorDetails",
       "technology",
       "specifications",
+      "finalCta",
     ],
     hero: {
       id: "t1-discover-hero",
@@ -573,6 +575,20 @@ const discoverModels: ModelDiscoverData[] = [
           ],
         },
       ],
+    },
+    finalCta: {
+      id: "t1-final-cta",
+      headingId: "t1-final-cta-title",
+      eyebrow: "08 / Take the Next Step",
+      heading: "Ready for\nwhat’s next?",
+      description:
+        "Experience the T1 in person and discover how its confident design, five-seat cabin and 4×4 drivetrain fit your everyday journeys.",
+      image:
+        "/images/vehicles/t1/discover/exterior/editorial/open-road-character.webp",
+      imageAlt: "Green Jetour T1 beside an open road and lake",
+      contentPosition: "right",
+      objectPositionDesktop: "50% 50%",
+      objectPositionMobile: "48% 50%",
     },
   },
   {

@@ -96,6 +96,7 @@ export function ModelDiscoverFinalCta({
       id={finalCta.id}
       className={styles.section}
       data-header-theme="dark"
+      data-content-position={finalCta.contentPosition ?? "left"}
       aria-labelledby={finalCta.headingId}
       style={
         {
