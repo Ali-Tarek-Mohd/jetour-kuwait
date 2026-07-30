@@ -358,6 +358,7 @@ export function ModelDiscoverInteriorDetails({
                 style={
                   {
                     "--details-image-position": feature.objectPosition,
+                    "--details-image-fit": feature.imageFit ?? "cover",
                   } as CSSProperties
                 }
               >
@@ -380,6 +381,9 @@ export function ModelDiscoverInteriorDetails({
             </p>
             <h3>{metadata.title}</h3>
             <p className={styles.detailsDescription}>{metadata.description}</p>
+            {interior.note ? (
+              <p className={styles.detailsNote}>{interior.note}</p>
+            ) : null}
           </div>
 
           <div className={styles.detailsControls}>
@@ -409,6 +413,12 @@ export function ModelDiscoverInteriorDetails({
             aria-label={`Show ${feature.title}`}
             aria-current={index === activeIndex ? "true" : undefined}
             onClick={() => requestIndex(index)}
+            style={
+              {
+                "--details-image-position": feature.objectPosition,
+                "--details-image-fit": feature.imageFit ?? "cover",
+              } as CSSProperties
+            }
           >
             <Image src={feature.image} alt="" fill sizes="30vw" />
           </button>

@@ -87,6 +87,7 @@
   line-height: 0.88;
   text-transform: uppercase;
   text-wrap: balance;
+  white-space: pre-line;
 }
 
 .viewerMetadata {
@@ -240,6 +241,7 @@
   font-weight: 620;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  white-space: pre-line;
 }
 
 .detailsStage {
@@ -277,7 +279,7 @@
 }
 
 .detailsItem img {
-  object-fit: cover;
+  object-fit: var(--details-image-fit, cover);
   object-position: var(--details-image-position, 50% 50%);
 }
 
@@ -376,6 +378,15 @@
   color: rgba(245, 240, 232, 0.62);
   font-size: clamp(0.86rem, 0.94vw, 1rem);
   line-height: 1.65;
+}
+
+.detailsNote {
+  max-width: 35rem;
+  margin: clamp(0.8rem, 1.4vh, 1.1rem) 0 0;
+  color: rgba(245, 240, 232, 0.43);
+  font-size: clamp(0.7rem, 0.72vw, 0.78rem);
+  letter-spacing: 0.025em;
+  line-height: 1.55;
 }
 
 .detailsControls {
@@ -602,7 +613,8 @@
   }
 
   .detailsMobilePreviews img {
-    object-fit: cover;
+    object-fit: var(--details-image-fit, cover);
+    object-position: var(--details-image-position, 50% 50%);
   }
 
 }

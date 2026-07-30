@@ -29,6 +29,7 @@ export type ModelDiscoverInteriorFeature = {
   image: string;
   imageAlt: string;
   objectPosition: string;
+  imageFit?: "cover" | "contain";
 };
 
 export type ModelDiscoverTechnologySlide = {
@@ -108,6 +109,7 @@ export type ModelDiscoverInteriorViewer = ModelDiscoverSectionIdentity & {
 export type ModelDiscoverInteriorDetails = ModelDiscoverSectionIdentity & {
   index: string;
   heading: string;
+  note?: string;
   items: ModelDiscoverInteriorFeature[];
 };
 
@@ -180,7 +182,14 @@ const discoverModels: ModelDiscoverData[] = [
     name: "T1",
     metadataDescription:
       "Discover the Jetour T1 for Kuwait, with a 2.0-litre turbocharged GDI engine, 4×4 and an eight-speed automatic transmission.",
-    sectionOrder: ["hero", "overview", "exteriorStudio", "exteriorDesign"],
+    sectionOrder: [
+      "hero",
+      "overview",
+      "exteriorStudio",
+      "exteriorDesign",
+      "interiorViewer",
+      "interiorDetails",
+    ],
     hero: {
       id: "t1-discover-hero",
       headingId: "t1-discover-title",
@@ -298,6 +307,112 @@ const discoverModels: ModelDiscoverData[] = [
             alt: "Jetour T1 driving on an open road",
             subtitle: "Open-Road Character",
             objectPosition: "48% 54%",
+          },
+        ],
+      },
+    },
+    interior: {
+      viewer: {
+        id: "t1-interior-experience",
+        headingId: "t1-interior-title",
+        index: "04 / Interior",
+        heading: "Designed around\nevery journey.",
+        images: [
+          {
+            src: "/images/vehicles/t1/discover/interior/editorial/digital-cockpit.webp",
+            alt: "Wide view of the Jetour T1 dashboard and front cabin",
+            subtitle: "Driver-focused cockpit",
+            objectPosition: "50% 50%",
+          },
+          {
+            src: "/images/vehicles/t1/discover/interior/editorial/cabin-comfort.webp",
+            alt: "Front cabin and dashboard inside the Jetour T1",
+            subtitle: "Comfortable cabin environment",
+            objectPosition: "52% 50%",
+          },
+          {
+            src: "/images/vehicles/t1/discover/interior/editorial/interior-space.webp",
+            alt: "Cutaway view of the Jetour T1 five-seat cabin",
+            subtitle: "Spacious five-seat cabin",
+            objectPosition: "50% 50%",
+          },
+          {
+            src: "/images/vehicles/t1/discover/interior/editorial/front-seat-comfort.webp",
+            alt: "Jetour T1 front seats viewed beneath the panoramic roof",
+            subtitle: "Ventilated front-seat comfort",
+            objectPosition: "48% 50%",
+          },
+          {
+            src: "/images/vehicles/t1/discover/interior/editorial/passenger-comfort.webp",
+            alt: "Jetour T1 front passenger area viewed through the open door",
+            subtitle: "Passenger-seat comfort",
+            objectPosition: "50% 50%",
+          },
+          {
+            src: "/images/vehicles/t1/discover/interior/editorial/thoughtful-cabin-detailing.webp",
+            alt: "Close view of the Jetour T1 steering wheel, displays and centre console",
+            subtitle: "Thoughtful cabin detailing",
+            objectPosition: "55% 48%",
+          },
+        ],
+      },
+      features: {
+        id: "t1-interior-details",
+        headingId: "t1-interior-details-title",
+        index: "05 / T1 Highlights",
+        heading: "Engineered for\nevery journey.",
+        note:
+          "Equipment shown may vary by local specification and availability.",
+        items: [
+          {
+            title: "Digital Cockpit",
+            description:
+              "A 15.6-inch central touchscreen and 10.56-inch digital instrument display place essential information within easy reach.",
+            image:
+              "/images/vehicles/t1/discover/highlights/digital-cockpit.webp",
+            imageAlt: "Jetour T1 dashboard with central touchscreen and digital instrument display",
+            objectPosition: "50% 50%",
+            imageFit: "contain",
+          },
+          {
+            title: "Body Structure",
+            description:
+              "A structural view reveals the framework beneath the T1's upright SUV form.",
+            image:
+              "/images/vehicles/t1/discover/highlights/body-structure.webp",
+            imageAlt: "Structural framework of the Jetour T1 body",
+            objectPosition: "50% 50%",
+            imageFit: "contain",
+          },
+          {
+            title: "4×4 Confidence",
+            description:
+              "A 4×4 drivetrain and XWD system support confident travel across varied driving conditions.",
+            image:
+              "/images/vehicles/t1/discover/highlights/four-wheel-drive.webp",
+            imageAlt: "Jetour T1 presented on varied terrain",
+            objectPosition: "50% 50%",
+            imageFit: "contain",
+          },
+          {
+            title: "Turbocharged Powertrain",
+            description:
+              "A 2.0-litre turbocharged four-cylinder GDI engine is paired with an eight-speed automatic transmission.",
+            image:
+              "/images/vehicles/t1/discover/highlights/turbocharged-powertrain.webp",
+            imageAlt: "Jetour T1 turbocharged engine and transmission assembly",
+            objectPosition: "50% 50%",
+            imageFit: "contain",
+          },
+          {
+            title: "Five-Seat Practicality",
+            description:
+              "A five-seat cabin provides practical passenger space for everyday journeys.",
+            image:
+              "/images/vehicles/t1/discover/highlights/five-seat-space.webp",
+            imageAlt: "Cutaway view of the Jetour T1 five-seat cabin",
+            objectPosition: "50% 50%",
+            imageFit: "contain",
           },
         ],
       },
