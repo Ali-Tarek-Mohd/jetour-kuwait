@@ -401,6 +401,10 @@ export function ModelDiscoverHero({
       data-has-video={model.hero.video ? "true" : "false"}
       data-highlight-tone={model.hero.highlightTone}
       data-media-presentation={model.hero.mediaPresentation ?? "default"}
+      data-explicit-heading-lines={model.hero.headingLines ? "true" : "false"}
+      data-preserve-mobile-focal-position={
+        model.hero.preserveMobileFocalPosition ? "true" : "false"
+      }
       data-header-theme="dark"
       aria-labelledby={model.hero.headingId}
     >
@@ -442,7 +446,11 @@ export function ModelDiscoverHero({
             className={styles.heroTitle}
             data-hero-title
           >
-            {model.name}
+            {model.hero.headingLines
+              ? model.hero.headingLines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))
+              : model.name}
           </h1>
           <p className={styles.heroSubtitle} data-hero-subtitle>
             {model.hero.supportingLine}

@@ -159,6 +159,8 @@ export type ModelDiscoverData = {
     image: string;
     imageAlt: string;
     objectPosition: string;
+    headingLines?: string[];
+    preserveMobileFocalPosition?: boolean;
     copyPosition?: "left" | "right";
     primaryAction?: "booking" | "discover";
     highlightTone?: "default" | "bronze-values";
@@ -184,6 +186,50 @@ export type ModelDiscoverData = {
 };
 
 const discoverModels: ModelDiscoverData[] = [
+  {
+    slug: "t2-i-dm",
+    name: "T2 i-DM",
+    metadataDescription:
+      "Discover the Jetour T2 i-DM for Kuwait, with a 1.5-litre turbocharged four-cylinder engine, 26.7 kWh battery and three-speed DHT transmission.",
+    sectionOrder: ["hero", "overview"],
+    hero: {
+      id: "t2-i-dm-discover-hero",
+      headingId: "t2-i-dm-discover-title",
+      eyebrow: "JETOUR T2 i-DM",
+      supportingLine: "ENERGY FOR EVERY JOURNEY",
+      image: "/images/vehicles/t2-i-dm/discover/hero/t2-idm-hero.webp",
+      imageAlt: "Jetour T2 i-DM in a water-side landscape",
+      objectPosition: "50% 50%",
+      headingLines: ["T2", "i-DM"],
+      preserveMobileFocalPosition: true,
+      primaryAction: "discover",
+      highlightTone: "bronze-values",
+      highlights: [
+        { value: "1.5L Turbo", label: "Engine" },
+        { value: "26.7 kWh", label: "Battery" },
+        { value: "2WD", label: "Drivetrain" },
+        { value: "3-Speed DHT", label: "Transmission" },
+      ],
+    },
+    overview: {
+      id: "overview",
+      headingId: "t2-i-dm-overview-title",
+      index: "01 / T2 i-DM",
+      heading: "A new energy for the road ahead.",
+      headingLines: ["A NEW ENERGY", "FOR THE ROAD", "AHEAD."],
+      description:
+        "The T2 i-DM combines a 1.5-litre turbocharged four-cylinder engine, a 26.7 kWh battery and a three-speed DHT transmission in a five-seat electrified SUV.",
+      image: "/images/vehicles/t2-i-dm/discover/overview/t2-idm-overview.webp",
+      imageAlt: "Jetour T2 i-DM shown in an architectural studio setting",
+      imagePresentation: "full-bleed",
+      imageObjectPosition: "50% 50%",
+      facts: [
+        { value: "26.7 kWh", label: "Battery" },
+        { value: "2WD", label: "Drivetrain" },
+        { value: "3-Speed DHT", label: "Transmission" },
+      ],
+    },
+  },
   {
     slug: "t1",
     name: "T1",
