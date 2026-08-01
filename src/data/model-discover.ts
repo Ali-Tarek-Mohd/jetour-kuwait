@@ -98,6 +98,7 @@ export type ModelDiscoverExteriorStudio = ModelDiscoverSectionIdentity & {
 export type ModelDiscoverExteriorStory = ModelDiscoverSectionIdentity & {
   index: string;
   heading: string;
+  headingLines?: string[];
   description: string;
   images: ModelDiscoverStoryImage[];
 };
@@ -191,7 +192,7 @@ const discoverModels: ModelDiscoverData[] = [
     name: "T2 i-DM",
     metadataDescription:
       "Discover the Jetour T2 i-DM for Kuwait, with a 1.5-litre turbocharged four-cylinder engine, 26.7 kWh battery and three-speed DHT transmission.",
-    sectionOrder: ["hero", "overview"],
+    sectionOrder: ["hero", "overview", "exteriorDesign"],
     hero: {
       id: "t2-i-dm-discover-hero",
       headingId: "t2-i-dm-discover-title",
@@ -228,6 +229,51 @@ const discoverModels: ModelDiscoverData[] = [
         { value: "2WD", label: "Drivetrain" },
         { value: "3-Speed DHT", label: "Transmission" },
       ],
+    },
+    exterior: {
+      story: {
+        id: "t2-i-dm-exterior-design",
+        headingId: "t2-i-dm-exterior-design-title",
+        index: "02 / EXTERIOR DESIGN",
+        heading: "Distinctive from every angle.",
+        headingLines: ["DISTINCTIVE", "FROM EVERY", "ANGLE."],
+        description:
+          "Four perspectives reveal the T2 i-DM's distinctive exterior character.",
+        images: [
+          {
+            src: "/images/vehicles/t2-i-dm/discover/exterior/editorial/matrix-headlights.webp",
+            alt: "Front view of the Jetour T2 i-DM lighting signature",
+            subtitle: "Signature Lighting",
+            description:
+              "A distinctive lighting signature gives the T2 i-DM a confident front-end character.",
+            objectPosition: "50% 52%",
+          },
+          {
+            src: "/images/vehicles/t2-i-dm/discover/exterior/editorial/side-profile.webp",
+            alt: "Side profile of the Jetour T2 i-DM in a mountain landscape",
+            subtitle: "Clean Profile",
+            description:
+              "A clean side profile emphasizes the T2 i-DM’s balanced proportions.",
+            objectPosition: "55% 50%",
+          },
+          {
+            src: "/images/vehicles/t2-i-dm/discover/overview/t2-idm-overview.webp",
+            alt: "Jetour T2 i-DM shown in an architectural studio setting",
+            subtitle: "Studio Presence",
+            description:
+              "A clean studio composition highlights the T2 i-DM’s upright proportions and distinctive front design.",
+            objectPosition: "50% 50%",
+          },
+          {
+            src: "/images/vehicles/t2-i-dm/discover/exterior/editorial/forest-character.webp",
+            alt: "Three-quarter view of the Jetour T2 i-DM in a forest setting",
+            subtitle: "Adventure-Ready Character",
+            description:
+              "A strong three-quarter view highlights the T2 i-DM’s distinctive exterior form.",
+            objectPosition: "56% 54%",
+          },
+        ],
+      },
     },
   },
   {

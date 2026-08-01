@@ -298,6 +298,11 @@
   text-wrap: balance;
 }
 
+.storyCopy h2 span {
+  display: block;
+  white-space: nowrap;
+}
+
 .storyMetadata {
   position: absolute;
   z-index: 2;

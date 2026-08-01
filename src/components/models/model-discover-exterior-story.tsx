@@ -399,7 +399,11 @@ export function ModelDiscoverExteriorStory({
           {exterior.index}
         </p>
         <h2 id={exterior.headingId} data-story-copy>
-          {exterior.heading}
+          {exterior.headingLines
+            ? exterior.headingLines.map((line) => (
+                <span key={line}>{line}</span>
+              ))
+            : exterior.heading}
         </h2>
       </div>
 
